@@ -2,15 +2,28 @@
   "name": "tone-tower",
   "private": true,
   "license": "MIT",
-  "engines": {"node": ">=22"},
+  "engines": {
+    "node": ">=22"
+  },
   "type": "module",
   "scripts": {
-    "catalog": "node tools-catalog.mjs",
-    "prestart": "node tools-catalog.mjs",
-    "start": "node server.mjs",
-    "build": "node tools-publish.mjs",
-    "preview": "node server.mjs --dist",
-    "check:dist": "node tools-check-dist.mjs",
-    "test": "node --test"
+    "catalog": "node tools/catalog/build.mjs",
+    "prestart": "npm run catalog",
+    "start": "node tools/server/serve.mjs",
+    "build": "node tools/publishing/build.mjs",
+    "preview": "node tools/server/serve.mjs --dist",
+    "check:dist": "node tools/publishing/check.mjs",
+    "test": "node --test tests/game/*.test.js",
+    "test:tooling": "node --test tests/tooling/*.test.js",
+    "test:all": "node --test",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "audio:download": "node tools/audio/download.mjs",
+    "audio:discover": "node tools/audio/discover.mjs",
+    "audio:import": "node tools/audio/import-curated.mjs",
+    "audio:verify": "node tools/audio/verify.mjs"
+  },
+  "devDependencies": {
+    "prettier": "3.9.10"
   }
 }

@@ -1,1 +1,1 @@
-export * from '../pixel-world.js';
+export * from '../src/world/pixel-world.js';

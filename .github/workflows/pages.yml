@@ -26,8 +26,9 @@ jobs:
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: '22'
-          package-manager-cache: false
-      # This project has no npm dependencies to install.
+          cache: npm
+      - run: npm ci
+      - run: npm run format:check
       - name: Install audio test tools
         run: |
           if ! command -v ffmpeg >/dev/null || ! command -v ffprobe >/dev/null; then

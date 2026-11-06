@@ -1,0 +1,11 @@
+# Content inventories and generated output
+/*.json
+!package.json
+!package-lock.json
+!.prettierrc.json
+/*.csv
+dist/
+.audio-import-cache/
+audio-inbox/
+.preview/
+design/

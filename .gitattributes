@@ -1,7 +1,4 @@
-* text=auto
-*.js text eol=lf
-*.mjs text eol=lf
-*.json text eol=lf
-*.yml text eol=lf
+* text=auto eol=lf
+*.cmd text eol=crlf
 *.mp3 binary
 *.ttf binary
