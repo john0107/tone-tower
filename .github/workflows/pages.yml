@@ -28,7 +28,8 @@ jobs:
           node-version: '22'
           package-manager-cache: false
       # This project has no npm dependencies to install.
-      - run: npm test
+      - name: Run tests
+        run: node .github/scripts/run-tests.mjs
       - run: npm run build
       - name: Require the word registry to be committed
         run: git diff --exit-code -- words.json
