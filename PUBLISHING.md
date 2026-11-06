@@ -44,6 +44,8 @@ requiring approvals from another reviewer is unnecessary for a solo project.
 ## Local release checks
 
 Use Node.js 22 or later. There are no npm dependencies to install.
+The full test suite also needs FFmpeg and FFprobe on PATH for importer checks;
+the GitHub workflow installs these tools when needed.
 
 ```sh
 npm run catalog

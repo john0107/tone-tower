@@ -6,6 +6,8 @@ A little world for learning and practising Cantonese Jyutping, built with vanill
 
 Use Node.js 22 or later. Run `npm start` and open http://127.0.0.1:4173. `npm start` refreshes the catalog first. For an isolated preview, run `npm run catalog`, then `node server.mjs 4174`. Run `npm test` for the complete game, migration, controller, content and audio-tool checks.
 
+The complete test suite requires FFmpeg and FFprobe on your PATH for audio-import tests. GitHub Actions installs them when needed. Playing, building and previewing the game do not require these tools.
+
 ## The adventures
 
 **Tone Tower** is an untimed, 100-floor listening challenge. Five pixel-art districts increase the choices from 2 to 3 to 4 to 6. Each correct answer lights a floor; the explorer enters the door before the camera climbs into the next room. Replays, mistakes and replacement recordings stay on the same floor. Easy, Normal, Hard and Extreme start with 5, 4, 3 and 1 lives. Mistakes reveal a bright, check-marked correct door and a small dust creature behind your choice, with a recoiling explorer and a breaking heart. Continue gives a new word on the same floor. Recover a life at intermediate ten-floor milestones and refill at twenty-floor landings.
