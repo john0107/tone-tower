@@ -2,13 +2,51 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+    <base href="./" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#19293d" />
     <meta
       name="description"
-      content="Learn and practise Cantonese Jyutping: initials, finals and tones. Explore Tone Tower, type in Skyrail, or practise at your own pace."
+      content="Train your ear for Cantonese. Climb Tone Tower, type your way along Skyrail, and practise Jyutping with human speech recordings. Free to play, no account needed."
     />
-    <title>Tone Tower</title>
+    <title>Tone Tower · Cantonese Jyutping games</title>
+    <link rel="canonical" href="https://john0107.github.io/tone-tower/" />
+    <link rel="icon" href="favicon.ico" sizes="32x32" />
+    <link rel="icon" href="assets/brand/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png" sizes="180x180" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Tone Tower" />
+    <meta property="og:locale" content="en_GB" />
+    <meta property="og:title" content="Tone Tower · Cantonese Jyutping games" />
+    <meta
+      property="og:description"
+      content="Train your ear for Cantonese. Climb Tone Tower, type your way along Skyrail, and practise Jyutping with human speech recordings. Free to play, no account needed."
+    />
+    <meta property="og:url" content="https://john0107.github.io/tone-tower/" />
+    <meta
+      property="og:image"
+      content="https://john0107.github.io/tone-tower/assets/brand/share-card.png"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Tone Tower. Train your ear for Cantonese. A little sprout, a tower and a railway above the clouds."
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Tone Tower · Cantonese Jyutping games" />
+    <meta
+      name="twitter:description"
+      content="Train your ear for Cantonese. Climb Tone Tower, type your way along Skyrail, and practise Jyutping with human speech recordings. Free to play, no account needed."
+    />
+    <meta
+      name="twitter:image"
+      content="https://john0107.github.io/tone-tower/assets/brand/share-card.png"
+    />
+    <meta
+      name="twitter:image:alt"
+      content="Tone Tower. Train your ear for Cantonese. A little sprout, a tower and a railway above the clouds."
+    />
     <link rel="stylesheet" href="src/styles/style.css" />
     <link rel="stylesheet" href="src/styles/worlds.css" />
   </head>
@@ -23,10 +61,10 @@
         ><span>TONE TOWER</span></a
       >
       <nav aria-label="Main navigation">
-        <a id="home" class="nav-link" href="#home" data-nav-page="home" aria-current="page"
+        <a id="home" class="nav-link" href="./" data-nav-page="home" aria-current="page"
           >World map</a
-        ><a id="learn" class="nav-link" href="#sounds" data-nav-page="sounds">Jyutping guide</a
-        ><a id="about" class="nav-link" href="#about" data-nav-page="about">About</a
+        ><a id="learn" class="nav-link" href="guide/" data-nav-page="sounds">Jyutping guide</a
+        ><a id="about" class="nav-link" href="about/" data-nav-page="about">About</a
         ><button
           id="pause-game"
           class="icon-button"
@@ -41,13 +79,26 @@
     <main id="app" tabindex="-1">
       <div class="loading-state">
         <span class="loading-sprout" aria-hidden="true">✦</span>
+        <h1>Train your ear for Cantonese.</h1>
+        <p>Play Tone Tower and Skyrail to practise Cantonese tones and Jyutping spelling.</p>
         <p>Loading your adventure…</p>
+        <noscript><p>Enable JavaScript to play and listen to recordings.</p></noscript>
       </div>
     </main>
     <footer class="site-footer">
       <div>
         <button id="progress" class="text-button" type="button">Records</button
         ><button id="credits" class="text-button" type="button">Voices & credits</button>
+      </div>
+      <div class="project-links" aria-label="Project links">
+        <a class="text-button" href="about/" data-nav-page="about">About &amp; feedback</a>
+        <a
+          class="text-button"
+          href="https://github.com/john0107/tone-tower"
+          target="_blank"
+          rel="noopener"
+          >GitHub ↗</a
+        >
       </div>
     </footer>
     <dialog id="dialog" aria-labelledby="dialog-title">

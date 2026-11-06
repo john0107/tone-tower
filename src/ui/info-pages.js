@@ -1,3 +1,5 @@
+import { site } from '../site.js';
+
 const escape = (value) =>
   String(value ?? '').replace(
     /[&<>"']/g,
@@ -646,6 +648,44 @@ export function aboutPageMarkup({ recordingCount } = {}) {
       <button class="text-button section-link" data-info-action="records" type="button">
         View your records →
       </button>
+    </section>
+    <section class="info-section" aria-labelledby="project-heading">
+      <h2 id="project-heading">An open-source side project</h2>
+      <p>
+        Tone Tower is made and maintained by
+        <a href="${site.maintainerUrl}" target="_blank" rel="noopener">${site.maintainer}</a>. The
+        code is <a href="LICENSE">MIT licensed</a>, and you can
+        <a href="${site.repository}" target="_blank" rel="noopener">explore it on GitHub ↗</a>,
+        suggest improvements, or contribute a fix. Recordings and fonts keep their own licences.
+      </p>
+    </section>
+    <section class="info-section" aria-labelledby="feedback-heading">
+      <h2 id="feedback-heading">Help make it better</h2>
+      <p>
+        Found a bug, heard a recording that seems wrong, or have an idea? Share it on GitHub. For a
+        recording issue, include the Chinese characters and Jyutping so it is easy to find.
+      </p>
+      <div class="feedback-links">
+        <a
+          class="secondary"
+          href="${site.repository}/issues/new?template=bug-report.yml"
+          target="_blank"
+          rel="noopener"
+          >Report a problem ↗</a
+        >
+        <a
+          class="secondary"
+          href="${site.repository}/issues/new?template=idea.yml"
+          target="_blank"
+          rel="noopener"
+          >Suggest an idea ↗</a
+        >
+        <a href="${site.repository}/issues" target="_blank" rel="noopener">Browse feedback ↗</a>
+      </div>
+      <p class="small">
+        A GitHub account is needed to post. Reports and replies are public; please leave out
+        personal information. Feedback is welcome, though responses may take a little time.
+      </p>
     </section>
     <div class="info-actions">
       <button class="primary" data-page="home" type="button">Go to the games →</button

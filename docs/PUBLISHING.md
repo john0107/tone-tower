@@ -80,7 +80,7 @@ a short check on the live URL. Target current desktop Chrome/Edge and Firefox,
 Android Chrome and iPhone Safari. Desktop device emulation helps check layout,
 but actual phones are needed to confirm mobile audio and keyboard behaviour.
 
-- Home, `#sounds` and `#about` load directly; back/forward and Home work.
+- Home, `guide/`, `about/` and `practice/` load directly; back/forward and Home work.
 - Both adventures and practice start; recordings play after a user gesture,
   replay works, and unavailable audio offers recovery without awarding progress.
 - Tone Tower accepts keyboard and touch answers. Skyrail remains usable with
@@ -107,8 +107,9 @@ history. Do not commit or manually edit `dist/`.
 
 You can rename the GitHub repository in its Settings and update the local remote
 URL with `git remote set-url origin NEW-REPOSITORY-URL`. Redeploy and use the new
-Pages address. Paths and hash links do not embed `tone-tower`, so the workflow and
-game do not need a base-path change. A display-name change affects the HTML,
+Pages address. Runtime paths do not embed `tone-tower`. Update `siteUrl`, repository
+and maintainer links in `src/site.js`, and the default metadata and footer links in
+`index.html`, then rebuild. A display-name change affects the HTML,
 page text, README and package name; keep the versioned save-data keys stable.
 
 GitHub Pages sites on one account share an origin, so keep save keys unique to
@@ -119,3 +120,28 @@ GitHub's hosting privacy practices still apply.
 References: [Pages setup](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site),
 [custom workflows](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages),
 [Pages availability and privacy](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages).
+
+## Public identity, sharing and feedback
+
+The build emits real directory pages for `guide/`, `about/` and `practice/`, each with
+its own title, description, canonical URL and Open Graph / social card metadata.
+GitHub Pages can serve these directly; no rewrite or 404 redirect is needed.
+The guide and About content are included in the initial HTML for crawlers.
+The home address stays free of `#home`; URL fragments are only for in-page anchors.
+A sitemap is published at `sitemap.xml`. Do not add a project-level robots.txt:
+robots.txt is only recognised at the origin root, which this repository does not own.
+
+Public identity and page descriptions live in `src/site.js`. The default metadata in
+`index.html` supports source previews too. The branded artwork lives in
+`assets/brand/`; the 1200 × 630 PNG is the social preview, and the SVG is its editable
+source. The sprout favicon is supplied as SVG and ICO, plus an Apple touch icon.
+Social services may cache old previews after deployment.
+
+Feedback uses this repository's Issues tab. Keep **Settings → General → Features → Issues**
+enabled. Bug and idea forms live in `.github/ISSUE_TEMPLATE/`; posting requires a GitHub
+account. The About page explains that reports and replies are public, so no private
+email address or form-processing service is needed. Maintainer credit uses the
+existing public GitHub handle. A dedicated support address can be added later.
+
+After deployment, share the home and guide URLs in a messaging app and check the
+preview image and text. Also check favicon, touch icon, footer links and issue forms.

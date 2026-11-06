@@ -1,0 +1,40 @@
+name: Report a problem
+description: Something is broken, or a recording or answer seems wrong.
+title: '[Bug] '
+body:
+  - type: markdown
+    attributes:
+      value: 'Thanks for helping improve Tone Tower. This report is public; please leave out personal information.'
+  - type: dropdown
+    id: area
+    attributes:
+      label: Where did it happen?
+      options:
+        - Tone Tower
+        - Skyrail
+        - Practice Workshop
+        - Jyutping guide
+        - Recording or answer
+        - Something else
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What happened?
+      description: What did you expect instead? For audio or answer problems, include the Chinese characters and Jyutping.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: How can we reproduce it?
+      placeholder: |
+        1. Open…
+        2. Choose…
+        3. …
+  - type: input
+    id: browser
+    attributes:
+      label: Browser and device
+      placeholder: e.g. Safari on iPhone, Chrome on Windows

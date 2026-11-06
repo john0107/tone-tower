@@ -1,4 +1,15 @@
-import { readFile, readdir, mkdir, copyFile, rm, lstat, realpath } from 'node:fs/promises';
+import { pages } from '../../src/site.js';
+import { renderPage, generatedFiles, sitemap } from './pages.mjs';
+import {
+  readFile,
+  readdir,
+  mkdir,
+  copyFile,
+  writeFile,
+  rm,
+  lstat,
+  realpath,
+} from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { buildCatalog } from '../catalog/catalog.mjs';
@@ -11,6 +22,12 @@ export async function publicationFiles(root, catalog) {
     'THIRD_PARTY_NOTICES.md',
     '.nojekyll',
     'catalog.json',
+    // Social crawlers read og:image, which is not a local href.
+    ...((await readFile(path.join(root, 'index.html'), 'utf8')).includes(
+      'assets/brand/share-card.png',
+    )
+      ? ['assets/brand/share-card.png']
+      : []),
     ...catalog.recordings.map((row) => row.audio),
   ];
   const files = new Set();
@@ -19,7 +36,7 @@ export async function publicationFiles(root, catalog) {
     if (reference.startsWith('/'))
       throw Error('Publication assets must use relative paths: ' + reference);
     const clean = reference.split(/[?#]/)[0];
-    if (!clean) return;
+    if (!clean || Object.values(pages).some((page) => page.path && clean === page.path)) return;
     const name = path.posix.normalize(
       path.posix.join(path.posix.dirname(from), clean.endsWith('/') ? clean + 'index.html' : clean),
     );
@@ -81,10 +98,18 @@ export async function publish(root = process.cwd()) {
     await mkdir(path.dirname(target), { recursive: true });
     await copyFile(path.join(root, name), target);
   }
+  const template = await readFile(path.join(root, 'index.html'), 'utf8');
+  for (const [page, metadata] of Object.entries(pages)) {
+    const target = path.join(destination, metadata.path, 'index.html');
+    await mkdir(path.dirname(target), { recursive: true });
+    await writeFile(target, renderPage(template, page, catalog));
+  }
+  await writeFile(path.join(destination, 'sitemap.xml'), sitemap());
+  const allFiles = [...files, ...generatedFiles].sort();
   console.log(
-    `Prepared dist/: ${catalog.recordings.length} recordings, ${files.length} files. Upload the contents of dist/.`,
+    `Prepared dist/: ${catalog.recordings.length} recordings, ${allFiles.length} files. Upload the contents of dist/.`,
   );
-  return { destination, files };
+  return { destination, files: allFiles };
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url))

@@ -15,6 +15,7 @@ if (!Number.isInteger(port) || port < 0 || port > 65535) throw Error('Invalid po
 const server = await createStaticServer({
   root: path.resolve(values.dist ? 'dist' : '.'),
   base: values.base,
+  sourceRoutes: !values.dist,
 });
 server.listen(port, '127.0.0.1', () =>
   console.log(`Tone Tower: http://127.0.0.1:${server.address().port}${values.base}`),

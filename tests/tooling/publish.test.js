@@ -1,3 +1,4 @@
+import { generatedFiles } from '../../tools/publishing/pages.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { mkdtemp, mkdir, writeFile, readFile, rm, readdir } from 'node:fs/promises';
@@ -90,7 +91,7 @@ test('publication follows runtime dependencies, includes credits, and excludes l
   const catalog = JSON.parse(await readFile(path.join(root, 'dist/catalog.json'), 'utf8'));
   assert.equal(catalog.recordings.length, 6);
   assert.equal((await readFile(path.join(root, 'dist/audio/fu1.mp3'))).length, 1200);
-  assert.deepEqual(await publicationFiles(root, catalog), files);
+  assert.deepEqual([...(await publicationFiles(root, catalog)), ...generatedFiles].sort(), files);
   assert.deepEqual(await checkDistribution(path.join(root, 'dist')), files);
   await put('dist/private-cache.txt', 'must not be published');
   await assert.rejects(() => checkDistribution(path.join(root, 'dist')), /unexpected files/);

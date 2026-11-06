@@ -1,0 +1,14 @@
+name: Suggest an idea
+description: Share feedback or an improvement you would like to see.
+title: '[Idea] '
+body:
+  - type: markdown
+    attributes:
+      value: 'Thanks for sharing an idea. This post is public; please leave out personal information.'
+  - type: textarea
+    id: idea
+    attributes:
+      label: What would make Tone Tower better for you?
+      description: Tell us what you are trying to learn, what gets in the way, or what you would change.
+    validations:
+      required: true

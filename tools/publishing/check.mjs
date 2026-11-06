@@ -1,3 +1,4 @@
+import { generatedFiles } from './pages.mjs';
 import assert from 'node:assert/strict';
 import { readdir, readFile, lstat } from 'node:fs/promises';
 import path from 'node:path';
@@ -18,7 +19,7 @@ async function listFiles(root, prefix = '') {
 
 export async function checkDistribution(root = path.resolve('dist')) {
   const catalog = JSON.parse(await readFile(path.join(root, 'catalog.json'), 'utf8'));
-  const expected = await publicationFiles(root, catalog);
+  const expected = [...(await publicationFiles(root, catalog)), ...generatedFiles].sort();
   assert.deepEqual(await listFiles(root), expected, 'Built site contains unexpected files.');
   for (const base of ['/', '/release-check/renamed-project/']) {
     const server = await createStaticServer({ root, base });

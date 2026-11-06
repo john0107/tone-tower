@@ -1,3 +1,4 @@
+import { site, pages, pageFromLocation } from './site.js';
 import { practiceSetupMarkup } from './ui/practice-setup.js';
 import { filterCredits, creditsPage } from './ui/credits.js';
 import { catalogRows } from './content/catalog.js';
@@ -17,6 +18,10 @@ import { animateWorld } from './world/world-runtime.js';
 import { destinations } from './world/pixel-world.js';
 import { soundPageMarkup, aboutPageMarkup, compactGuideMarkup } from './ui/info-pages.js';
 import { bindMapNavigation } from './ui/map-navigation.js';
+
+const appBase = new URL('../', import.meta.url);
+// Freeze the base before pushState so assets and links stay project-relative.
+document.querySelector('base').href = appBase.href;
 
 const app = document.querySelector('#app');
 const dialog = document.querySelector('#dialog');
@@ -108,12 +113,6 @@ function resetView(view) {
     if (link.dataset.navPage === view) link.setAttribute('aria-current', 'page');
     else link.removeAttribute('aria-current');
   });
-  document.title =
-    {
-      sounds: 'Jyutping guide · Tone Tower',
-      about: 'About · Tone Tower',
-      workshop: 'Practice Workshop · Tone Tower',
-    }[view] || 'Tone Tower';
   setPageLocation(
     ['sounds', 'about', 'home'].includes(view) ? view : view === 'workshop' ? 'practice' : 'home',
     true,
@@ -136,8 +135,8 @@ function screenError(message) {
 }
 
 let selectedWorld = 'tone';
-function home(world) {
-  let practiceMode = false;
+function home(world, initialPractice = false) {
+  let practiceMode = initialPractice;
   const practiceConfigs = Object.fromEntries(
     ['tone', 'tide'].map((challenge) => {
       const saved = progress.settings.practice[challenge];
@@ -170,6 +169,7 @@ function home(world) {
     mapDestination = world === 'tide' ? 'rail' : 'tone';
   } else world = selectedWorld;
   resetView('home');
+  if (initialPractice) setPageLocation('practice', true);
   progress = loadProgress();
   app.innerHTML = /* HTML */ `<header class="home-intro">
       <div>
@@ -179,7 +179,7 @@ function home(world) {
           letters and tone numbers.
         </p>
       </div>
-      <a class="intro-guide" href="#sounds" data-page="sounds"
+      <a class="intro-guide" href="guide/" data-page="sounds"
         ><span>New to Jyutping?</span>A short introduction <span aria-hidden="true">→</span></a
       >
     </header>
@@ -348,6 +348,7 @@ function home(world) {
         }),
     );
     const config = practiceConfigs[challenge];
+    setPageLocation(practiceMode ? 'practice' : 'home');
     app.querySelector('#setup-game').setAttribute('aria-pressed', String(!practiceMode));
     const practiceTab = app.querySelector('#setup-practice');
     practiceTab.textContent = rail ? 'Practice spelling' : 'Practice tones';
@@ -474,8 +475,7 @@ function showWorkshop(seed) {
     startPractice(seed.challenge, seed.variant, seed);
     return;
   }
-  home();
-  app.querySelector('#setup-practice')?.click();
+  home(undefined, true);
   app.querySelector('#setup-practice')?.focus();
 }
 
@@ -674,13 +674,28 @@ function bindToneAudio(container) {
   );
 }
 function setPageLocation(page, replace = false) {
-  const hash = '#' + page;
-  if (location.hash === hash) return;
-  history[replace ? 'replaceState' : 'pushState'](
-    null,
-    '',
-    location.pathname + location.search + hash,
-  );
+  const destination = new URL(pages[page].path, appBase);
+  destination.search = location.search;
+  if (location.href !== destination.href)
+    history[replace ? 'replaceState' : 'pushState'](null, '', destination.href);
+  document.querySelector('.skip-link').href = new URL(pages[page].path + '#app', appBase).href;
+  document.querySelectorAll('[data-nav-page]').forEach((link) => {
+    if (link.dataset.navPage === page) link.setAttribute('aria-current', 'page');
+    else link.removeAttribute('aria-current');
+  });
+  const metadata = pages[page];
+  document.title = metadata.title;
+  for (const selector of [
+    'meta[name="description"]',
+    'meta[property="og:description"]',
+    'meta[name="twitter:description"]',
+  ])
+    document.querySelector(selector).content = metadata.description;
+  for (const selector of ['meta[property="og:title"]', 'meta[name="twitter:title"]'])
+    document.querySelector(selector).content = metadata.title;
+  const canonical = new URL(metadata.path, site.siteUrl);
+  document.querySelector('link[rel="canonical"]').href = canonical.href;
+  document.querySelector('meta[property="og:url"]').content = canonical.href;
 }
 function bindInfoActions(container) {
   container.querySelectorAll('[data-page]').forEach(
@@ -967,8 +982,8 @@ dialog.addEventListener('click', (event) => {
       dialog.close();
   }
 });
-window.addEventListener('hashchange', () => {
-  if (controller) navigate(location.hash.slice(1), { replace: true });
+window.addEventListener('popstate', () => {
+  if (controller) navigate(pageFromLocation(new URL(location.href), appBase), { replace: true });
 });
 
 try {
@@ -990,12 +1005,7 @@ try {
     onPractice: (run) => practiceFromRun(run),
     onLearn: showLearn,
   });
-  navigate(
-    ['home', 'sounds', 'about', 'practice'].includes(location.hash.slice(1))
-      ? location.hash.slice(1)
-      : 'home',
-    { replace: true, focus: false },
-  );
+  navigate(pageFromLocation(new URL(location.href), appBase), { replace: true, focus: false });
 } catch (error) {
   app.innerHTML = /* HTML */ `<div class="loading-state">
     <h1>Couldn’t load Tone Tower.</h1>

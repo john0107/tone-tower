@@ -2977,3 +2977,41 @@ input[type='number'] {
     margin-left: 0;
   }
 }
+
+.site-footer,
+.site-footer > div,
+.feedback-links {
+  flex-wrap: wrap;
+}
+.site-footer a {
+  color: inherit;
+  text-decoration: none;
+}
+.site-footer a:hover {
+  text-decoration: underline;
+}
+.feedback-links {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 20px 0;
+}
+.feedback-links .secondary {
+  padding: 10px 14px;
+  border: 2px solid var(--edge);
+  box-shadow: 0 3px 0 #101f2b;
+  color: var(--cream);
+  font-size: 12px;
+  font-weight: 650;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  text-decoration: none;
+}
+
+.feedback-links .secondary:hover {
+  border-color: var(--cream);
+}
+.site-footer {
+  justify-content: space-between;
+}

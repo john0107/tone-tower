@@ -2,6 +2,10 @@
 
 A browser game for learning and practising Cantonese Jyutping. Tone Tower trains tone recognition; Skyrail trains spelling. Built with vanilla JavaScript and canvas, with no accounts, analytics, or runtime services.
 
+[Play Tone Tower](https://john0107.github.io/tone-tower/) · [Report a problem](https://github.com/john0107/tone-tower/issues/new?template=bug-report.yml) · [Suggest an idea](https://github.com/john0107/tone-tower/issues/new?template=idea.yml)
+
+Maintained by [john0107](https://github.com/john0107). Feedback and contributions are welcome through GitHub Issues; reports are public.
+
 ## Development
 
 Use Node.js 22 or later.
