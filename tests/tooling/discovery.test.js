@@ -16,7 +16,7 @@ test('discovery resumes, honors saved and date-formatted retry deadlines, and de
       JSON.stringify({ metadata: {}, excluded: [], retryAfter: 1700000009000 }),
     );
     await writeFile(
-      path.join(dir, 'audio-candidates.json'),
+      path.join(dir, '.audio-import-cache/candidates.json'),
       JSON.stringify({
         category: 0,
         continuation: null,
@@ -41,7 +41,9 @@ globalThis.fetch=async()=>{calls++;if(calls===1){writeFileSync('first-call.txt',
       await readFile(path.join(dir, '.audio-import-cache', 'state.json'), 'utf8'),
     );
     assert.equal(cache.retryAfter, 1700000129000);
-    const result = JSON.parse(await readFile(path.join(dir, 'audio-candidates.json'), 'utf8'));
+    const result = JSON.parse(
+      await readFile(path.join(dir, '.audio-import-cache/candidates.json'), 'utf8'),
+    );
     assert.equal(result.category, 2);
     assert.equal(new Set(result.items.map((x) => x.pageid)).size, result.items.length);
     assert.ok(result.items.length > 1);

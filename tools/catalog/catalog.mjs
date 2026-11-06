@@ -1,4 +1,7 @@
-import { readFile, writeFile, rename, stat } from 'node:fs/promises';
+import { stat } from 'node:fs/promises';
+import { atomicJSON, atomicText, readJSON } from '../lib/json.mjs';
+import { audioPaths } from '../audio/paths.mjs';
+import { withAudioLock } from '../audio/lock.mjs';
 import path from 'node:path';
 
 const WORD_FIELDS = [
@@ -143,7 +146,7 @@ function validateRecording(recording) {
 export function assembleCatalog(imported, registry, corrections = emptyCorrections()) {
   validateRegistry(registry);
   if (corrections?.version !== 1 || !object(corrections.words) || !object(corrections.recordings))
-    throw Error('Unsupported audio-corrections.json schema.');
+    throw Error('Unsupported corrections.json schema.');
   const words = new Map(registry.words.map((word) => [word.id, structuredClone(word)]));
   const recordingIds = new Set(imported.map((row) => row.id));
   if (recordingIds.size !== imported.length) throw Error('Duplicate recording IDs.');
@@ -187,36 +190,19 @@ export function assembleCatalog(imported, registry, corrections = emptyCorrectio
   };
 }
 
-export async function atomicJSON(file, value) {
-  const text = JSON.stringify(value, null, 2) + '\n';
-  if (
-    (await readFile(file, 'utf8').catch((error) => {
-      if (error.code !== 'ENOENT') throw error;
-      return null;
-    })) === text
-  )
-    return;
-  const temporary = file + '.tmp-' + process.pid;
-  await writeFile(temporary, text);
-  await rename(temporary, file);
-}
-
-async function optionalJSON(file, fallback) {
-  try {
-    return JSON.parse(await readFile(file, 'utf8'));
-  } catch (error) {
-    if (error.code === 'ENOENT') return fallback();
-    throw error;
-  }
-}
-
-export async function buildCatalog(root = process.cwd()) {
-  const imported = JSON.parse(await readFile(path.join(root, 'content.json'), 'utf8'));
+async function catalogInputs(root) {
+  const paths = audioPaths(root);
+  const imported = await readJSON(paths.content);
   if (!Array.isArray(imported)) throw Error('Expected an imported recording array.');
-  const previous = await optionalJSON(path.join(root, 'words.json'), emptyRegistry);
-  const corrections = JSON.parse(await readFile(path.join(root, 'audio-corrections.json'), 'utf8'));
-  const registry = syncRegistry(imported, previous);
-  const catalog = assembleCatalog(imported, registry, corrections);
+  return {
+    paths,
+    imported,
+    registry: await readJSON(paths.words, emptyRegistry),
+    corrections: await readJSON(paths.corrections),
+  };
+}
+
+async function validateAudio(root, catalog) {
   await Promise.all(
     catalog.recordings.map(async (row) => {
       const info = await stat(path.join(root, row.audio)).catch((error) => {
@@ -226,15 +212,29 @@ export async function buildCatalog(root = process.cwd()) {
     }),
   );
   const anchors = catalog.recordings.filter((row) => row.anchor);
-  const wordMap = new Map(catalog.words.map((word) => [word.id, word]));
-  const anchorTones = anchors.map((row) => wordMap.get(row.wordId).syllables[0].tone);
-  if (anchors.length !== 6 || new Set(anchorTones).size !== 6)
+  const words = new Map(catalog.words.map((word) => [word.id, word]));
+  const tones = anchors.map((row) => words.get(row.wordId).syllables[0].tone);
+  if (anchors.length !== 6 || new Set(tones).size !== 6)
     throw Error('Expected six distinct tone reference recordings.');
-  await atomicJSON(path.join(root, 'words.json'), registry);
-  // Compact generated output; full source records and corrections remain readable.
-  const destination = path.join(root, 'catalog.json');
-  const temporary = destination + '.tmp-' + process.pid;
-  await writeFile(temporary, JSON.stringify(catalog) + '\n');
-  await rename(temporary, destination);
+}
+
+export async function syncWordRegistry(root = process.cwd()) {
+  return withAudioLock(async () => {
+    const { paths, imported, registry, corrections } = await catalogInputs(root);
+    const synced = syncRegistry(imported, registry);
+    const catalog = assembleCatalog(imported, synced, corrections);
+    await validateAudio(root, catalog);
+    await atomicJSON(paths.words, synced);
+    return catalog;
+  }, root);
+}
+
+export async function buildCatalog(root = process.cwd()) {
+  const { imported, registry, corrections } = await catalogInputs(root);
+  if (JSON.stringify(syncRegistry(imported, registry)) !== JSON.stringify(registry))
+    throw Error('Word registry is out of date. Stop imports, then run npm run audio:sync.');
+  const catalog = assembleCatalog(imported, registry, corrections);
+  await validateAudio(root, catalog);
+  await atomicText(path.join(root, 'catalog.json'), JSON.stringify(catalog) + '\n');
   return catalog;
 }

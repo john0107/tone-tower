@@ -9,3 +9,6 @@ dist/
 audio-inbox/
 .preview/
 design/
+
+# Versioned audio metadata is formatted by the content tools
+data/audio/

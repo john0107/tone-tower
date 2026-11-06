@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtemp, mkdir, writeFile, readFile, copyFile, rm, readdir } from 'node:fs/promises';
+import { mkdtemp, mkdir, writeFile, readFile, unlink, rm, readdir } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { execFileSync } from 'node:child_process';
@@ -8,17 +8,19 @@ import { createHash } from 'node:crypto';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const importer = fileURLToPath(new URL('../../tools/audio/import-curated.mjs', import.meta.url));
-const compatibilityImporter = fileURLToPath(
-  new URL('../../tools-import-curated.mjs', import.meta.url),
-);
 const fixture = fileURLToPath(new URL('../../audio/', import.meta.url));
 test('local import is resumable and rejects duplicate audio and missing licence URLs', async () => {
   const dir = await mkdtemp(path.join(tmpdir(), 'jyutping-import-test-'));
   try {
     await mkdir(path.join(dir, 'originals'));
     await mkdir(path.join(dir, '.audio-import-cache'));
+    await mkdir(path.join(dir, 'data/audio'), { recursive: true });
+    await writeFile(
+      path.join(dir, 'data/audio/import-review.json'),
+      JSON.stringify({ version: 1, excluded: [] }),
+    );
     const library = JSON.parse(
-      await readFile(new URL('../../content.json', import.meta.url), 'utf8'),
+      await readFile(new URL('../../data/audio/content.json', import.meta.url), 'utf8'),
     );
     const original = await readFile(path.join(fixture, path.basename(library[0].audio)));
     const sha1 = createHash('sha1').update(original).digest('hex');
@@ -50,7 +52,7 @@ test('local import is resumable and rejects duplicate audio and missing licence 
         ],
       };
     }
-    await writeFile(path.join(dir, 'content.json'), '[]');
+    await writeFile(path.join(dir, 'data/audio/content.json'), '[]');
     await writeFile(path.join(dir, 'queue.json'), JSON.stringify(queue));
     await writeFile(
       path.join(dir, '.audio-import-cache', 'state.json'),
@@ -63,9 +65,9 @@ test('local import is resumable and rejects duplicate audio and missing licence 
         { cwd: dir, encoding: 'utf8', timeout: 30000 },
       );
     run();
-    const content = JSON.parse(await readFile(path.join(dir, 'content.json'), 'utf8'));
+    const content = JSON.parse(await readFile(path.join(dir, 'data/audio/content.json'), 'utf8'));
     const state = JSON.parse(
-      await readFile(path.join(dir, '.audio-import-cache', 'state.json'), 'utf8'),
+      await readFile(path.join(dir, 'data/audio/import-review.json'), 'utf8'),
     );
     assert.deepEqual(
       content.map((x) => x.id),
@@ -77,13 +79,20 @@ test('local import is resumable and rejects duplicate audio and missing licence 
       'Duplicate recording audio',
       'Licence requires review',
     ]);
-    assert.ok(state.retryAfter > Date.now());
-    const list = await readFile(path.join(dir, 'audio-download-list.csv'), 'utf8');
+    assert.ok(
+      JSON.parse(await readFile(path.join(dir, '.audio-import-cache/state.json'), 'utf8'))
+        .retryAfter > Date.now(),
+    );
+    const list = await readFile(path.join(dir, '.audio-import-cache/download-list.csv'), 'utf8');
     assert.match(list, /"commons-1".*"imported"/);
     assert.match(list, /"commons-2".*"review"/);
-    // A downloader already running before the move resumes through its original entry point.
-    run(compatibilityImporter);
-    assert.equal(JSON.parse(await readFile(path.join(dir, 'content.json'), 'utf8')).length, 1);
+    // Clearing transient API caches must not discard permanent review decisions.
+    await unlink(path.join(dir, '.audio-import-cache/state.json'));
+    run();
+    assert.equal(
+      JSON.parse(await readFile(path.join(dir, 'data/audio/content.json'), 'utf8')).length,
+      1,
+    );
   } finally {
     await rm(dir, { recursive: true, force: true });
   }
@@ -95,8 +104,13 @@ test('missing completed audio is retried and a failed manifest save leaves no ph
     await mkdir(path.join(dir, 'originals'));
     await mkdir(path.join(dir, 'audio'));
     await mkdir(path.join(dir, '.audio-import-cache'));
+    await mkdir(path.join(dir, 'data/audio'), { recursive: true });
+    await writeFile(
+      path.join(dir, 'data/audio/import-review.json'),
+      JSON.stringify({ version: 1, excluded: [] }),
+    );
     const library = JSON.parse(
-      await readFile(new URL('../../content.json', import.meta.url), 'utf8'),
+      await readFile(new URL('../../data/audio/content.json', import.meta.url), 'utf8'),
     );
     const original = await readFile(path.join(fixture, path.basename(library[0].audio)));
     const item = {
@@ -131,11 +145,11 @@ test('missing completed audio is retried and a failed manifest save leaves no ph
     );
     // A stale manifest row with no corresponding MP3 must not be treated as done.
     const stale = { ...item, id: 'commons-1', audio: 'audio/commons-1.mp3', gloss: 'old' };
-    await writeFile(path.join(dir, 'content.json'), JSON.stringify([stale]));
+    await writeFile(path.join(dir, 'data/audio/content.json'), JSON.stringify([stale]));
     const shim = path.join(dir, 'fail-save.mjs');
     await writeFile(
       shim,
-      `import fs from 'node:fs/promises';import {syncBuiltinESMExports} from 'node:module';const rename=fs.rename;fs.rename=async(from,to)=>{if(to==='content.json'){const error=Error('Simulated busy manifest');error.code='EPERM';throw error;}return rename(from,to)};syncBuiltinESMExports();`,
+      `import fs from 'node:fs/promises';import {syncBuiltinESMExports} from 'node:module';const rename=fs.rename;fs.rename=async(from,to)=>{if(to.endsWith('content.json')){const error=Error('Simulated busy manifest');error.code='EPERM';throw error;}return rename(from,to)};syncBuiltinESMExports();`,
     );
     const args = [importer, '--selection', 'queue.json', '--source-dir', 'originals', '--all'];
     assert.throws(
@@ -148,14 +162,17 @@ test('missing completed audio is retried and a failed manifest save leaves no ph
         }),
       /Simulated busy manifest/,
     );
-    assert.deepEqual(JSON.parse(await readFile(path.join(dir, 'content.json'), 'utf8')), [stale]);
+    assert.deepEqual(
+      JSON.parse(await readFile(path.join(dir, 'data/audio/content.json'), 'utf8')),
+      [stale],
+    );
     assert.equal((await readdir(path.join(dir, 'audio'))).length, 0);
     assert.deepEqual(
-      JSON.parse(await readFile(path.join(dir, '.audio-import-cache/state.json'), 'utf8')).excluded,
+      JSON.parse(await readFile(path.join(dir, 'data/audio/import-review.json'), 'utf8')).excluded,
       [],
     );
     execFileSync(process.execPath, args, { cwd: dir, encoding: 'utf8', timeout: 30000 });
-    const saved = JSON.parse(await readFile(path.join(dir, 'content.json'), 'utf8'));
+    const saved = JSON.parse(await readFile(path.join(dir, 'data/audio/content.json'), 'utf8'));
     assert.equal(saved.length, 1);
     assert.equal(saved[0].id, 'commons-1');
     assert.equal(saved[0].gloss, 'you');

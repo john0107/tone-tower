@@ -50,11 +50,11 @@ the GitHub workflow installs these tools when needed.
 
 ```sh
 npm run format:check
-npm run catalog
+npm run audio:sync
 npm run test:all
 npm run build
 npm run check:dist
-git diff -- words.json
+git diff -- data/audio
 npm run preview -- --base /tone-tower/ --port 4174
 ```
 
@@ -63,7 +63,7 @@ The preview serves only `dist/` at http://127.0.0.1:4174/tone-tower/.
 `npm start` serves the source for development. Do not publish the source root:
 `catalog.json` is generated and absent after a fresh clone.
 
-CI runs tests, builds, checks that the committed word registry stays unchanged,
+CI runs tests, builds without updating versioned metadata, checks that source data stays unchanged,
 then checks every built file under both `/` and a different nested repository
 path. Pull requests can run checks but cannot deploy. Only successful `main`
 builds deploy. Official actions are pinned to release commits; Dependabot opens

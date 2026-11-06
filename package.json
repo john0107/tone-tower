@@ -21,7 +21,10 @@
     "audio:download": "node tools/audio/download.mjs",
     "audio:discover": "node tools/audio/discover.mjs",
     "audio:import": "node tools/audio/import-curated.mjs",
-    "audio:verify": "node tools/audio/verify.mjs"
+    "audio:verify": "node tools/audio/verify.mjs",
+    "audio:sync": "node tools/catalog/sync.mjs",
+    "audio:status": "node tools/audio/status.mjs",
+    "audio:export": "node tools/audio/import-curated.mjs --export-only"
   },
   "devDependencies": {
     "prettier": "3.9.10"

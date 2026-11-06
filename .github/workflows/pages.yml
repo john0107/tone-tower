@@ -40,8 +40,8 @@ jobs:
       - name: Run tests
         run: node .github/scripts/run-tests.mjs
       - run: npm run build
-      - name: Require the word registry to be committed
-        run: git diff --exit-code -- words.json
+      - name: Ensure the build leaves source data unchanged
+        run: git diff --exit-code -- data/audio
       - run: npm run check:dist
       - name: Upload only the built site
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'

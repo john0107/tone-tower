@@ -5,28 +5,30 @@ there is no player-facing review or reporting workflow.
 
 ## Files and ownership
 
-- `content.json`: the downloader's original inventory and source attribution.
+- `data/audio/content.json`: the downloader's original inventory and source attribution.
   Keep this file and `audio/` so downloads can resume.
-- `words.json`: the persistent word/readings registry and recording-to-word links.
-  Commit it. The catalog builder appends new words and links without replacing
+- `data/audio/words.json`: the persistent word/readings registry and recording-to-word links.
+  Commit it. `npm run audio:sync` appends new words and links without replacing
   existing words or changing their IDs.
-- `audio-corrections.json`: our manual corrections. The downloader never writes it.
+- `data/audio/corrections.json`: our manual corrections. The downloader never writes it.
   Commit it. Every correction requires a reason.
 - `catalog.json`: generated, compact browser catalog with separate word and
   recording collections. Do not edit it; it is ignored by Git.
 - `dist/`: generated website ready to publish. Do not edit it; rebuilding replaces it.
 
-Run `npm run catalog` after downloads or corrections to refresh the local catalog.
+Run `npm run audio:sync` after downloads to update the word registry. Run `npm run catalog` after synchronization or manual corrections to refresh the local catalog.
 `npm start` does this automatically before starting the local server. Refresh the
 browser to use the updated catalog. A published site keeps its existing snapshot
 until we build and publish again.
+
+The selected import queue is `data/audio/review-queue.json`. Durable importer rejection reasons live in `data/audio/import-review.json`, separate from manual gameplay corrections. The historical seed selection is preserved in `data/audio/seed-selection.json`; the importer uses the review queue by default. Raw discovery results, API metadata, cooldowns, logs, and CSV exports live in the ignored `.audio-import-cache/` directory. No review decision depends on keeping that cache.
 
 ## Word identities and speakers
 
 The initial grouping uses exact written characters and spaced Jyutping. Different
 readings stay separate. Simplified/traditional forms and synonyms are not merged
 automatically. The first recording seeds the word ID, which is then persisted in
-`words.json`; editing a word's spelling or reading does not change its ID.
+`data/audio/words.json`; editing a word's spelling or reading does not change its ID.
 
 Recordings retain their original IDs, audio paths and individual attribution.
 Saved practice references to recording IDs remain valid. Credits list the
@@ -38,9 +40,9 @@ be used before any recording repeats.
 
 ## Correcting a word
 
-Find the recording ID in `content.json` or the word in `words.json`. The
-`recordingWords` object in `words.json` gives the associated word ID. Add a patch
-to `audio-corrections.json`, for example:
+Find the recording ID in `data/audio/content.json` or the word in `data/audio/words.json`. The
+`recordingWords` object in `data/audio/words.json` gives the associated word ID. Add a patch
+to `data/audio/corrections.json`, for example:
 
 ```json
 {
@@ -93,7 +95,7 @@ word's ID. Its audio, recording ID and source attribution stay intact:
 ```
 
 The IDs above are illustrative: use real IDs from the registry. If no suitable
-word exists, add a complete word entry with a new stable ID to `words.json`, then
+word exists, add a complete word entry with a new stable ID to `data/audio/words.json`, then
 reference it in the recording patch. A new word needs `id`, `character`,
 `jyutping`, `gloss` and aligned `syllables`.
 
@@ -109,10 +111,8 @@ than directly editing imported rows.
 
 ## Downloading and publishing
 
-The downloader can keep adding to `content.json` while code and corrections are
-edited. The catalog builder reads one saved inventory snapshot. Use one catalog
-build at a time. Stop the downloader before directly repairing its inventory,
-changing importer code, or running another import/discovery process.
+The downloader can keep adding to `data/audio/content.json` while code and corrections are
+edited. The catalog builder reads one saved inventory snapshot and never changes versioned metadata. The downloader, direct importer, discovery, and `audio:sync` share an operation lock. Stop the downloader before synchronization, directly repairing its inventory, or changing importer code. Use one catalog build at a time.
 
 Run:
 
@@ -126,10 +126,11 @@ licences. It follows local HTML, JavaScript and CSS dependencies. Downloader
 caches, internal curation files, tests, screenshots and browser profiles are not
 published. `.preview/` is also ignored by Git.
 
-For GitHub, commit the source, `content.json`, `words.json`, corrections and MP3s.
+For GitHub, commit the source, `data/audio/content.json`, `data/audio/words.json`, corrections and MP3s.
 The included Pages workflow builds and validates `dist/` before deploying it.
-Stop downloads/imports before preparing a release, run `npm run catalog`, and
-commit any registry changes; CI rejects a build that changes `words.json`.
+Stop downloads/imports before preparing a release, run `npm run audio:sync`, and
+commit any registry changes with their matching inventory and MP3s. Builds reject
+an unsynchronized registry; CI also checks that building leaves source data unchanged.
 See `PUBLISHING.md` for setup. Serving the unbuilt source root will not
 work after a fresh clone because `catalog.json` is generated. Hosting setup is a
 separate step; the build command does not upload or deploy anything.

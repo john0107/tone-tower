@@ -1,26 +1,64 @@
-# Download the remaining audio
+# Downloading and resuming audio
 
-Double-click `download-audio.cmd`, or run this in PowerShell:
+From the project folder, use Node.js 22 or later with FFmpeg and FFprobe on PATH:
 
-```powershell
-cd C:\Users\John\projects\jyutping-trainer
-node download-audio.mjs
+```sh
+npm run audio:status
+npm run audio:download
 ```
 
-Node.js, FFmpeg and FFprobe must be on PATH (they are installed on this computer). Keep the terminal open and the computer awake. Codex can be closed: this runs independently and uses no AI tokens.
+On Windows, double-clicking the root `download-audio.cmd` does the same download. The existing `node download-audio.mjs` command also works. No Codex session is needed: keep the terminal open and the computer awake.
 
-The runner processes the selected queue in batches of up to 100, saves every completed recording with its credits, honors saved rate-limit deadlines, and retries after interruptions. It stops when the queue is finished. Source/dictionary and technical checks do not imply independent listening review.
+The downloader resumes `data/audio/review-queue.json`, skips recordings already saved with their MP3s, saves each completed import, honors Commons cooldowns, and retries temporary network failures. A cooldown can last several minutes. It stops when the queue is complete. Permanent errors are reported rather than retried indefinitely.
 
-Press Ctrl+C to stop. Run the same command to resume; completed recordings are skipped. Run only one downloader, and stop it before editing `content.json` or running source discovery/local import.
+**To stop, press Ctrl+C and wait for the stopped message.** Completed imports are retained. Run the same command to resume. The downloader, direct importer, discovery, and registry synchronization share one operation lock. Stop the current operation before starting another; `audio:status` is read-only and can run at any time.
 
-Progress is in `content.json`, `audio-download-list.csv`, and `.audio-import-cache/state.json`. The terminal log is `.audio-import-cache/downloader.log`. Keep these files and the `audio/` folder. If the computer sleeps, downloads pause until it wakes. No background service or scheduled task is installed.
+## Use newly downloaded recordings
 
-When done or stopped, tell Codex: **“The downloader is stopped. Check the audio progress and validate the new recordings.”** Everything needed to pick up is saved locally.
+After the downloader finishes or stops:
 
-Commons may still enforce long pauses. Running locally removes the need to keep the AI waiting; it does not promise a particular download speed.
+```sh
+npm run audio:sync
+npm start
+```
 
-The downloader still writes only its imported inventory. Run `npm run catalog`
-after downloading to update the app's word/recording catalog, or restart with
-`npm start`, which rebuilds it automatically. Manual corrections live separately
-in `audio-corrections.json` and survive future imports. See `AUDIO-CATALOG.md`.
-Run `npm run build` when preparing a new published version; it creates `dist/`.
+`audio:sync` explicitly updates the stable word registry. Ordinary catalog generation, development startup, and production builds do not modify versioned metadata. If the registry is out of date, they explain that synchronization is required.
+
+For a release, run:
+
+```sh
+npm run audio:sync
+npm run test:all
+npm run build
+npm run audio:verify
+```
+
+Commit `data/audio/` and the matching new MP3s in `audio/` together. Do not commit generated catalogs, publication folders, caches, logs, or CSV exports.
+
+## Saved files
+
+- `data/audio/content.json`: imported recording inventory and credits.
+- `data/audio/words.json`: stable word IDs and recording-to-word links.
+- `data/audio/corrections.json`: manual corrections, separate from imports.
+- `data/audio/review-queue.json`: the selected queue; dictionary matching does not mean independent listening review.
+- `data/audio/import-review.json`: permanent rejection reasons. Correct the cause and remove the relevant entry to retry a rejected item.
+- `.audio-import-cache/state.json`: disposable API metadata and the shared Commons cooldown.
+- `.audio-import-cache/downloader.log`: download progress log.
+
+Keep the cache to preserve the current cooldown and avoid repeat API requests. Deleting it does not discard completed imports or permanent review decisions. Old cached rejection decisions are migrated into the versioned review file when the importer next runs.
+
+Generate a spreadsheet-friendly progress list with `npm run audio:export`. It writes `.audio-import-cache/download-list.csv`; the export is not a source of truth.
+
+## Other commands
+
+Import downloaded originals without fetching their audio again:
+
+```sh
+npm run audio:import -- --source-dir audio-inbox --batch 100
+```
+
+Use original Commons filenames or `commons-<pageid>` plus the original extension. Missing local files are skipped. Cached source metadata is reused; missing metadata still requires internet access. Add `--all` to process the remaining local queue, or `--selection path/to/queue.json` to use a different selected queue.
+
+`npm run audio:discover` scans Commons categories into the ignored `.audio-import-cache/candidates.json`. Add `-- --refresh` to rescan. Discovery does not automatically add candidates to the selected queue.
+
+Source, dictionary, and technical checks do not establish pronunciation correctness. Listen to recordings independently when curating them. See [the catalog reference](AUDIO-CATALOG.md) for word corrections and exclusions.

@@ -4,6 +4,7 @@ import { mkdtemp, mkdir, writeFile, readFile, rm, readdir } from 'node:fs/promis
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { publicationFiles, publish } from '../../tools/publishing/build.mjs';
+import { syncWordRegistry } from '../../tools/catalog/catalog.mjs';
 import { checkDistribution } from '../../tools/publishing/check.mjs';
 
 test('publication follows runtime dependencies, includes credits, and excludes local work files', async (t) => {
@@ -31,8 +32,11 @@ test('publication follows runtime dependencies, includes credits, and excludes l
     licenseUrl: 'https://creativecommons.org/licenses/by/4.0/',
     conversion: 'MP3',
   }));
-  await put('content.json', JSON.stringify(input));
-  await put('audio-corrections.json', JSON.stringify({ version: 1, words: {}, recordings: {} }));
+  await put('data/audio/content.json', JSON.stringify(input));
+  await put(
+    'data/audio/corrections.json',
+    JSON.stringify({ version: 1, words: {}, recordings: {} }),
+  );
   for (const row of input) await put(row.audio, Buffer.alloc(1200));
   await put(
     'index.html',
@@ -53,7 +57,15 @@ test('publication follows runtime dependencies, includes credits, and excludes l
   await put('.preview/profile/cache', 'local browser profile');
   await put('unused.js', 'not in the game');
   await put('dist/stale-file.txt', 'old build');
+  await assert.rejects(() => publish(root), /audio:sync/);
+  await assert.rejects(() => readFile(path.join(root, 'data/audio/words.json')), {
+    code: 'ENOENT',
+  });
+  await syncWordRegistry(root);
+  const registryBefore = await readFile(path.join(root, 'data/audio/words.json'), 'utf8');
   const { files } = await publish(root);
+  assert.equal(await readFile(path.join(root, 'data/audio/words.json'), 'utf8'), registryBefore);
+
   for (const name of [
     'src/app.js',
     'src/game/game.js',
@@ -67,9 +79,9 @@ test('publication follows runtime dependencies, includes credits, and excludes l
   ])
     assert.ok(files.includes(name), name);
   for (const name of [
-    'content.json',
-    'audio-corrections.json',
-    'words.json',
+    'data/audio/content.json',
+    'data/audio/corrections.json',
+    'data/audio/words.json',
     'unused.js',
     '.preview/profile/cache',
   ])

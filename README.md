@@ -40,11 +40,14 @@ docs/               Gameplay, audio workflow, and publishing reference
 design/             Design references and prototype studies
 audio/              Credited speech recordings
 assets/             Fonts and their licences
+data/audio/         Imported inventory, stable word IDs, queue, and corrections
 ```
 
 The browser imports only `src/`. Pure rules live in `src/game/game-core.js`; `game-controller.js` coordinates input, audio, countdowns, and the game view. Rendering and animation live in `src/world/`. Progress uses the existing `soundbound-cantonese-v1` storage key; migrations remain in `src/persistence/progress.js`.
 
-Recording data stays at the repository root: `content.json` is the imported inventory, `words.json` stores stable word identities, and `audio-corrections.json` stores manual corrections. Candidate inventories, the review queue, and the download CSV support the audio workflow. `catalog.json` and `dist/` are generated and ignored by Git. See [the catalog reference](docs/AUDIO-CATALOG.md) before editing content.
+Versioned recording metadata lives in `data/audio/`: `content.json` is the imported inventory, `words.json` stores stable word identities, and `corrections.json` stores manual corrections. The selected queue and durable rejection reasons are versioned alongside them. API caches, raw discovery results, and CSV exports stay in the ignored `.audio-import-cache/` directory. `catalog.json` and `dist/` are generated and ignored by Git. See [the catalog reference](docs/AUDIO-CATALOG.md) before editing content.
+
+To resume downloads, run `npm run audio:download`. After downloading stops, run `npm run audio:sync` before playing or building. `npm run audio:status` shows progress without starting downloads. See [the download instructions](docs/AUDIO-DOWNLOAD.md).
 
 ## Checks
 
@@ -68,7 +71,7 @@ npm run preview -- --base /tone-tower/
 
 Open http://127.0.0.1:4173/tone-tower/. Publish only `dist/`. The build follows local runtime imports and asset references, includes recording/font credits, and excludes development files. Paths work under a renamed GitHub Pages repository as well as a domain root.
 
-See [publishing](docs/PUBLISHING.md) for setup and release checks. Stop audio downloads before preparing a release; building synchronizes `words.json`, and CI requires registry changes to be committed.
+See [publishing](docs/PUBLISHING.md) for setup and release checks. Stop audio downloads before preparing a release, run `npm run audio:sync`, and commit the matching metadata and MP3s. Ordinary builds validate the registry and leave versioned metadata unchanged.
 
 ## Reference
 

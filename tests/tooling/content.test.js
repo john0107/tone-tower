@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { readFile, stat } from 'node:fs/promises';
 
 test('bundled recordings cover every tone with credited, aligned audio', async () => {
-  const data = JSON.parse(await readFile('content.json'));
+  const data = JSON.parse(await readFile('data/audio/content.json'));
   const items = data.filter((w) => !w.anchor);
   assert.equal(data.filter((w) => w.anchor).length, 6);
   assert.equal(new Set(data.map((w) => w.id)).size, data.length);
