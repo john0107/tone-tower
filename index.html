@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#19293d">
+<meta name="description" content="Learn and practise Cantonese Jyutping: initials, finals and tones. Explore Tone Tower, type in Skyrail, or practise at your own pace.">
+<title>Tone Tower</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="worlds.css">
+</head>
+<body class="page-world">
+<a class="skip-link" href="#app">Skip to the adventure</a>
+<header class="site-top site-header">
+<a class="brand" href="./" aria-label="Tone Tower home"><svg viewBox="0 0 20 23" aria-hidden="true"><path d="M9 7V3H5V0h5v3h5V0h4v4h-6v4" fill="#80b79a"/><path d="M4 8h12v3h3v9h-3v3H4v-3H1v-9h3Z" fill="#edbd76"/><path d="M5 13h2v3H5m8-3h2v3h-2m-5 5h4v1H8" fill="#19293d"/></svg><span>TONE TOWER</span></a>
+<nav aria-label="Main navigation"><a id="home" class="nav-link" href="#home" data-nav-page="home" aria-current="page">World map</a><a id="learn" class="nav-link" href="#sounds" data-nav-page="sounds">Jyutping guide</a><a id="about" class="nav-link" href="#about" data-nav-page="about">About</a><button id="pause-game" class="icon-button" type="button" aria-label="Pause adventure" hidden>Ⅱ</button></nav>
+</header>
+<main id="app" tabindex="-1"><div class="loading-state"><span class="loading-sprout" aria-hidden="true">✦</span><p>Loading your adventure…</p></div></main>
+<footer class="site-footer"><div><button id="progress" class="text-button" type="button">Records</button><button id="credits" class="text-button" type="button">Voices & credits</button></div></footer>
+<dialog id="dialog" aria-labelledby="dialog-title"><button id="close-dialog" class="dialog-close icon-button" type="button" aria-label="Close dialog">×</button><div id="dialog-body"></div></dialog>
+<script type="module" src="app.js"></script>
+</body>
+</html>

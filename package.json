@@ -1,0 +1,16 @@
+{
+  "name": "tone-tower",
+  "private": true,
+  "license": "MIT",
+  "engines": {"node": ">=22"},
+  "type": "module",
+  "scripts": {
+    "catalog": "node tools-catalog.mjs",
+    "prestart": "node tools-catalog.mjs",
+    "start": "node server.mjs",
+    "build": "node tools-publish.mjs",
+    "preview": "node server.mjs --dist",
+    "check:dist": "node tools-check-dist.mjs",
+    "test": "node --test"
+  }
+}
