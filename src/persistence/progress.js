@@ -7,15 +7,7 @@ import {
 } from '../game/game-core.js';
 
 export const PROGRESS_KEY = 'soundbound-cantonese-v1';
-const legacyKeys = [
-  'soundbound-v1',
-  'two-doors-v1',
-  'two-doors-survival-v1',
-  'two-doors-survival-v2',
-  'two-doors-practice-climb-v1',
-  'two-doors-typed-survival-v1',
-  'two-doors-typed-survival-v2',
-];
+const PROGRESS_VERSION = 3;
 const record = () => ({ runs: 0, wins: 0, best: 0, fewest: null });
 const count = (value) => (Number.isSafeInteger(value) && value >= 0 ? value : 0);
 const uniqueIds = (values) =>
@@ -55,7 +47,7 @@ function cleanConfusions(value) {
 }
 export function emptyProgress() {
   return {
-    version: 3,
+    version: PROGRESS_VERSION,
     settings: {
       toneVariant: 'normal',
       tideVariant: 'spelling',
@@ -96,7 +88,7 @@ function sanitize(value) {
       else
         for (const difficulty of Object.keys(RAIL_DIFFICULTIES))
           progress.records.tide[variant][difficulty] = cleanRecord(
-            value.version >= 2 ? value.records?.tide?.[variant]?.[difficulty] : null,
+            value.records?.tide?.[variant]?.[difficulty],
           );
     }
   }
@@ -110,15 +102,7 @@ function sanitize(value) {
 export function loadProgress(storage) {
   const target = storageOrNull(storage),
     value = read(target, PROGRESS_KEY);
-  // Retain current adventures and preferences; retire incompatible prototype score archives.
-  const progress = value && [1, 2, 3].includes(value.version) ? sanitize(value) : emptyProgress();
-  saveProgress(progress, target);
-  for (const key of legacyKeys) {
-    try {
-      target?.removeItem(key);
-    } catch {}
-  }
-  return progress;
+  return value?.version === PROGRESS_VERSION ? sanitize(value) : emptyProgress();
 }
 export function saveProgress(progress, storage) {
   try {
@@ -158,14 +142,8 @@ export function recordRun(progress, run) {
   return progress;
 }
 export function resetProgress(storage) {
-  const target = storageOrNull(storage);
-  for (const key of [PROGRESS_KEY, ...legacyKeys]) {
-    try {
-      target?.removeItem(key);
-    } catch {}
-  }
   const progress = emptyProgress();
-  saveProgress(progress, target);
+  saveProgress(progress, storage);
   return progress;
 }
 

@@ -60,36 +60,7 @@ export function doorSlots(count = 2) {
 export const destinations = {
   tone: { x: 145, y: 207 },
   rail: { x: 335, y: 207 },
-  practice: { x: 91, y: 218 },
 };
-export function exteriorDoorSlots(count) {
-  const sizes = {
-    2: [
-      [102, 205, 64, 70],
-      [314, 205, 64, 70],
-    ],
-    3: [
-      [94, 209, 58, 66],
-      [212, 209, 58, 66],
-      [330, 209, 58, 66],
-    ],
-    4: [
-      [214, 139, 52, 48],
-      [149, 195, 52, 48],
-      [279, 195, 52, 48],
-      [214, 244, 52, 38],
-    ],
-    6: [
-      [130, 166, 52, 50],
-      [214, 166, 52, 50],
-      [298, 166, 52, 50],
-      [130, 222, 52, 50],
-      [214, 222, 52, 50],
-      [298, 222, 52, 50],
-    ],
-  };
-  return sizes[count] || sizes[2];
-}
 export function drawWorld(ctx, s) {
   if (s.scene === 'rail') {
     drawSkyrail(ctx, s, P);
@@ -414,22 +385,6 @@ export function drawWorld(ctx, s) {
     lantern(191, 201);
     lantern(287, 201);
     sprite(240, 285 - entry * 41, entry < 1);
-  } else if (s.scene === 'tower-summit') {
-    cliff(117, 249, 246, 64);
-    tower(168, 39, 144, 206, 100);
-    archBridge(22, 251, 105);
-    archBridge(353, 251, 105);
-    r(127, 236, 226, 4, P.edge);
-    r(127, 240, 226, 5, P.shade);
-    for (let i = 0; i < 5; i++) {
-      const x = 141 + i * 48;
-      r(x, 223, 2, 14, P.wood);
-      r(x - 4, 218, 10, 6, [P.grass, P.water, P.gold, P.leaf, '#b4b2dc'][i]);
-      r(x - 2, 220, 6, 2, P.cream);
-    }
-    sprite(240, 250, false);
-    if (!s.reduced)
-      for (let k = 0; k < 12; k++) r(100 + k * 25, 210 - ((t * 12 + k * 13) % 130), 2, 2, P.cream);
   } else if (s.scene === 'tower-rest') {
     drawRestLanding(ctx, s, P, sprite);
   } else if (s.scene === 'tone') {
@@ -639,76 +594,6 @@ export function drawWorld(ctx, s) {
           );
       }
     }
-  } else if (s.scene === 'practice') {
-    block(22, 27, 436, 230, P.shade);
-    r(28, 34, 424, 7, P.wood);
-    r(37, 41, 9, 208, P.wood);
-    r(434, 41, 9, 208, P.wood);
-    r(29, 249, 422, 7, P.gold);
-    r(26, 256, 428, 15, P.deep);
-    for (let i = 0; i < 24; i++) r(31 + i * 18, 257, 1, 11, P.shade);
-    // A window back into the same world, surrounded by a useful little workbench.
-    block(184, 65, 113, 110, P.wood);
-    r(194, 57, 93, 8, P.edge);
-    r(193, 73, 95, 92, P.sky);
-    cloud(204, 87, 57);
-    r(204, 134, 65, 31, P.far);
-    r(221, 111, 24, 54, P.shade);
-    r(225, 115, 16, 2, P.edge);
-    r(230, 119, 3, 4, P.gold);
-    r(239, 119, 3, 4, P.gold);
-    r(238, 74, 4, 91, P.wood);
-    r(193, 119, 95, 4, P.wood);
-    r(180, 173, 121, 7, P.edge);
-    block(60, 74, 93, 130, P.wood);
-    for (let row = 0; row < 4; row++) {
-      r(67, 84 + row * 28, 78, 21, P.deep);
-      r(66, 105 + row * 28, 80, 3, P.gold);
-      for (let col = 0; col < 7; col++) {
-        const x = 71 + col * 10,
-          y = 88 + row * 28;
-        r(x, y + (col % 3), 6, 17 - (col % 3), [P.teal, P.red, P.gold][(row + col) % 3]);
-        r(x + 1, y + (col % 3) + 3, 4, 1, P.cream);
-      }
-    }
-    block(330, 77, 81, 95, P.wood);
-    r(337, 84, 67, 80, P.deep);
-    for (let i = 0; i < 5; i++) {
-      const x = 344 + i * 12;
-      r(x, 95, 2, 30, P.edge);
-      r(x - 3, 91, 8, 4, P.gold);
-      r(x - 1, 87, 4, 4, P.gold);
-    }
-    r(338, 143, 61, 4, P.wood);
-    r(342, 147, 7, 13, P.red);
-    r(355, 151, 8, 9, P.teal);
-    r(369, 149, 8, 11, P.gold);
-    r(163, 204, 8, 42, P.wood);
-    r(313, 204, 8, 42, P.wood);
-    r(157, 241, 20, 4, P.deep);
-    r(307, 241, 20, 4, P.deep);
-    r(150, 195, 184, 9, P.gold);
-    r(150, 204, 184, 4, P.wood);
-    r(156, 195, 172, 2, P.cream);
-    r(191, 180, 17, 14, P.cream);
-    r(209, 180, 17, 14, P.gold);
-    r(208, 180, 1, 14, P.wood);
-    for (let i = 0; i < 3; i++) line(194, 184 + i * 3, 11, P.wood);
-    r(252, 175, 3, 20, P.wood);
-    r(247, 170, 13, 5, P.gold);
-    r(250, 166, 7, 4, P.cream);
-    r(237, 190, 7, 3, P.edge);
-    r(277, 184, 20, 10, P.teal);
-    r(281, 180, 12, 4, P.glass);
-    lantern(170, 81);
-    lantern(313, 81);
-    sprite(240, 252, false);
-    r(88, 234, 13, 9, P.gold);
-    r(89, 230, 3, 5, P.gold);
-    r(97, 230, 3, 5, P.gold);
-    r(91, 236, 1, 2, P.deep);
-    r(97, 236, 1, 2, P.deep);
-    r(100, 240, 9, 3, P.gold);
   }
   // Subtle ambient specks, all constrained to the same pixel grid.
   if (!s.reduced)

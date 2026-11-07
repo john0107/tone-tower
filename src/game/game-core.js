@@ -1,4 +1,4 @@
-import { normalize, shuffle, buildChoices } from './logic.js';
+import { shuffle, buildChoices } from './logic.js';
 import { chooseWordRecording, wordIdentity } from '../content/catalog.js';
 
 const TONES = [1, 2, 3, 4, 5, 6];
@@ -37,7 +37,6 @@ export const cantonese = Object.freeze({
   toneDefinitions: TONES.map((value, i) =>
     Object.freeze({ value, label: `Tone ${value}`, description: descriptions[i], path: paths[i] }),
   ),
-  normalizeWord: normalize,
   normalizeAnswer,
   evaluate(value, expected, full = false) {
     const actual = Array.isArray(value) ? value.join(' ') : String(value ?? '');
@@ -128,7 +127,6 @@ function normalizeConfig(input = {}) {
 function compatibleWords(config, words) {
   return words
     .filter((w) => !w.anchor)
-    .map(normalize)
     .filter(
       (w) =>
         w.id &&

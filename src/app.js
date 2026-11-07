@@ -9,7 +9,6 @@ import {
   saveProgress,
   recordRun,
   resetProgress,
-  challengeRecord,
   challengeRecords,
 } from './persistence/progress.js';
 import { createGameController } from './game/game-controller.js';
@@ -48,10 +47,6 @@ const heartPreview = (count) =>
       '<svg viewBox="0 0 20 22" aria-hidden="true"><path d="M1 5L5 1h4l1 3 1-3h4l4 4v7L10 21 1 12Z"/></svg>',
   ).join('') +
   '</span>';
-const icon = (name) =>
-  name === 'tone'
-    ? '<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M13 40V14h22v26M10 14h28L24 5ZM18 21h4v5h-4ZM27 21h4v5h-4ZM21 40v-9h6v9" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M6 40h36" stroke="currentColor" stroke-width="1.6"/></svg>'
-    : '<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 5C20 12 10 21 10 29a14 14 0 0 0 28 0C38 21 28 12 24 5Z" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M14 29c6-5 13 5 20 0M14 34c6-5 13 5 20 0" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>';
 
 let worldAnimation = null,
   mapNavigationCleanup = null,
@@ -87,9 +82,6 @@ let progress = loadProgress(),
   controller = null,
   screen = 'home';
 const persist = () => saveProgress(progress);
-function sums(world, key) {
-  return challengeRecords(progress, world).reduce((n, r) => n + (r[key] || 0), 0);
-}
 function best(world) {
   return Math.max(0, ...challengeRecords(progress, world).map((r) => r.best || 0));
 }
@@ -113,10 +105,7 @@ function resetView(view) {
     if (link.dataset.navPage === view) link.setAttribute('aria-current', 'page');
     else link.removeAttribute('aria-current');
   });
-  setPageLocation(
-    ['sounds', 'about', 'home'].includes(view) ? view : view === 'workshop' ? 'practice' : 'home',
-    true,
-  );
+  setPageLocation(['sounds', 'about', 'home'].includes(view) ? view : 'home', true);
   window.scrollTo({ top: 0, behavior: 'instant' });
 }
 function focusTitle() {
@@ -497,48 +486,26 @@ function finish(run) {
     showResults(run);
   }
 }
-function seal(world, variant) {
-  return /* HTML */ `<div class="summit-seal seal-${world}">
-    <span class="seal-star" aria-hidden="true">✦</span>${icon(world)}<span
-      >${world === 'tone' ? 'SUMMIT REACHED' : 'HIGHLINE COMPLETE'}</span
-    ><strong>${variantName(world, variant)}</strong>
-  </div>`;
-}
-
 function showResults(run) {
   resetView('results');
   app.dataset.world = run.world;
-  const practice = run.config.practice,
-    won = run.status === 'won',
-    info = worldInfo[run.world],
+  const info = worldInfo[run.world],
     variant = run.config.variant;
-  const record = challengeRecord(progress, run.world, variant, run.config.difficulty);
   const syllables = run.word?.syllables || [];
   app.innerHTML = /* HTML */ `<section class="results-view">
-    <div class="eyebrow">
-      ${practice ? 'Practice results' : won ? 'Adventure complete' : 'Run ended'}
-    </div>
-    <h1 tabindex="-1">
-      ${practice ? 'Practice complete.' : won ? info.end : run.world === 'tone' ? 'Tower run ended.' : 'Skyrail run ended.'}
-    </h1>
+    <div class="eyebrow">Practice results</div>
+    <h1 tabindex="-1">Practice complete.</h1>
     <p class="lead">
-      ${practice ? `${run.cleared} correct answer${run.cleared === 1 ? '' : 's'}. Review missed recordings or start another session.` : won ? `You ${info.verb} all 100 ${info.unit}. Your completion is saved in your records.` : `You ${info.verb} ${run.opened} ${info.unit}. Choose “Practise this” to work on the sounds you missed.`}
+      ${run.cleared} correct answer${run.cleared === 1 ? '' : 's'}. Review missed recordings or
+      start another session.
     </p>
-    ${won && !practice ? seal(run.world, variant) : ''}
     <div class="result-metrics">
-      <div>
-        <strong>${run.cleared}</strong
-        ><span>${practice ? 'Correct answers' : titleCase(info.unit) + ' cleared'}</span>
-      </div>
-      <div>
-        <strong>${run.mistakes}</strong
-        ><span>${run.world === 'tide' ? 'Missed answers' : 'Missed answers'}</span>
-      </div>
+      <div><strong>${run.cleared}</strong><span>Correct answers</span></div>
+      <div><strong>${run.mistakes}</strong><span>Missed answers</span></div>
       <div><strong>${run.assisted || 0}</strong><span>Assisted answers</span></div>
-      ${!practice ? /* HTML */ `<div><strong>${record.best}</strong><span>Personal best · ${variantName(run.world, variant)}${run.world === 'tide' ? ' · ' + difficultyName(run.config.difficulty) : ''}</span></div>` : ''}
     </div>
     ${
-      !won && run.lastFailure && syllables.length
+      run.lastFailure && syllables.length
         ? /* HTML */ `<div class="last-word feedback-card">
             <span class="eyebrow">One to listen to again</span>
             <div class="result-word">
@@ -558,21 +525,14 @@ function showResults(run) {
     }
     <div class="results-actions">
       <button id="retry" class="primary" type="button">
-        ${practice ? 'Another practice' : won ? 'Go again' : 'Try again'}
+        Another practice
         <span aria-hidden="true">→</span></button
-      >${!won || practice ? '<button id="practise-result" class="secondary" type="button">Practise this</button>' : ''}<button
-        id="result-home"
-        class="text-button"
-        type="button"
-      >
-        Back to the world map
-      </button>
+      ><button id="practise-result" class="secondary" type="button">Practise this</button
+      ><button id="result-home" class="text-button" type="button">Back to the world map</button>
     </div>
     <button id="copy-summary" class="text-button" type="button">Copy session summary</button>
     <p id="copy-status" class="small" role="status"></p>
-    <p class="result-footnote">
-      ${practice ? 'Practice results stay separate from challenge records.' : ''}
-    </p>
+    <p class="result-footnote">Practice results stay separate from challenge records.</p>
   </section>`;
   app.querySelector('#retry').onclick = () => begin({ ...run.config });
   app.querySelector('#result-home').onclick = home;
@@ -586,7 +546,7 @@ function showResults(run) {
     }
   });
   app.querySelector('#copy-summary').onclick = async () => {
-    const summary = `Tone Tower · ${info.title} · ${variantName(run.world, variant)}${run.world === 'tide' ? ' · ' + difficultyName(run.config.difficulty) : ''}${practice ? ' · Practice' : ''}\n${practice ? `${run.cleared} correct answers · ${run.config.format === 'rehearsal' ? `rehearsal from ${run.config.start}` : run.config.length === 'endless' ? 'open practice' : `${run.config.length}-question practice`}` : `${run.opened} ${info.unit}`} · ${run.mistakes} misses · ${run.assisted || 0} assisted${won ? ' · Adventure complete' : ''}`;
+    const summary = `Tone Tower · ${info.title} · ${variantName(run.world, variant)}${run.world === 'tide' ? ' · ' + difficultyName(run.config.difficulty) : ''} · Practice\n${run.cleared} correct answers · ${run.config.format === 'rehearsal' ? `rehearsal from ${run.config.start}` : run.config.length === 'endless' ? 'open practice' : `${run.config.length}-question practice`} · ${run.mistakes} misses · ${run.assisted || 0} assisted`;
     try {
       await navigator.clipboard.writeText(summary);
       app.querySelector('#copy-status').textContent = 'Summary copied.';
@@ -613,7 +573,6 @@ function practiceFromRun(run) {
     }
   }
   if (run.world === 'tide' && config.focusIds.length) {
-    const miss = words.find((w) => w.id === config.focusIds[0]);
     config.content = 'mixed';
     config.target = run.opened >= 40 ? 'whole' : 'highlighted';
   }
@@ -796,8 +755,7 @@ function showCredits() {
           manifest entries identify dictionary sources.
         </p>
         <p>
-          Fraunces and DM Sans: <a href="assets/fonts/Fraunces-LICENSE.txt">Fraunces licence</a> ·
-          <a href="assets/fonts/DMSans-LICENSE.txt">DM Sans licence</a>. Application code:
+          DM Sans: <a href="assets/fonts/DMSans-LICENSE.txt">Font licence</a>. Application code:
           <a href="LICENSE">MIT</a>. <a href="THIRD_PARTY_NOTICES.md">Third-party notices</a>. No
           accounts or analytics.
         </p>
@@ -943,7 +901,6 @@ function showProgress() {
   };
   dialogBody.querySelector('#confirm-reset').onclick = () => {
     progress = resetProgress();
-    workshop = null;
     dialog.close();
     home();
   };

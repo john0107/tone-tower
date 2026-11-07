@@ -126,13 +126,13 @@ test('stale locks are recovered and thrown operations still release ownership', 
   await assert.rejects(() => stat(paths.lock), { code: 'ENOENT' });
 });
 
-test('upgrading a legacy cache preserves rejection decisions in versioned metadata', async (t) => {
+test('import decisions come from versioned metadata without reading API caches', async (t) => {
   const paths = await fixture(t);
   const excluded = [{ title: 'File:bad.wav', reason: 'Incorrect recording' }];
-  await writeFile(paths.state, JSON.stringify({ metadata: {}, retryAfter: 123, excluded }));
-  await readImportState(paths);
+  await writeFile(paths.review, JSON.stringify({ version: 1, excluded }));
+  await writeFile(paths.state, '{incomplete cache');
+  const state = await readImportState(paths);
+  assert.deepEqual(state.review.excluded, excluded);
   assert.deepEqual(JSON.parse(await readFile(paths.review, 'utf8')).excluded, excluded);
-  const cache = JSON.parse(await readFile(paths.state, 'utf8'));
-  assert.equal(cache.excluded, undefined);
-  assert.equal(cache.retryAfter, 123);
+  assert.equal(await readFile(paths.state, 'utf8'), '{incomplete cache');
 });

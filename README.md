@@ -25,7 +25,7 @@ src/
   audio/            Browser playback
   content/          Runtime catalog adapters
   game/             Game rules and input/playback controller
-  persistence/      Browser progress, settings, and migrations
+  persistence/      Browser progress and settings
   styles/           Application and game styles
   ui/               Settings, guide, credits, and map controls
   world/            Canvas rendering and animation
@@ -41,15 +41,16 @@ tools/
   server/           Local development and publication preview server
 
 docs/               Gameplay, audio workflow, and publishing reference
-design/             Design references and prototype studies
 audio/              Credited speech recordings
 assets/             Fonts and their licences
 data/audio/         Imported inventory, stable word IDs, queue, and corrections
 ```
 
-The browser imports only `src/`. Pure rules live in `src/game/game-core.js`; `game-controller.js` coordinates input, audio, countdowns, and the game view. Rendering and animation live in `src/world/`. Progress uses the existing `soundbound-cantonese-v1` storage key; migrations remain in `src/persistence/progress.js`.
+The browser imports only `src/`. Pure rules live in `src/game/game-core.js`; `game-controller.js` coordinates input, audio, countdowns, and the game view. Rendering and animation live in `src/world/`. Progress and settings live in `src/persistence/progress.js`. Only the current save format is supported; older formats start fresh.
 
 Versioned recording metadata lives in `data/audio/`: `content.json` is the imported inventory, `words.json` stores stable word identities, and `corrections.json` stores manual corrections. The selected queue and durable rejection reasons are versioned alongside them. API caches, raw discovery results, and CSV exports stay in the ignored `.audio-import-cache/` directory. `catalog.json` and `dist/` are generated and ignored by Git. See [the catalog reference](docs/AUDIO-CATALOG.md) before editing content.
+
+Keep only current source, assets, content and documentation in the repository. Use the operating system's temporary directory for browser profiles, screenshots and one-off scripts, then delete them after review. Remove superseded implementations and assets instead of adding ignore rules or compatibility layers. Deleting tracked files removes them from future commits; it does not shrink existing Git history.
 
 To resume downloads, run `npm run audio:download`. After downloading stops, run `npm run audio:sync` before playing or building. `npm run audio:status` shows progress without starting downloads. See [the download instructions](docs/AUDIO-DOWNLOAD.md).
 

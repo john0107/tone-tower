@@ -70,15 +70,7 @@ test('the renderer handles interior, entry, moving rail and falling rail at prog
       assert.ok([x, y].every(Number.isFinite));
     },
   };
-  for (const scene of [
-    'hub',
-    'tone',
-    'tower-entry',
-    'tower-summit',
-    'tower-rest',
-    'rail',
-    'practice',
-  ])
+  for (const scene of ['hub', 'tone', 'tower-entry', 'tower-rest', 'rail'])
     for (const count of [2, 3, 4, 6])
       for (const progress of [0, 19, 20, 40, 60, 80, 100])
         for (const phase of ['answering', 'correct', 'review']) {

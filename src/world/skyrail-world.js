@@ -1,13 +1,6 @@
 import { drawTowerHearts } from './tower-details.js';
 import { RAIL_SPAN } from './rail-journey.js';
 const clamp = (n, a, b) => Math.max(a, Math.min(b, n));
-export const RAIL_REGIONS = [
-  'Cliffside Station',
-  'Hanging Gardens',
-  'Copper Viaduct',
-  'Cloudline Pass',
-  'The Last Platform',
-];
 export const RAIL_CARS = ['Local', 'Climber', 'Express', 'Skyglider', 'Comet'];
 export function drawSkyrail(ctx, s, base) {
   const region = s.journey?.region ?? Math.min(4, Math.floor((s.progress || 0) / 20));

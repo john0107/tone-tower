@@ -7,14 +7,7 @@ export const shuffle = (a, r = Math.random) => {
   }
   return a;
 };
-export function normalize(w) {
-  return {
-    ...w,
-    syllables: w.syllables || [{ character: w.character, jyutping: w.jyutping, tone: w.tone }],
-  };
-}
-
-export const choiceCounts = [2, 3, 4, 6];
+const choiceCounts = [2, 3, 4, 6];
 export function buildChoices(tone, count, pool = tones, random = Math.random) {
   if (
     !choiceCounts.includes(count) ||

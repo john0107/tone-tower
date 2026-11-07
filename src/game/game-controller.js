@@ -256,11 +256,7 @@ export function createGameController({
           : run.opened === 1
             ? 'floor lit'
             : 'floors lit');
-    return (
-      '<div class="journey-map" aria-hidden="true"><span class="journey-stars">✦ · ·</span></div><span class="game-progress-label" role="status">' +
-      label +
-      '</span>'
-    );
+    return '<span class="game-progress-label" role="status">' + label + '</span>';
   }
   function lifeMarkup() {
     if (run.lives === null)

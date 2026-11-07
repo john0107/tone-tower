@@ -1,19 +1,5 @@
-node_modules/
-audio/*.ogg
-audio-index.json
-
-.audio-import-cache/
-audio-inbox/
-.preview/
-dist/
-catalog.json
+/node_modules/
+/.audio-import-cache/
+/dist/
+/catalog.json
 *.json.tmp-*
-
-# Local tooling and review artifacts
-.env
-.env.*
-!.env.example
-*.log
-/preview-phone.jpg
-/typed-survival-preview.png
-/design/*-review.jpg

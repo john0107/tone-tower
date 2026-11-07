@@ -44,13 +44,3 @@ export function worldScene(
     '</div></div>'
   );
 }
-export function courtyardScene() {
-  return '<div class="world-map-stage"><canvas class="map-canvas" width="480" height="288" aria-label="The Highline Isles: tower, Skyrail station and practice workshop"></canvas></div>';
-}
-export function finaleScene(world) {
-  return (
-    '<div class="finale-scene"><canvas class="finale-canvas" width="480" height="288" aria-label="' +
-    (world === 'tone' ? 'The tower is fully lit' : 'Skyrail reaches the final station') +
-    '"></canvas></div>'
-  );
-}

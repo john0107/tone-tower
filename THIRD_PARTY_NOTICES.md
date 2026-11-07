@@ -35,10 +35,9 @@ Manual corrections are recorded separately in data/audio/corrections.json.
 
 ## Fonts
 
-Fraunces and DM Sans are distributed under their bundled SIL Open Font License
-notices, including their original copyright information:
+DM Sans is distributed under its bundled SIL Open Font License notice,
+including its original copyright information:
 
-- assets/fonts/Fraunces-LICENSE.txt
 - assets/fonts/DMSans-LICENSE.txt
 
-These notices accompany the fonts in the published site.
+This notice accompanies the font in the published site.

@@ -52,10 +52,7 @@
   color: var(--edge);
   white-space: nowrap;
 }
-.journey-map,
-.game-progress .progress-track {
-  display: none;
-}
+
 .rail-clock {
   min-width: 70px;
   text-align: center;
@@ -356,32 +353,6 @@
   min-height: 30px;
   padding: 4px 7px;
 }
-.reference-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 9px;
-  margin: 12px 0 0;
-}
-.reference-card {
-  border: 1px solid #647b7c;
-  background: #293f4b;
-  padding: 10px;
-  font-size: 12px;
-}
-.reference-card svg {
-  width: 85px;
-  height: 30px;
-}
-.reference-card p {
-  font-size: 10px;
-  color: var(--edge);
-  margin: 4px 0;
-}
-.reference-card .secondary {
-  font-size: 10px;
-  padding: 5px 8px;
-  min-height: 30px;
-}
 .keyboard {
   font-size: 9px;
   text-align: center;
@@ -595,19 +566,6 @@
     margin: 6px 0 0;
   }
   .feedback-card .eyebrow {
-    font-size: 9px;
-  }
-  .reference-card {
-    font-size: 10px;
-    padding: 8px;
-  }
-  .reference-card svg {
-    max-width: 75px;
-  }
-  .reference-card .secondary {
-    font-size: 9px;
-  }
-  .reference-card p {
     font-size: 9px;
   }
   #app[data-world='tide'] .typing-slot {
@@ -963,12 +921,6 @@ body.keyboard-open #app[data-world='tide'] .world-canvas {
   opacity: 0.8;
   margin-top: 3px;
 }
-.rail-start-note {
-  margin: 0;
-  color: var(--edge);
-  font-size: 10px;
-  flex-basis: 100%;
-}
 .title-variants {
   gap: 10px;
 }
@@ -1097,10 +1049,6 @@ body.keyboard-open #app[data-world='tide'] .world-canvas {
 }
 #app[data-world='tone'] .game-actions {
   margin-top: 0;
-}
-#app[data-world='tone'] .reference-grid {
-  margin-top: 0;
-  margin-bottom: 8px;
 }
 @media (max-width: 700px) {
   #app[data-world='tone'] .game-hud {
@@ -1315,20 +1263,6 @@ html {
   }
 }
 
-.tower-floor-readout {
-  position: absolute;
-  z-index: 2;
-  top: 0;
-  left: 0;
-  padding: 3px 8px;
-  background: #172b38;
-  color: var(--cream);
-  font: 700 12px/1.2 monospace;
-}
-.tower-floor-readout span {
-  color: var(--edge);
-  font-size: 0.8em;
-}
 .world-scene[data-phase='review'] .is-wrong .tone-number {
   position: absolute;
   top: 9%;
@@ -1336,13 +1270,6 @@ html {
 .world-scene[data-phase='review'] .is-wrong .tone-name {
   position: absolute;
   bottom: 4%;
-}
-@media (max-width: 700px) {
-  .tower-floor-readout {
-    font-size: 9px;
-    line-height: 12px;
-    padding: 1px 5px;
-  }
 }
 
 /* Lantern-night refinement: a quieter frame, room for the landscape, and actions at hand. */
@@ -1360,10 +1287,6 @@ html {
   left: 50%;
   top: 33%;
   transform: translateX(-50%);
-}
-.home-world .workshop-place {
-  left: 11%;
-  top: 44%;
 }
 .home-world .rail-place {
   left: 73%;
@@ -1404,11 +1327,6 @@ html {
   font-size: 27px;
   margin: 8px 0 12px;
 }
-.home-world #destination-description {
-  max-width: 510px;
-  font-size: 13px;
-  line-height: 1.75;
-}
 .home-world .map-entry {
   justify-content: center;
   align-items: flex-start;
@@ -1419,10 +1337,6 @@ html {
   min-height: 49px;
   padding: 12px 20px;
   font-size: 13px;
-}
-.home-world .record-line {
-  font-size: 11px;
-  color: var(--edge);
 }
 .game-layout {
   border-color: #7e9290;
@@ -1573,7 +1487,6 @@ html {
 .game-layout[data-terminal='true'] .scene-question,
 .game-layout[data-terminal='true'] .typing-slot,
 .game-layout[data-terminal='true'] .tone-door,
-.game-layout[data-terminal='true'] .tower-floor-readout,
 .game-layout[data-terminal='true'] .keyboard,
 .game-layout[data-terminal='true'] .game-actions {
   display: none !important;
@@ -1634,10 +1547,6 @@ body.keyboard-open #app[data-world] .game-layout[data-terminal='true'] .world-ca
   .home-world .tower-place {
     top: 30%;
   }
-  .home-world .workshop-place {
-    left: 5%;
-    top: 47%;
-  }
   .home-world .rail-place {
     left: auto;
     right: 4%;
@@ -1659,15 +1568,6 @@ body.keyboard-open #app[data-world] .game-layout[data-terminal='true'] .world-ca
   }
   .home-world .dock h2 {
     font-size: 24px;
-  }
-  .home-world #destination-description {
-    font-size: 12px;
-  }
-  .home-world .world-weather {
-    max-width: 130px;
-    font-size: 8px;
-    text-align: right;
-    line-height: 1.5;
   }
   .home-world .map-entry {
     align-items: stretch;
@@ -1966,9 +1866,6 @@ body.keyboard-open #app[data-world='tide'] .scene-frame:has(.rail-interlude) {
   }
   #app[data-practice='true'] .game-progress-label {
     font-size: 9px;
-  }
-  .practice-full {
-    line-height: 1.5;
   }
 }
 

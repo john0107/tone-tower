@@ -21,7 +21,7 @@ Run `npm run audio:sync` after downloads to update the word registry. Run `npm r
 browser to use the updated catalog. A published site keeps its existing snapshot
 until we build and publish again.
 
-The selected import queue is `data/audio/review-queue.json`. Durable importer rejection reasons live in `data/audio/import-review.json`, separate from manual gameplay corrections. The historical seed selection is preserved in `data/audio/seed-selection.json`; the importer uses the review queue by default. Raw discovery results, API metadata, cooldowns, logs, and CSV exports live in the ignored `.audio-import-cache/` directory. No review decision depends on keeping that cache.
+The selected import queue is `data/audio/review-queue.json`. Durable importer rejection reasons live in `data/audio/import-review.json`, separate from manual gameplay corrections. Raw discovery results, API metadata, cooldowns, logs, and CSV exports live in the ignored `.audio-import-cache/` directory. No review decision depends on keeping that cache.
 
 ## Word identities and speakers
 
@@ -124,7 +124,7 @@ This validates the catalog, checks that eligible audio files exist, then creates
 `dist/` with the catalog, referenced MP3s, runtime modules, styles, fonts and their
 licences. It follows local HTML, JavaScript and CSS dependencies. Downloader
 caches, internal curation files, tests, screenshots and browser profiles are not
-published. `.preview/` is also ignored by Git.
+published. Keep temporary review files outside the repository and delete them after use.
 
 For GitHub, commit the source, `data/audio/content.json`, `data/audio/words.json`, corrections and MP3s.
 The included Pages workflow builds and validates `dist/` before deploying it.

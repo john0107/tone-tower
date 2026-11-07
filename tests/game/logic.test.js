@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { buildChoices, normalize, shuffle } from '../../src/game/logic.js';
+import { buildChoices, shuffle } from '../../src/game/logic.js';
 
 test('every supported tone subset offers unique doors including the answer', () => {
   for (let mask = 1; mask < 64; mask++) {
@@ -32,20 +32,6 @@ test('invalid door configurations fail before selecting questions', () => {
   ]) {
     assert.throws(() => buildChoices(tone, count, pool), /Choose enough different tones/);
   }
-});
-
-test('normalizing recordings preserves aligned syllables and supports single-syllable inventory rows', () => {
-  const single = { id: 'fu2', character: '虎', jyutping: 'fu2', tone: 2 };
-  assert.deepEqual(normalize(single).syllables, [{ character: '虎', jyutping: 'fu2', tone: 2 }]);
-  assert.equal(single.syllables, undefined);
-  const multi = {
-    id: 'word',
-    syllables: [
-      { character: '你', jyutping: 'nei5', tone: 5 },
-      { character: '好', jyutping: 'hou2', tone: 2 },
-    ],
-  };
-  assert.deepEqual(normalize(multi), multi);
 });
 
 test('shuffling preserves the caller’s pool and all its members', () => {

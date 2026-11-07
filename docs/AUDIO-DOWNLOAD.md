@@ -7,7 +7,7 @@ npm run audio:status
 npm run audio:download
 ```
 
-On Windows, double-clicking the root `download-audio.cmd` does the same download. The existing `node download-audio.mjs` command also works. No Codex session is needed: keep the terminal open and the computer awake.
+Use the same npm command on Windows, macOS and Linux. No Codex session is needed: keep the terminal open and the computer awake.
 
 The downloader resumes `data/audio/review-queue.json`, skips recordings already saved with their MP3s, saves each completed import, honors Commons cooldowns, and retries temporary network failures. A cooldown can last several minutes. It stops when the queue is complete. Permanent errors are reported rather than retried indefinitely.
 
@@ -45,7 +45,7 @@ Commit `data/audio/` and the matching new MP3s in `audio/` together. Do not comm
 - `.audio-import-cache/state.json`: disposable API metadata and the shared Commons cooldown.
 - `.audio-import-cache/downloader.log`: download progress log.
 
-Keep the cache to preserve the current cooldown and avoid repeat API requests. Deleting it does not discard completed imports or permanent review decisions. Old cached rejection decisions are migrated into the versioned review file when the importer next runs.
+Keep the cache to preserve the current cooldown and avoid repeat API requests. Deleting it does not discard completed imports or permanent review decisions.
 
 Generate a spreadsheet-friendly progress list with `npm run audio:export`. It writes `.audio-import-cache/download-list.csv`; the export is not a source of truth.
 
@@ -54,10 +54,10 @@ Generate a spreadsheet-friendly progress list with `npm run audio:export`. It wr
 Import downloaded originals without fetching their audio again:
 
 ```sh
-npm run audio:import -- --source-dir audio-inbox --batch 100
+npm run audio:import -- --source-dir ../audio-originals --batch 100
 ```
 
-Use original Commons filenames or `commons-<pageid>` plus the original extension. Missing local files are skipped. Cached source metadata is reused; missing metadata still requires internet access. Add `--all` to process the remaining local queue, or `--selection path/to/queue.json` to use a different selected queue.
+Keep originals outside the repository. Use original Commons filenames or `commons-<pageid>` plus the original extension. Missing local files are skipped. Cached source metadata is reused; missing metadata still requires internet access. Add `--all` to process the remaining local queue, or `--selection path/to/queue.json` to use a different selected queue.
 
 `npm run audio:discover` scans Commons categories into the ignored `.audio-import-cache/candidates.json`. Add `-- --refresh` to rescan. Discovery does not automatically add candidates to the selected queue.
 

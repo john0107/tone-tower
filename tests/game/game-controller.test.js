@@ -133,6 +133,7 @@ const words = [
     character: `字${i}`,
     jyutping: `si${i + 1}`,
     tone: i + 1,
+    syllables: [{ character: `字${i}`, jyutping: `si${i + 1}`, tone: i + 1 }],
     audio: `${i}.mp3`,
     gloss: 'example',
   })),
@@ -536,7 +537,7 @@ test('review keeps one question in the same scene and retains typing controls', 
   assert.equal(h.app.querySelector('#jyutping-answer').value, 'unfinished');
   assert.equal(h.app.querySelector('#jyutping-answer').disabled, true);
   assert.ok(h.app.querySelector('.scene-status'));
-  assert.ok(h.app.querySelector('.journey-map'));
+  assert.ok(h.app.querySelector('.game-progress-label'));
   h.controller.dispose();
 });
 

@@ -25,29 +25,20 @@ const words = Array.from({ length: 12 }, (_, i) => ({
   syllables: [{ character: '字', jyutping: `zi${(i % 6) + 1}`, tone: (i % 6) + 1 }],
 }));
 
-test('current adventure records and preferences survive while retired archives are removed', () => {
+test('current records and preferences round-trip through storage', () => {
   const current = emptyProgress();
-  current.version = 2;
   current.settings.toneVariant = 'hard';
   current.settings.tideVariant = 'full';
   current.records.tone.normal = { runs: 4, wins: 2, best: 100, fewest: 3 };
   current.records.tide.full.hard = { runs: 3, wins: 0, best: 42, fewest: null };
-  current.classic = { spelling: { runs: 5, wins: 1, best: 100 } };
-  current.previousSkyrail = { full: { runs: 3, wins: 0, best: 80 } };
-  const target = storage({
-      [PROGRESS_KEY]: current,
-      'two-doors-typed-survival-v2': { records: { plain: { runs: 5, wins: 1, best: 100 } } },
-    }),
+  const target = storage({ [PROGRESS_KEY]: current }),
     progress = loadProgress(target);
   assert.equal(progress.version, 3);
   assert.equal(progress.settings.toneVariant, 'hard');
   assert.equal(progress.settings.tideVariant, 'full');
   assert.equal(progress.records.tone.normal.wins, 2);
   assert.equal(progress.records.tide.full.hard.best, 42);
-  assert.equal(progress.classic, undefined);
-  assert.equal(progress.previousSkyrail, undefined);
-  assert.equal(progress.legacyPractice, undefined);
-  assert.equal(target.data.has('two-doors-typed-survival-v2'), false);
+  assert.deepEqual(progress, current);
   assert.deepEqual(loadProgress(target), progress);
 });
 
@@ -96,7 +87,7 @@ test('malformed, blocked and unavailable storage fail safely', () => {
   assert.equal(resetProgress(blocked).version, 3);
   const invalid = storage({
     [PROGRESS_KEY]: {
-      version: 1,
+      version: emptyProgress().version,
       settings: { toneVariant: 'wrong' },
       records: { tone: { normal: { runs: -1, wins: 999, best: 500, fewest: -2 } } },
       missedIds: ['a', 'a', 3],
@@ -108,40 +99,27 @@ test('malformed, blocked and unavailable storage fail safely', () => {
   assert.deepEqual(safe.missedIds, ['a']);
 });
 
-test('reset clears all old generations so migration cannot resurrect progress', () => {
-  const target = storage({
-    'two-doors-survival-v2': { version: 2, records: { normal: { runs: 8, wins: 1, best: 100 } } },
-    'two-doors-typed-survival-v1': { records: { plain: { runs: 4, wins: 1, best: 100 } } },
-  });
-  assert.equal(loadProgress(target).records.tone.normal.runs, 0);
-  resetProgress(target);
-  assert.deepEqual(loadProgress(target), emptyProgress());
-  assert.equal(target.data.has('two-doors-survival-v2'), false);
-  assert.equal(target.data.has('two-doors-typed-survival-v1'), false);
-});
-
-test('retired preview records cannot return after cleanup or reset', () => {
-  const previous = emptyProgress();
-  previous.records.tone.easy.runs = 3;
-  const target = storage({ 'soundbound-v1': previous });
-  assert.equal(loadProgress(target).records.tone.easy.runs, 0);
-  assert.equal(target.data.has('soundbound-v1'), false);
+test('reset clears current records and preferences', () => {
+  const current = emptyProgress();
+  current.settings.toneVariant = 'hard';
+  current.records.tone.normal.runs = 8;
+  const target = storage({ [PROGRESS_KEY]: current });
   resetProgress(target);
   assert.deepEqual(loadProgress(target), emptyProgress());
 });
 
-test('old ungrouped Skyrail scores are discarded and new difficulty records save independently', () => {
-  const old = emptyProgress();
-  old.version = 1;
-  old.records.tide = {
-    spelling: { runs: 9, wins: 2, best: 100, fewest: 1 },
-    full: { runs: 2, wins: 0, best: 42, fewest: null },
-  };
-  const target = storage({ [PROGRESS_KEY]: old }),
-    progress = loadProgress(target);
-  assert.equal(progress.previousSkyrail, undefined);
-  assert.equal(progress.records.tide.spelling.normal.runs, 0);
-  assert.deepEqual(loadProgress(target), progress);
+test('unsupported save versions start fresh', () => {
+  for (const version of [undefined, 1, 2, 4]) {
+    const previous = emptyProgress();
+    previous.version = version;
+    previous.records.tone.easy.runs = 3;
+    assert.deepEqual(loadProgress(storage({ [PROGRESS_KEY]: previous })), emptyProgress());
+  }
+});
+
+test('Skyrail difficulty records save independently', () => {
+  const target = storage(),
+    progress = emptyProgress();
   const run = createRun(
     { challenge: 'tide', variant: 'full', difficulty: 'extreme' },
     [

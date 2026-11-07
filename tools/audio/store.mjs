@@ -9,17 +9,6 @@ export async function readImportState(paths) {
   const review = await readJSON(paths.review, { version: 1, excluded: [] });
   if (review.version !== 1 || !Array.isArray(review.excluded))
     throw Error('Invalid import-review.json schema.');
-  // Preserve decisions in an older checkout's ignored cache when upgrading.
-  const cache = await readJSON(paths.state, {});
-  if (Array.isArray(cache.excluded)) {
-    for (const row of cache.excluded) {
-      if (!review.excluded.some((existing) => existing.title === row.title))
-        review.excluded.push(row);
-    }
-    await atomicJSON(paths.review, review);
-    delete cache.excluded;
-    await atomicJSON(paths.state, cache);
-  }
   const hashes = new Set();
   for (const row of content) {
     try {
