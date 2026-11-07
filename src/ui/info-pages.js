@@ -237,46 +237,10 @@ export function soundPageMarkup(anchors, toneDefinitions, recordings = []) {
         initial.
       </p>
       <p>
-        Five pairs differ in <b>aspiration</b>, the release of a noticeable puff of air. This
-        distinction is important even if your other languages use the same letters differently.
+        Many initials may feel familiar from English, such as <b>m, n, f, s, h, l</b> and <b>w</b>.
+        Start with the sounds you recognise, then listen more closely to the spellings below.
       </p>
-      <div class="guide-table">
-        <table>
-          <caption>
-            Initial pairs
-          </caption>
-          <thead>
-            <tr>
-              <th scope="col">Unaspirated</th>
-              <th scope="col">Aspirated</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${[
-              ['b', 'p'],
-              ['d', 't'],
-              ['g', 'k'],
-              ['z', 'c'],
-              ['gw', 'kw'],
-            ]
-              .map(
-                ([a, b]) =>
-                  /* HTML */ `<tr>
-                    <td><b>${a}</b></td>
-                    <td><b>${b}</b></td>
-                  </tr>`,
-              )
-              .join('')}
-          </tbody>
-        </table>
-      </div>
-      <p>
-        Compare <b>baa1</b> (<span lang="zh-Hant">巴</span>) and <b>paa1</b> (<span lang="zh-Hant"
-          >趴</span
-        >). Listen for the puff of air in <b>p</b>.
-      </p>
-      ${wordExamples(recordings, ['baa1', 'paa1'], 'Compare unaspirated b and aspirated p')}
-      <p>The other initials are <b>m, n, ng, f, s, h, l, w, j</b>.</p>
+      <h3>Spellings to listen for</h3>
       <dl class="spelling-notes">
         <div>
           <dt>j</dt>
@@ -286,10 +250,19 @@ export function soundPageMarkup(anchors, toneDefinitions, recordings = []) {
           </dd>
         </div>
         <div>
+          <dt>ng</dt>
+          <dd>
+            In an English comparison, this is the nasal sound at the end of <i>sing</i>. In
+            Cantonese it can also begin a syllable, as in <b>ngo5</b> (<span lang="zh-Hant">我</span
+            >, I). It is also found at the end of finals such as <b>ong</b>.
+          </dd>
+        </div>
+        <div>
           <dt>z / c</dt>
           <dd>
             These begin with a brief closure followed by an s-like sound, pronounced as one initial.
-            They form an unaspirated/aspirated pair. Use the
+            As an English approximation, think of the <b>ts</b> in <i>cats</i>, used at the start of
+            a syllable. <b>c</b> has a stronger puff of air. Use the
             <a
               href="https://opencantonese.org/books/cantonese-life-1/pronunciation-guide/pronunciation-lesson-2/3-the-initial-pair-z-and-c"
               target="_blank"
@@ -299,14 +272,57 @@ export function soundPageMarkup(anchors, toneDefinitions, recordings = []) {
             to hear the contrast.
           </dd>
         </div>
-        <div>
-          <dt>ng</dt>
-          <dd>
-            This nasal can begin a syllable, as in <b>ngo5</b> (<span lang="zh-Hant">我</span>, I).
-            It is also found at the end of finals such as <b>ong</b>.
-          </dd>
-        </div>
       </dl>
+      <h3>Listen to the pairs</h3>
+      <p>
+        The initials <b>b/p, d/t, g/k, gw/kw</b> and <b>z/c</b> form five pairs. The second sound in
+        each pair has a stronger puff of air.
+      </p>
+      <p>
+        Compare <b>baa1</b> (<span lang="zh-Hant">巴</span>) and <b>paa1</b> (<span lang="zh-Hant"
+          >趴</span
+        >). Listen for the puff of air in <b>p</b>. If the difference already feels natural, move
+        on.
+      </p>
+      ${wordExamples(recordings, ['baa1', 'paa1'], 'Compare b and p: listen for the puff of air')}
+      <details class="guide-detail">
+        <summary>All five pairs and the term “aspiration”</summary>
+        <p>
+          <b>Aspiration</b> is the release of a noticeable puff of air. The five pairs differ in
+          aspiration: the first sound is unaspirated and the second is aspirated. This distinction
+          matters even if your other languages use the same letters differently.
+        </p>
+        <div class="guide-table">
+          <table>
+            <caption>
+              Initial pairs
+            </caption>
+            <thead>
+              <tr>
+                <th scope="col">Unaspirated</th>
+                <th scope="col">Aspirated</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${[
+                ['b', 'p'],
+                ['d', 't'],
+                ['g', 'k'],
+                ['z', 'c'],
+                ['gw', 'kw'],
+              ]
+                .map(
+                  ([a, b]) =>
+                    /* HTML */ `<tr>
+                      <td><b>${a}</b></td>
+                      <td><b>${b}</b></td>
+                    </tr>`,
+                )
+                .join('')}
+            </tbody>
+          </table>
+        </div>
+      </details>
       <p class="small">
         For recordings and articulation instructions, see
         <a
