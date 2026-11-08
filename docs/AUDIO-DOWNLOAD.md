@@ -13,6 +13,13 @@ The downloader resumes `data/audio/review-queue.json`, skips recordings already 
 
 Requests identify Tone Tower and its project URL. The client maintains separate pacing and cooldowns for the Commons metadata API and the media host. After HTTP 429 or 503, it honors a valid `Retry-After` value, increases request spacing up to 60 seconds, and saves that spacing across restarts. Missing or invalid retry headers use exponential backoff. After sustained successful requests, spacing decreases gradually toward two seconds. Logs identify the host and HTTP status; `audio:status` shows saved spacing and cooldowns. This aims to reduce repeated throttling; faster throughput depends on the server and must be measured.
 
+Saving progress retries temporary `EPERM`, `EACCES` and `EBUSY` rename failures
+for up to about 4.6 seconds. This handles brief Windows file locks without deleting
+the existing inventory. If a lock persists, the downloader stops with the error;
+previously saved imports remain intact and the unsaved item is retried on resume.
+Close programs holding the named file open, then run `npm run audio:download`
+again. Do not delete `content.json` to work around a save error.
+
 **To stop, press Ctrl+C and wait for the stopped message.** Completed imports are retained. Run the same command to resume. The downloader, direct importer, discovery, and registry synchronization share one operation lock. Stop the current operation before starting another; `audio:status` is read-only and can run at any time.
 
 ## Use newly downloaded recordings
