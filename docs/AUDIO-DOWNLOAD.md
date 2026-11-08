@@ -11,6 +11,8 @@ Use the same npm command on Windows, macOS and Linux. No Codex session is needed
 
 The downloader resumes `data/audio/review-queue.json`, skips recordings already saved with their MP3s, saves each completed import, honors Commons cooldowns, and retries temporary network failures. A cooldown can last several minutes. It stops when the queue is complete. Permanent errors are reported rather than retried indefinitely.
 
+Requests identify Tone Tower and its project URL. The client maintains separate pacing and cooldowns for the Commons metadata API and the media host. After HTTP 429 or 503, it honors a valid `Retry-After` value, increases request spacing up to 60 seconds, and saves that spacing across restarts. Missing or invalid retry headers use exponential backoff. After sustained successful requests, spacing decreases gradually toward two seconds. Logs identify the host and HTTP status; `audio:status` shows saved spacing and cooldowns. This aims to reduce repeated throttling; faster throughput depends on the server and must be measured.
+
 **To stop, press Ctrl+C and wait for the stopped message.** Completed imports are retained. Run the same command to resume. The downloader, direct importer, discovery, and registry synchronization share one operation lock. Stop the current operation before starting another; `audio:status` is read-only and can run at any time.
 
 ## Use newly downloaded recordings
@@ -23,6 +25,12 @@ npm start
 ```
 
 `audio:sync` explicitly updates the stable word registry. Ordinary catalog generation, development startup, and production builds do not modify versioned metadata. If the registry is out of date, they explain that synchronization is required.
+
+The current selected queue is complete when status reports zero remaining. Running
+`audio:download` again then skips every completed recording and exits; discovering
+more files does not automatically expand the selected queue. After new vocabulary
+is selected, the same command resumes it. See the [catalog reference](AUDIO-CATALOG.md)
+for refreshing sourced word metadata with `npm run audio:metadata`.
 
 For a release, run:
 
@@ -42,7 +50,7 @@ Commit `data/audio/` and the matching new MP3s in `audio/` together. Do not comm
 - `data/audio/corrections.json`: manual corrections, separate from imports.
 - `data/audio/review-queue.json`: the selected queue; dictionary matching does not mean independent listening review.
 - `data/audio/import-review.json`: permanent rejection reasons. Correct the cause and remove the relevant entry to retry a rejected item.
-- `.audio-import-cache/state.json`: disposable API metadata and the shared Commons cooldown.
+- `.audio-import-cache/state.json`: disposable API metadata, cooldowns and request pacing.
 - `.audio-import-cache/downloader.log`: download progress log.
 
 Keep the cache to preserve the current cooldown and avoid repeat API requests. Deleting it does not discard completed imports or permanent review decisions.

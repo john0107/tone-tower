@@ -63,18 +63,44 @@ word fields are `character`, `jyutping`, `gloss`, `syllables`, `dictionarySource
 aligned syllables too. Tone digits must agree with the syllable tones. Update
 dictionary attribution when adapting information from another source.
 
-For optional future classification, a word can have metadata such as:
+## Sourced metadata
 
-```json
-{
-  "tags": ["greeting"],
-  "frequency": { "band": "common", "source": "name of reference" },
-  "learningLevel": "beginner"
-}
+`words.json` stores exact written-form counts and ranks from the public-domain
+[words.hk corpus frequency data](https://words.hk/faiman/analysis/existingwordcount/).
+Each matched word's `metadata.frequency` records its `writtenForm`, `count`, `rank`,
+source URL, source snapshot SHA-256 and `scope: "written-form"`. Ranks use all terms
+in the supplied source, including Latin and numeric entries. Ties share competition
+rank (for example 1, 1, 3). No frequency value is added for an unmatched spelling.
+
+The source counts occurrences without word segmentation. Single characters may
+be counted inside compounds, and homographs share counts across readings. These
+are corpus counts, not spoken-language frequencies, pronunciation-specific counts
+or learning difficulty labels. Missing matches mean unknown, not rare.
+
+To enrich the synchronized registry, stop downloads and run:
+
+```sh
+curl -L --fail https://words.hk/faiman/analysis/existingwordcount.json -o .audio-import-cache/word-frequency-source.json
+npm run audio:metadata
+npm run catalog
 ```
 
-Metadata is optional and has no effect on current difficulty. Missing values mean
-unclassified, not easy or rare. Frequency and learning level remain independent.
+The source file stays in the ignored cache; enriched metadata is committed in
+`words.json`. Use `npm run audio:metadata -- --frequency-file path/to/source.json`
+for a saved snapshot. The update preserves word IDs, recording links, unrelated
+metadata and independently sourced frequency metadata. It uses the audio operation
+lock and rejects an unsynchronized registry. Repeat it after adding new words.
+
+Catalog generation also derives `metadata.phonetics.syllableCount` and
+`metadata.phonetics.tonePattern` from the current aligned syllables, after manual
+corrections. These values stay current when a reading is corrected. A spelling
+correction suppresses an obsolete frequency match until metadata is refreshed for
+that spelling. The metadata command uses corrected spellings for matching without
+changing the registry's original labels or stable IDs.
+
+No topic tags, frequency bands or learning levels are inferred. Metadata currently
+has no effect on game selection or difficulty; it is available in the published
+catalog for later filtering and analysis.
 
 ## Correcting one recording
 

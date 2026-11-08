@@ -38,4 +38,12 @@ console.log(
   'Commons cooldown:',
   cache.retryAfter > Date.now() ? new Date(cache.retryAfter).toISOString() : 'none',
 );
+for (const [host, state] of Object.entries(cache.hosts || {})) {
+  console.log(
+    host + ':',
+    'request spacing ' + state.intervalMs / 1000 + ' s;',
+    'cooldown ' +
+      (state.retryAfter > Date.now() ? new Date(state.retryAfter).toISOString() : 'none'),
+  );
+}
 console.log('CSV export: npm run audio:export');

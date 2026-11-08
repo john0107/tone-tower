@@ -33,6 +33,14 @@ selected or adapted to identify the intended word, and readings are aligned to
 the game's syllables. Those adaptations retain the applicable share-alike terms.
 Manual corrections are recorded separately in data/audio/corrections.json.
 
+## Corpus frequency metadata
+
+Written-form frequency counts are from words.hk's corpus word-frequency data:
+https://words.hk/faiman/analysis/existingwordcount/
+The source declares these counts public domain. Source URLs and snapshot checksums
+are retained with the derived ranks. These counts are independent of the words.hk
+dictionary's separate licence.
+
 ## Fonts
 
 DM Sans is distributed under its bundled SIL Open Font License notice,

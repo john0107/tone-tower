@@ -3,6 +3,7 @@ import { atomicJSON, atomicText, readJSON } from '../lib/json.mjs';
 import { audioPaths } from '../audio/paths.mjs';
 import { withAudioLock } from '../audio/lock.mjs';
 import path from 'node:path';
+import { withPhoneticMetadata } from './word-metadata.mjs';
 
 const WORD_FIELDS = [
   'character',
@@ -185,7 +186,7 @@ export function assembleCatalog(imported, registry, corrections = emptyCorrectio
   const usedWords = new Set(recordings.map((row) => row.wordId));
   return {
     version: 1,
-    words: [...words.values()].filter((word) => usedWords.has(word.id)),
+    words: [...words.values()].filter((word) => usedWords.has(word.id)).map(withPhoneticMetadata),
     recordings,
   };
 }
