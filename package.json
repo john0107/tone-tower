@@ -15,7 +15,7 @@
     "check:dist": "node tools/publishing/check.mjs",
     "test": "node --test tests/game/*.test.js",
     "test:tooling": "node --test tests/tooling/*.test.js",
-    "test:all": "node --test",
+    "test:all": "node --test tests/game/*.test.js tests/tooling/*.test.js",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "audio:download": "node tools/audio/download.mjs",
@@ -26,9 +26,11 @@
     "audio:sync": "node tools/catalog/sync.mjs",
     "audio:metadata": "node tools/catalog/metadata.mjs",
     "audio:status": "node tools/audio/status.mjs",
-    "audio:export": "node tools/audio/import-curated.mjs --export-only"
+    "audio:export": "node tools/audio/import-curated.mjs --export-only",
+    "test:browser": "playwright test"
   },
   "devDependencies": {
+    "@playwright/test": "^1.65.0",
     "prettier": "3.9.10"
   }
 }

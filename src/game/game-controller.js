@@ -223,6 +223,7 @@ export function createGameController({
               : phase;
   }
   function instruction() {
+    if (entryVisual) return 'Entering the tower… The first sound follows the opening.';
     if (phase === 'review')
       return run.lastFailure === 'timeout'
         ? 'Time’s up. Compare the answer below.'
@@ -772,10 +773,10 @@ export function createGameController({
         ${runConclusion()}
         <div class="feedback-zone"></div>
         <div class="game-actions">
-          ${!run.config.practice && !isTide() && phase === 'review' && run.status === 'playing' ? '<button class="quiet" id="practise-mistakes" type="button">End run & practise these mistakes</button>' : ''}${run.config.practice && run.status === 'playing' ? '<button class="quiet" id="finish-practice" type="button">Finish practice</button>' : ''}
+          ${run.config.practice && run.status === 'playing' ? '<button class="quiet" id="finish-practice" type="button">Finish practice</button>' : ''}
         </div>
         <p id="audio-status" class="game-message sr-only" role="status">
-          ${phase === 'listening' ? 'Listening…' : audioFailed ? 'Replay to retry the recording.' : ''}
+          ${entryVisual ? 'Entering the tower…' : phase === 'listening' ? 'Listening…' : audioFailed ? 'Replay to retry the recording.' : ''}
         </p>
         <div id="audio-error" class="error" role="alert"></div>
         <p class="small keyboard">
@@ -911,11 +912,6 @@ export function createGameController({
     q('#finish-paused-practice')?.addEventListener('click', finishPractice);
     q('#reveal-answer')?.addEventListener('click', () => fail('reveal'));
     q('#replace-recording')?.addEventListener('click', replace);
-    q('#practise-mistakes')?.addEventListener('click', () => {
-      const previous = run;
-      dispose();
-      onPractice(previous);
-    });
     q('#game-learn')?.addEventListener('click', () => {
       run.markAssisted();
       pause('dialog');
@@ -1001,7 +997,12 @@ export function createGameController({
     }
   }
   function replay() {
-    if (!active || paused || dialog?.open) return;
+    if (!active || paused || dialog?.open || doc?.hidden) return;
+    if (entryVisual) {
+      cancelAuto();
+      entryVisual = false;
+      render({ focus: false });
+    }
     if (['listening', 'answering'].includes(phase)) {
       playPrompt();
       return;
@@ -1013,6 +1014,18 @@ export function createGameController({
         if (error) error.textContent = 'This recording could not play. You can still continue.';
       }
     });
+  }
+  function playOpening() {
+    cancelAuto();
+    const own = generation;
+    // The entrance takes 1.8s. Leave a short beat before the first recording.
+    auto = later(() => {
+      auto = null;
+      if (!active || paused || own !== generation) return;
+      entryVisual = false;
+      render({ focus: false });
+      playPrompt();
+    }, 2000);
   }
   function beginPrompt() {
     cancelAuto();
@@ -1028,8 +1041,8 @@ export function createGameController({
     answeredPosition = run.opened + 1;
     render();
     player.preload?.([run.word.audio]);
-    // The entrance is decorative; playback starts in the user's start gesture.
     if (doc?.hidden || dialog?.open) pause(doc?.hidden ? 'hidden' : 'dialog');
+    else if (entryVisual) playOpening();
     else playPrompt();
   }
   function choose(value) {
@@ -1199,7 +1212,8 @@ export function createGameController({
     if (restoreFocus) q('#' + restoreFocus)?.focus();
     else if (isTide()) q('#jyutping-answer')?.focus();
     if (['listening', 'answering'].includes(phase)) {
-      if (!audioReady) playPrompt();
+      if (entryVisual) playOpening();
+      else if (!audioReady) playPrompt();
       else if (!audioFailed) clock.resume();
       enableAnswers();
     } else if (towerStop() && !towerReady) unlockTowerStop();

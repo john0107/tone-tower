@@ -59,12 +59,17 @@ To resume downloads, run `npm run audio:download`. After downloading stops, run 
 ```sh
 npm test                # Game tests; no FFmpeg required
 npm run test:tooling    # Content and tooling tests; FFmpeg + FFprobe required
-npm run test:all        # All tests, also run in CI
+npm run test:all        # Game + tooling tests, also run in CI
+npm run test:browser    # Optional desktop + phone browser smoke checks
 npm run format:check    # Consistent source formatting
 npm run format          # Apply formatting
 ```
 
 Prettier is a development dependency only. CI installs the locked dependencies, checks formatting, runs all tests, builds the site, and verifies publication paths before deploying passing changes on `main` to GitHub Pages.
+
+For the browser smoke suite, install Chromium once with `npx playwright install chromium`, then run `npm run test:browser` before a release or after changing game controls or layout. It starts its own server and checks desktop (1280 × 800), phone (390 × 844) and small phone (360 × 640) layouts, including reduced viewport space for a phone keyboard. Tests use a small fixture catalog and simulated playback so downloads and speakers do not affect the results. Failure screenshots and traces go to `tone-tower-browser-results` in the operating system’s temporary directory. Use `npm run test:browser -- --project=phone --headed` to watch a run.
+
+These checks cover the main flows and layout regressions. A quick real-phone check of audio and the on-screen keyboard is still useful before publishing; viewport emulation cannot reproduce every mobile browser behavior. Browser checks stay separate from the fast game tests and existing CI workflow.
 
 ## Build and preview
 

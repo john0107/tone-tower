@@ -213,6 +213,7 @@ function harness(extra = {}, recordings = words) {
       app.querySelector(id).fire('click');
     },
     audio() {
+      if (!current) time.advance(2000);
       requests.at(-1).resolve();
     },
   };
@@ -452,6 +453,7 @@ test('switching runs rejects delayed audio callbacks from the previous prompt', 
   previous.resolve();
   await flush();
   assert.equal(h.controller.phase, 'listening');
+  assert.equal(h.requests.length, 1, 'The old callback cannot start the new recording');
   assert.equal(h.app.querySelector('[data-tone]').disabled, true);
   h.audio();
   await flush();
@@ -739,6 +741,7 @@ test('Tower checkpoints name the next district, restore lives and wait for Conti
 test('Tower audio failure uses the fixed notice and replacement never awards a floor', async () => {
   const h = harness();
   h.controller.start({ challenge: 'tone' });
+  h.click('#replay-word');
   h.requests.at(-1).reject(Error('offline'));
   await flush();
   assert.match(h.app.innerHTML, /Recording unavailable/);
@@ -873,65 +876,76 @@ test('Tower progress exposes the full height while Skyrail retains its journey r
   }
 });
 
-test('Tower starts playback immediately while its decorative entrance runs', async () => {
-  const originalMatchMedia = globalThis.matchMedia;
-  try {
-    for (const reduced of [false, true]) {
-      globalThis.matchMedia = () => ({ matches: reduced });
-      const updates = [],
-        h = harness({
-          animateWorld: (canvas) => {
-            canvas.getContext = () => ({});
-            return { canvas, update: (state) => updates.push({ ...state }), dispose() {} };
-          },
-        });
-      try {
-        h.controller.start({ challenge: 'tone', variant: 'normal' });
-        assert.equal(
-          h.requests.length,
-          1,
-          'Start plays the first recording without waiting for the entrance',
-        );
-        assert.equal(h.requests[0].path, h.controller.state.word.audio);
-        assert.equal(h.controller.phase, 'listening');
-        assert.ok(
-          updates.some((state) => state.entry),
-          'The entrance may still animate during playback',
-        );
-        assert.equal(h.time.pending, 0, 'No entrance delay blocks playback');
-        h.audio();
-        await flush();
-        assert.equal(h.controller.phase, 'answering');
-        assert.equal(h.app.querySelector('[data-tone]').disabled, false);
-        assert.equal(
-          updates.at(-1).entry,
-          false,
-          'Choices appear as soon as the recording finishes',
-        );
-        h.document.fire('keydown', {
-          key: String(h.controller.state.word.tone),
-          target: { tagName: 'BODY' },
-        });
-        h.time.advance(1700);
-        assert.equal(h.controller.phase, 'listening');
-        assert.equal(
-          h.requests.length,
-          2,
-          'The next recording starts immediately after the door crossing',
-        );
-        assert.equal(
-          updates.at(-1).entry,
-          false,
-          'A short first recording cannot replay the entrance on the next prompt',
-        );
-      } finally {
-        h.controller.dispose();
-      }
+test('Tower plays after the entrance and keeps the pace between floors', async () => {
+  const h = harness();
+  h.controller.start({ challenge: 'tone', variant: 'normal' });
+  assert.equal(h.controller.phase, 'listening');
+  assert.equal(h.app.querySelector('[data-tone]').disabled, true);
+  assert.match(h.app.innerHTML, /Entering the tower/);
+  h.time.advance(1999);
+  assert.equal(h.requests.length, 0);
+  h.time.advance(1);
+  assert.equal(h.requests.length, 1);
+  assert.equal(h.requests[0].path, h.controller.state.word.audio);
+  assert.doesNotMatch(h.app.innerHTML, /Entering the tower/);
+  h.audio();
+  await flush();
+  assert.equal(h.controller.phase, 'answering');
+  assert.equal(h.app.querySelector('[data-tone]').disabled, false);
+  h.document.fire('keydown', {
+    key: String(h.controller.state.word.tone),
+    target: { tagName: 'BODY' },
+  });
+  h.time.advance(1699);
+  assert.equal(h.controller.phase, 'correct');
+  h.time.advance(1);
+  assert.equal(h.controller.phase, 'listening');
+  assert.equal(h.requests.length, 2, 'The next sound follows the door crossing automatically');
+  h.controller.dispose();
+});
+
+test('pausing or leaving the Tower entrance cancels its pending audio', () => {
+  const h = harness();
+  h.controller.start({ challenge: 'tone' });
+  h.time.advance(1000);
+  h.controller.pause();
+  h.time.advance(60000);
+  assert.equal(h.requests.length, 0);
+  h.controller.resume();
+  h.time.advance(1999);
+  assert.equal(h.requests.length, 0);
+  h.time.advance(1);
+  assert.equal(h.requests.length, 1);
+  h.controller.start({ challenge: 'tone' });
+  h.controller.dispose();
+  h.time.advance(60000);
+  assert.equal(h.requests.length, 1);
+  assert.equal(h.time.pending, 0);
+});
+
+test('Tower offers missed-sound practice only after the run fails', async () => {
+  const h = harness();
+  h.controller.start({ challenge: 'tone', variant: 'hard' });
+  for (let miss = 1; miss <= 3; miss++) {
+    h.audio();
+    await flush();
+    h.document.fire('keydown', {
+      key: String(h.controller.state.choices.find((t) => t !== h.controller.state.word.tone)),
+      target: { tagName: 'BODY' },
+    });
+    assert.equal(h.app.querySelector('#practise-mistakes'), null);
+    if (miss < 3) {
+      assert.equal(h.app.querySelector('#ending-practice'), null);
+      assert.equal(h.controller.state.status, 'playing');
+      h.click('#continue-game');
     }
-  } finally {
-    if (originalMatchMedia === undefined) delete globalThis.matchMedia;
-    else globalThis.matchMedia = originalMatchMedia;
   }
+  assert.equal(h.controller.state.status, 'lost');
+  assert.ok(h.app.querySelector('#ending-practice'));
+  assert.equal(h.app.querySelector('#ending-practice').disabled, true);
+  h.time.advance(2800);
+  assert.equal(h.app.querySelector('#ending-practice').disabled, false);
+  h.controller.dispose();
 });
 
 test('practice uses its own starting scene with fixed progress and a finish action for either skill', async () => {

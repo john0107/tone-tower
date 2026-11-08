@@ -1906,7 +1906,7 @@ body.keyboard-open #app[data-world='tide'] .scene-frame:has(.rail-interlude) {
   }
 }
 
-/* Keep the spelling task above a phone keyboard; feedback actions retain their scene. */
+/* Keep the spelling task and a window onto the journey above a phone keyboard. */
 @media (max-width: 700px) {
   body.keyboard-open #app[data-world='tide'] .scene-status,
   body.keyboard-open #app[data-world='tide'] .rail-clock {
@@ -1969,12 +1969,23 @@ body.keyboard-open #app[data-world='tide'] .scene-frame:has(.rail-interlude) {
     min-height: 0;
     font-size: 15px;
   }
+  body.keyboard-open #app[data-world='tide'] .game-layout:not([data-landing='true']) .scene-frame {
+    grid-row: 3;
+    max-height: none;
+  }
   body.keyboard-open
     #app[data-world='tide']
-    .scene-frame:has(
-      .world-scene:is([data-phase='listening'], [data-phase='answering'], [data-phase='correct'])
-    ) {
-    display: none;
+    .world-scene:is([data-phase='listening'], [data-phase='answering'], [data-phase='correct']) {
+    height: clamp(88px, calc(var(--visual-height, 450px) * 0.24), 120px);
+    min-height: 88px;
+    aspect-ratio: auto;
+  }
+  body.keyboard-open
+    #app[data-world='tide']
+    .world-scene:is([data-phase='listening'], [data-phase='answering'], [data-phase='correct'])
+    .world-canvas {
+    object-fit: cover;
+    object-position: center bottom;
   }
   body.keyboard-open
     #app[data-world='tide']
@@ -1993,6 +2004,7 @@ body.keyboard-open #app[data-world='tide'] .scene-frame:has(.rail-interlude) {
     font-size: 12px;
   }
   body.keyboard-open #app[data-world='tide'] .typing-slot {
+    grid-row: 4;
     padding: 7px 10px;
   }
   body.keyboard-open #app[data-world='tide'] .form-controls > label {
