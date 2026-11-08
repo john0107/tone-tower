@@ -979,7 +979,14 @@ function updateKeyboardViewport() {
   const typing = screen === 'game' && input?.id === 'jyutping-answer';
   document.body.classList.toggle(
     'keyboard-open',
-    Boolean(typing && viewport && window.innerHeight - viewport.height > 110),
+    Boolean(
+      typing &&
+      viewport &&
+      viewport.width <= 700 &&
+      (Math.max(window.innerHeight, document.documentElement.clientHeight) - viewport.height >
+        110 ||
+        viewport.height < 540),
+    ),
   );
   if (viewport)
     document.documentElement.style.setProperty('--visual-height', viewport.height + 'px');

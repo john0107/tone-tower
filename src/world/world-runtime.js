@@ -4,6 +4,9 @@ import { createRailJourney } from './rail-journey.js';
 import { createTowerJourney } from './tower-journey.js';
 import { sceneMotion } from './world-motion.js';
 import { drawWorld, destinations } from './pixel-world.js';
+// Preserve scene dimensions when a run restarts on the same mounted canvas.
+const canvasSizes = new WeakMap();
+
 export function animateWorld(canvas, initial = {}) {
   if (
     !canvas ||
@@ -13,8 +16,11 @@ export function animateWorld(canvas, initial = {}) {
     return { update() {}, dispose() {}, canvas };
   const ctx = canvas.getContext('2d');
   if (!ctx) return { update() {}, dispose() {}, canvas };
-  const logicalWidth = canvas.width,
-    logicalHeight = canvas.height;
+  const { width: logicalWidth, height: logicalHeight } = canvasSizes.get(canvas) ?? {
+    width: canvas.width,
+    height: canvas.height,
+  };
+  canvasSizes.set(canvas, { width: logicalWidth, height: logicalHeight });
   canvas.width = logicalWidth * 2;
   canvas.height = logicalHeight * 2;
   ctx.setTransform(2, 0, 0, 2, 0, 0);

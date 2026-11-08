@@ -2157,3 +2157,62 @@ input[type='number'] {
 .site-footer {
   justify-content: space-between;
 }
+
+/* Stacked setup panels size to their content; the desktop map keeps its proportions. */
+@media (max-width: 850px) {
+  .home-world .home-map-layout > .dock,
+  .home-world .home-map-layout .title-variants {
+    min-height: 0;
+  }
+  .home-world .home-map-layout .title-variants {
+    align-items: flex-start;
+  }
+  .home-world .home-map-layout .map-entry {
+    margin-top: 0;
+  }
+}
+@media (max-width: 700px) {
+  .jyutping-intro {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+  }
+  .jyutping-intro .syllable-parts {
+    width: 100%;
+    min-width: 0;
+    gap: clamp(5px, 2vw, 13px);
+    justify-content: space-between;
+  }
+  .syllable-parts > span {
+    min-width: 0;
+  }
+  .jyutping-intro .hear-example {
+    min-height: 44px;
+  }
+  .mode-picker-heading p {
+    display: none;
+  }
+  .home-world .home-map-layout .rail-difficulty-options {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: 100%;
+    gap: 8px;
+  }
+  .setup-tabs button,
+  .home-world .home-map-layout .title-variants button,
+  .practice-setup select {
+    min-height: 44px;
+  }
+  .practice-setup select {
+    font-size: 16px;
+  }
+  .practice-setup .practice-spelling-options .practice-tone-toggle {
+    min-height: 44px;
+    line-height: 1.4;
+  }
+}
+@media (max-width: 380px) {
+  .practice-setup {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

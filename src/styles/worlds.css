@@ -1905,3 +1905,106 @@ body.keyboard-open #app[data-world='tide'] .scene-frame:has(.rail-interlude) {
     height: 8px;
   }
 }
+
+/* Keep the spelling task above a phone keyboard; feedback actions retain their scene. */
+@media (max-width: 700px) {
+  body.keyboard-open #app[data-world='tide'] .scene-status,
+  body.keyboard-open #app[data-world='tide'] .rail-clock {
+    position: static !important;
+    width: auto !important;
+    height: auto !important;
+    overflow: visible;
+    clip-path: none;
+  }
+  body.keyboard-open #app[data-world='tide'] .rail-clock {
+    min-width: 46px;
+    padding-left: 7px;
+  }
+  body.keyboard-open #app[data-world='tide']:not([data-practice='true']) .game-progress {
+    display: none;
+  }
+  body.keyboard-open #app[data-world='tide'] #pause-run {
+    margin-left: 0;
+    min-width: 44px;
+    min-height: 44px;
+  }
+  body.keyboard-open #app {
+    min-height: 0;
+    padding-bottom: 8px;
+  }
+  body.keyboard-open #app[data-world='tide'] .game-layout {
+    margin-block: 5px;
+  }
+  body.keyboard-open #app[data-world='tide'] .game-hud {
+    padding: 4px 9px;
+    min-height: 38px;
+  }
+  body.keyboard-open #app[data-world='tide'] .run-title .eyebrow,
+  body.keyboard-open #app[data-world='tide'] .prompt-actions kbd,
+  body.keyboard-open #app[data-world='tide'] .typing-slot .small {
+    display: none;
+  }
+  body.keyboard-open #app[data-world='tide'] .scene-question {
+    padding: 6px 10px;
+    gap: 4px 8px;
+  }
+  body.keyboard-open #app[data-world='tide'] .rail-feedback {
+    height: auto;
+    min-height: 24px;
+    padding-bottom: 4px;
+    font-size: 11px;
+  }
+  body.keyboard-open #app[data-world='tide'] .prompt-syllables {
+    min-height: 0;
+    gap: 3px;
+  }
+  body.keyboard-open #app[data-world='tide'] .prompt-syllable {
+    min-width: 32px;
+    padding: 11px 5px 2px;
+  }
+  body.keyboard-open #app[data-world='tide'] .prompt-character {
+    font-size: 28px;
+  }
+  body.keyboard-open #app[data-world='tide'] .prompt-romanization {
+    min-height: 0;
+    font-size: 15px;
+  }
+  body.keyboard-open
+    #app[data-world='tide']
+    .scene-frame:has(
+      .world-scene:is([data-phase='listening'], [data-phase='answering'], [data-phase='correct'])
+    ) {
+    display: none;
+  }
+  body.keyboard-open
+    #app[data-world='tide']
+    .scene-question:has(
+      ~ .scene-frame .world-scene:is([data-phase='listening'], [data-phase='answering'])
+    )
+    .prompt-romanization {
+    display: none;
+  }
+  body.keyboard-open #app[data-world='tide'] .prompt-gloss {
+    margin-top: 3px;
+    font-size: 11px;
+  }
+  body.keyboard-open #app[data-world='tide'] .prompt-actions .secondary {
+    min-height: 44px;
+    font-size: 12px;
+  }
+  body.keyboard-open #app[data-world='tide'] .typing-slot {
+    padding: 7px 10px;
+  }
+  body.keyboard-open #app[data-world='tide'] .form-controls > label {
+    font-size: 11px;
+    margin-bottom: 4px;
+  }
+  body.keyboard-open #app[data-world='tide'] #input-status {
+    height: auto;
+    min-height: 0;
+    overflow: visible;
+  }
+  body.keyboard-open #app[data-world='tide'] .game-panel:has(.game-actions:empty) {
+    display: none;
+  }
+}
