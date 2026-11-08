@@ -31284,5 +31284,2606 @@
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
     "originalSha1": "bd6980ebf070f79114f70106f59b3baf59802442",
     "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-浪漫.wav",
+    "character": "浪漫",
+    "jyutping": "long6 maan6",
+    "gloss": "romance",
+    "syllables": [
+      {
+        "character": "浪",
+        "jyutping": "long6",
+        "tone": 6
+      },
+      {
+        "character": "漫",
+        "jyutping": "maan6",
+        "tone": 6
+      }
+    ],
+    "pageid": 90442977,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "id": "commons-90442977",
+    "audio": "audio/commons-90442977.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E6%B5%AA%E6%BC%AB.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "9f90b4de9ba12b360a66d4815c38ed194d64ac07",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Justinrleung-書包.wav",
+    "character": "書包",
+    "jyutping": "syu1 baau1",
+    "gloss": "(noun) Backpack (of students for carrying textbooks)",
+    "syllables": [
+      {
+        "character": "書",
+        "jyutping": "syu1",
+        "tone": 1
+      },
+      {
+        "character": "包",
+        "jyutping": "baau1",
+        "tone": 1
+      }
+    ],
+    "pageid": 149277137,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "id": "commons-149277137",
+    "audio": "audio/commons-149277137.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Justinrleung-%E6%9B%B8%E5%8C%85.wav",
+    "author": "Speaker: Justinrleung\nRecorder: Justinrleung",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "6c1014f5ac19c572bea8a2a7633b6f3979c2938e",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-勿.wav",
+    "character": "勿",
+    "jyutping": "mat6",
+    "gloss": "do not",
+    "syllables": [
+      {
+        "character": "勿",
+        "jyutping": "mat6",
+        "tone": 6
+      }
+    ],
+    "pageid": 90487091,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "id": "commons-90487091",
+    "audio": "audio/commons-90487091.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E5%8B%BF.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "d02c977eac0e2c8f2645ac74e32ab2be273fab4c",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Justinrleung-東方.wav",
+    "character": "東方",
+    "jyutping": "dung1 fong1",
+    "gloss": "oriental",
+    "syllables": [
+      {
+        "character": "東",
+        "jyutping": "dung1",
+        "tone": 1
+      },
+      {
+        "character": "方",
+        "jyutping": "fong1",
+        "tone": 1
+      }
+    ],
+    "pageid": 149277189,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "id": "commons-149277189",
+    "audio": "audio/commons-149277189.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Justinrleung-%E6%9D%B1%E6%96%B9.wav",
+    "author": "Speaker: Justinrleung\nRecorder: Justinrleung",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "e68b68cd66aef734506ea0bdea55a11c9e49ddab",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-利害.wav",
+    "character": "利害",
+    "jyutping": "lei6 hoi6",
+    "gloss": "benefits and shortfalls",
+    "syllables": [
+      {
+        "character": "利",
+        "jyutping": "lei6",
+        "tone": 6
+      },
+      {
+        "character": "害",
+        "jyutping": "hoi6",
+        "tone": 6
+      }
+    ],
+    "pageid": 90557300,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "id": "commons-90557300",
+    "audio": "audio/commons-90557300.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E5%88%A9%E5%AE%B3.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "7e05ce640bd3d88efc0867785e374035df6e8513",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Justinrleung-東西.wav",
+    "character": "東西",
+    "jyutping": "dung1 sai1",
+    "gloss": "thing; item",
+    "syllables": [
+      {
+        "character": "東",
+        "jyutping": "dung1",
+        "tone": 1
+      },
+      {
+        "character": "西",
+        "jyutping": "sai1",
+        "tone": 1
+      }
+    ],
+    "pageid": 149277190,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "glossSource": "Gloss adapted with reference to CC-CEDICT (MDBG), CC BY-SA 4.0: https://www.mdbg.net/chinese/dictionary?page=cc-cedict",
+    "id": "commons-149277190",
+    "audio": "audio/commons-149277190.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Justinrleung-%E6%9D%B1%E8%A5%BF.wav",
+    "author": "Speaker: Justinrleung\nRecorder: Justinrleung",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "bd469e0df6c78f2421ffae781543ab1640b05445",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-命令.wav",
+    "character": "命令",
+    "jyutping": "ming6 ling6",
+    "gloss": "to order or command",
+    "syllables": [
+      {
+        "character": "命",
+        "jyutping": "ming6",
+        "tone": 6
+      },
+      {
+        "character": "令",
+        "jyutping": "ling6",
+        "tone": 6
+      }
+    ],
+    "pageid": 90571096,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "id": "commons-90571096",
+    "audio": "audio/commons-90571096.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E5%91%BD%E4%BB%A4.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "58480c598df8d5da8b2257989972d037f57d494d",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Justinrleung-冷衫.wav",
+    "character": "冷衫",
+    "jyutping": "laang1 saam1",
+    "gloss": "a sweater",
+    "syllables": [
+      {
+        "character": "冷",
+        "jyutping": "laang1",
+        "tone": 1
+      },
+      {
+        "character": "衫",
+        "jyutping": "saam1",
+        "tone": 1
+      }
+    ],
+    "pageid": 179112555,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "id": "commons-179112555",
+    "audio": "audio/commons-179112555.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Justinrleung-%E5%86%B7%E8%A1%AB.wav",
+    "author": "Speaker: Justinrleung\nRecorder: Justinrleung",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "35eb772d961fea1cd5a43bb58921a2b3d0ac3577",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-直.wav",
+    "character": "直",
+    "jyutping": "zik6",
+    "gloss": "straight",
+    "syllables": [
+      {
+        "character": "直",
+        "jyutping": "zik6",
+        "tone": 6
+      }
+    ],
+    "pageid": 90699629,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "glossSource": "Gloss adapted with reference to CC-CEDICT (MDBG), CC BY-SA 4.0: https://www.mdbg.net/chinese/dictionary?page=cc-cedict",
+    "id": "commons-90699629",
+    "audio": "audio/commons-90699629.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E7%9B%B4.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "7091db0bae072b07e21f2a5fda37022e44fab515",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Justinrleung-機.wav",
+    "character": "機",
+    "jyutping": "gei1",
+    "gloss": "(noun) device",
+    "syllables": [
+      {
+        "character": "機",
+        "jyutping": "gei1",
+        "tone": 1
+      }
+    ],
+    "pageid": 179112627,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "id": "commons-179112627",
+    "audio": "audio/commons-179112627.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Justinrleung-%E6%A9%9F.wav",
+    "author": "Speaker: Justinrleung\nRecorder: Justinrleung",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "1300793bbc81b73feabccf684ae381936b8960b7",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-硬.wav",
+    "character": "硬",
+    "jyutping": "ngaang6",
+    "gloss": "hard; stiff",
+    "syllables": [
+      {
+        "character": "硬",
+        "jyutping": "ngaang6",
+        "tone": 6
+      }
+    ],
+    "pageid": 90699822,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "glossSource": "Gloss adapted with reference to CC-CEDICT (MDBG), CC BY-SA 4.0: https://www.mdbg.net/chinese/dictionary?page=cc-cedict",
+    "id": "commons-90699822",
+    "audio": "audio/commons-90699822.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E7%A1%AC.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "6db576655231cdf80fbf2a28b556b7eb58b1d07d",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Justinrleung-烏蠅.wav",
+    "character": "烏蠅",
+    "jyutping": "wu1 jing1",
+    "gloss": "(noun) (insect) a fly",
+    "syllables": [
+      {
+        "character": "烏",
+        "jyutping": "wu1",
+        "tone": 1
+      },
+      {
+        "character": "蠅",
+        "jyutping": "jing1",
+        "tone": 1
+      }
+    ],
+    "pageid": 179112649,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "id": "commons-179112649",
+    "audio": "audio/commons-179112649.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Justinrleung-%E7%83%8F%E8%A0%85.wav",
+    "author": "Speaker: Justinrleung\nRecorder: Justinrleung",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "5cc5ae602efe21ef1c3ef3bba2845c877da03f36",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-瞎.wav",
+    "character": "瞎",
+    "jyutping": "hat6",
+    "gloss": "blind",
+    "syllables": [
+      {
+        "character": "瞎",
+        "jyutping": "hat6",
+        "tone": 6
+      }
+    ],
+    "pageid": 90699868,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "id": "commons-90699868",
+    "audio": "audio/commons-90699868.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E7%9E%8E.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "3687aadfab3b3061276b0a97ba29a98ab76b92c0",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-集合.wav",
+    "character": "集合",
+    "jyutping": "zaap6 hap6",
+    "gloss": "(noun) Gathering",
+    "syllables": [
+      {
+        "character": "集",
+        "jyutping": "zaap6",
+        "tone": 6
+      },
+      {
+        "character": "合",
+        "jyutping": "hap6",
+        "tone": 6
+      }
+    ],
+    "pageid": 90751132,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "id": "commons-90751132",
+    "audio": "audio/commons-90751132.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E9%9B%86%E5%90%88.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "dd9cd0e2925036126f6e8e1084192348c3117d20",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Justinrleung-甘.wav",
+    "character": "甘",
+    "jyutping": "gam1",
+    "gloss": "sweet",
+    "syllables": [
+      {
+        "character": "甘",
+        "jyutping": "gam1",
+        "tone": 1
+      }
+    ],
+    "pageid": 179112667,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "glossSource": "Gloss adapted with reference to CC-CEDICT (MDBG), CC BY-SA 4.0: https://www.mdbg.net/chinese/dictionary?page=cc-cedict",
+    "id": "commons-179112667",
+    "audio": "audio/commons-179112667.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Justinrleung-%E7%94%98.wav",
+    "author": "Speaker: Justinrleung\nRecorder: Justinrleung",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "653e0c51f8a38327aab2d8dfe92872cd77bd24bf",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Justinrleung-舒.wav",
+    "character": "舒",
+    "jyutping": "syu1",
+    "gloss": "to stretch",
+    "syllables": [
+      {
+        "character": "舒",
+        "jyutping": "syu1",
+        "tone": 1
+      }
+    ],
+    "pageid": 179112724,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "id": "commons-179112724",
+    "audio": "audio/commons-179112724.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Justinrleung-%E8%88%92.wav",
+    "author": "Speaker: Justinrleung\nRecorder: Justinrleung",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "3875f0cc69512c6c4f0e6ab8e4521a511da1bf0c",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-弱.wav",
+    "character": "弱",
+    "jyutping": "joek6",
+    "gloss": "(adjective) fragile",
+    "syllables": [
+      {
+        "character": "弱",
+        "jyutping": "joek6",
+        "tone": 6
+      }
+    ],
+    "pageid": 90751195,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "id": "commons-90751195",
+    "audio": "audio/commons-90751195.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E5%BC%B1.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "a98cdd94f3885f37385cd095616c112e02d9e0ca",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Justinrleung-關.wav",
+    "character": "關",
+    "jyutping": "gwaan1",
+    "gloss": "(noun) 1. gateway",
+    "syllables": [
+      {
+        "character": "關",
+        "jyutping": "gwaan1",
+        "tone": 1
+      }
+    ],
+    "pageid": 179112834,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "id": "commons-179112834",
+    "audio": "audio/commons-179112834.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Justinrleung-%E9%97%9C.wav",
+    "author": "Speaker: Justinrleung\nRecorder: Justinrleung",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "f49eeaf616fc2d05c1fbd3a23f0ac40279578fa0",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-摘.wav",
+    "character": "摘",
+    "jyutping": "zaak6",
+    "gloss": "to take",
+    "syllables": [
+      {
+        "character": "摘",
+        "jyutping": "zaak6",
+        "tone": 6
+      }
+    ],
+    "pageid": 90751230,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "id": "commons-90751230",
+    "audio": "audio/commons-90751230.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E6%91%98.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "dc594cffef7ed599b752f28aaf6c848068c39717",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Justinrleung-音.wav",
+    "character": "音",
+    "jyutping": "jam1",
+    "gloss": "sound",
+    "syllables": [
+      {
+        "character": "音",
+        "jyutping": "jam1",
+        "tone": 1
+      }
+    ],
+    "pageid": 179112853,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "id": "commons-179112853",
+    "audio": "audio/commons-179112853.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Justinrleung-%E9%9F%B3.wav",
+    "author": "Speaker: Justinrleung\nRecorder: Justinrleung",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "9ae13b9200697eda0faaa5b6f57a9855f1d1e827",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-薄.wav",
+    "character": "薄",
+    "jyutping": "bok6",
+    "gloss": "thin",
+    "syllables": [
+      {
+        "character": "薄",
+        "jyutping": "bok6",
+        "tone": 6
+      }
+    ],
+    "pageid": 90811319,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "glossSource": "Gloss adapted with reference to CC-CEDICT (MDBG), CC BY-SA 4.0: https://www.mdbg.net/chinese/dictionary?page=cc-cedict",
+    "id": "commons-90811319",
+    "audio": "audio/commons-90811319.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E8%96%84.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "7aec24f61c29d91c495c586525244ab53a0fab14",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-地道.wav",
+    "character": "地道",
+    "jyutping": "dei6 dou6",
+    "gloss": "local",
+    "syllables": [
+      {
+        "character": "地",
+        "jyutping": "dei6",
+        "tone": 6
+      },
+      {
+        "character": "道",
+        "jyutping": "dou6",
+        "tone": 6
+      }
+    ],
+    "pageid": 90811495,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "id": "commons-90811495",
+    "audio": "audio/commons-90811495.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E5%9C%B0%E9%81%93.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "6f65b95ede963b2f71b6b246d13c5bdc4f2291fa",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-一.wav",
+    "character": "一",
+    "jyutping": "jat1",
+    "gloss": "one",
+    "syllables": [
+      {
+        "character": "一",
+        "jyutping": "jat1",
+        "tone": 1
+      }
+    ],
+    "pageid": 90409904,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "id": "commons-90409904",
+    "audio": "audio/commons-90409904.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E4%B8%80.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "5d437cbaaa9969fea807cc2643237a4d687b8142",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-都.wav",
+    "character": "都",
+    "jyutping": "dou1",
+    "gloss": "all; both",
+    "syllables": [
+      {
+        "character": "都",
+        "jyutping": "dou1",
+        "tone": 1
+      }
+    ],
+    "pageid": 90409909,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "glossSource": "Gloss adapted with reference to CC-CEDICT (MDBG), CC BY-SA 4.0: https://www.mdbg.net/chinese/dictionary?page=cc-cedict",
+    "id": "commons-90409909",
+    "audio": "audio/commons-90409909.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E9%83%BD.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "9c6ee08a1a87ba3ab426edfaf28c1a5d26069861",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-系列.wav",
+    "character": "系列",
+    "jyutping": "hai6 lit6",
+    "gloss": "range",
+    "syllables": [
+      {
+        "character": "系",
+        "jyutping": "hai6",
+        "tone": 6
+      },
+      {
+        "character": "列",
+        "jyutping": "lit6",
+        "tone": 6
+      }
+    ],
+    "pageid": 90813296,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "id": "commons-90813296",
+    "audio": "audio/commons-90813296.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E7%B3%BB%E5%88%97.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "5ea4f912a719c37d4e4755c01570080abcaf9783",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-多.wav",
+    "character": "多",
+    "jyutping": "do1",
+    "gloss": "many",
+    "syllables": [
+      {
+        "character": "多",
+        "jyutping": "do1",
+        "tone": 1
+      }
+    ],
+    "pageid": 90409935,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "id": "commons-90409935",
+    "audio": "audio/commons-90409935.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E5%A4%9A.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "556575a57b6cc22512438c516227538ad85b269b",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-先生.wav",
+    "character": "先生",
+    "jyutping": "sin1 saang1",
+    "gloss": "(used before a man's family name) Mr.",
+    "syllables": [
+      {
+        "character": "先",
+        "jyutping": "sin1",
+        "tone": 1
+      },
+      {
+        "character": "生",
+        "jyutping": "saang1",
+        "tone": 1
+      }
+    ],
+    "pageid": 90409948,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "id": "commons-90409948",
+    "audio": "audio/commons-90409948.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E5%85%88%E7%94%9F.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "d190d1ee62d48375a84a41091825be1cad42ed65",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-跪.wav",
+    "character": "跪",
+    "jyutping": "gwai6",
+    "gloss": "to kneel",
+    "syllables": [
+      {
+        "character": "跪",
+        "jyutping": "gwai6",
+        "tone": 6
+      }
+    ],
+    "pageid": 90888901,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "glossSource": "Gloss adapted with reference to CC-CEDICT (MDBG), CC BY-SA 4.0: https://www.mdbg.net/chinese/dictionary?page=cc-cedict",
+    "id": "commons-90888901",
+    "audio": "audio/commons-90888901.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E8%B7%AA.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "e2a22e51487001e568f04a188cbc8edcda5d8f1b",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-亦.wav",
+    "character": "亦",
+    "jyutping": "jik6",
+    "gloss": "also",
+    "syllables": [
+      {
+        "character": "亦",
+        "jyutping": "jik6",
+        "tone": 6
+      }
+    ],
+    "pageid": 90889523,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "id": "commons-90889523",
+    "audio": "audio/commons-90889523.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E4%BA%A6.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "8a03087663425ab25354831f20ddb753126c5717",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-真.wav",
+    "character": "真",
+    "jyutping": "zan1",
+    "gloss": "really",
+    "syllables": [
+      {
+        "character": "真",
+        "jyutping": "zan1",
+        "tone": 1
+      }
+    ],
+    "pageid": 90413393,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "id": "commons-90413393",
+    "audio": "audio/commons-90413393.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E7%9C%9F.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "54aec980bae8a235c12c2103ca748ac92f546b0d",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-愈.wav",
+    "character": "愈",
+    "jyutping": "jyu6",
+    "gloss": "the more...(the more...)",
+    "syllables": [
+      {
+        "character": "愈",
+        "jyutping": "jyu6",
+        "tone": 6
+      }
+    ],
+    "pageid": 91986832,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "id": "commons-91986832",
+    "audio": "audio/commons-91986832.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E6%84%88.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "59ff0c0ebc92427752fa6180dc7456001146c653",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-出.wav",
+    "character": "出",
+    "jyutping": "ceot1",
+    "gloss": "(adjective) outside",
+    "syllables": [
+      {
+        "character": "出",
+        "jyutping": "ceot1",
+        "tone": 1
+      }
+    ],
+    "pageid": 90413450,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "id": "commons-90413450",
+    "audio": "audio/commons-90413450.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E5%87%BA.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "aa9f7613adbbcc99215c9dd4b488d252d4d4cfa6",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-翼.wav",
+    "character": "翼",
+    "jyutping": "jik6",
+    "gloss": "wing",
+    "syllables": [
+      {
+        "character": "翼",
+        "jyutping": "jik6",
+        "tone": 6
+      }
+    ],
+    "pageid": 91987070,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "glossSource": "Gloss adapted with reference to CC-CEDICT (MDBG), CC BY-SA 4.0: https://www.mdbg.net/chinese/dictionary?page=cc-cedict",
+    "id": "commons-91987070",
+    "audio": "audio/commons-91987070.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E7%BF%BC.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "548152607fc2d1e3702cf7e505b8b4e70bc1e355",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-新.wav",
+    "character": "新",
+    "jyutping": "san1",
+    "gloss": "new",
+    "syllables": [
+      {
+        "character": "新",
+        "jyutping": "san1",
+        "tone": 1
+      }
+    ],
+    "pageid": 90413490,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "id": "commons-90413490",
+    "audio": "audio/commons-90413490.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E6%96%B0.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "a3e01c7988950d943689975940055dd0e2e089f4",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-玉.wav",
+    "character": "玉",
+    "jyutping": "juk6",
+    "gloss": "jade",
+    "syllables": [
+      {
+        "character": "玉",
+        "jyutping": "juk6",
+        "tone": 6
+      }
+    ],
+    "pageid": 91987108,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "id": "commons-91987108",
+    "audio": "audio/commons-91987108.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E7%8E%89.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "0e6e07bca72fbc726556d0725372d923b543d52f",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-穿.wav",
+    "character": "穿",
+    "jyutping": "cyun1",
+    "gloss": "to bore through",
+    "syllables": [
+      {
+        "character": "穿",
+        "jyutping": "cyun1",
+        "tone": 1
+      }
+    ],
+    "pageid": 90413493,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "id": "commons-90413493",
+    "audio": "audio/commons-90413493.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E7%A9%BF.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "154fb935c3360d08e3e19408232305e1c648fbad",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-公司.wav",
+    "character": "公司",
+    "jyutping": "gung1 si1",
+    "gloss": "company",
+    "syllables": [
+      {
+        "character": "公",
+        "jyutping": "gung1",
+        "tone": 1
+      },
+      {
+        "character": "司",
+        "jyutping": "si1",
+        "tone": 1
+      }
+    ],
+    "pageid": 90413522,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "glossSource": "Gloss adapted with reference to CC-CEDICT (MDBG), CC BY-SA 4.0: https://www.mdbg.net/chinese/dictionary?page=cc-cedict",
+    "id": "commons-90413522",
+    "audio": "audio/commons-90413522.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E5%85%AC%E5%8F%B8.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "39ccd370960b1bcb4ecd1e8426ce265d4f0d5f97",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-高.wav",
+    "character": "高",
+    "jyutping": "gou1",
+    "gloss": "(adjective) 1. high (in rank)",
+    "syllables": [
+      {
+        "character": "高",
+        "jyutping": "gou1",
+        "tone": 1
+      }
+    ],
+    "pageid": 90413536,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "id": "commons-90413536",
+    "audio": "audio/commons-90413536.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E9%AB%98.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "7ccd289fed2d33ab38ee4648cd551007bf72dea0",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-休息.wav",
+    "character": "休息",
+    "jyutping": "jau1 sik1",
+    "gloss": "take a break",
+    "syllables": [
+      {
+        "character": "休",
+        "jyutping": "jau1",
+        "tone": 1
+      },
+      {
+        "character": "息",
+        "jyutping": "sik1",
+        "tone": 1
+      }
+    ],
+    "pageid": 90413610,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "id": "commons-90413610",
+    "audio": "audio/commons-90413610.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E4%BC%91%E6%81%AF.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "0cf04ff49dccbef260de717452cc7ee9f0052e36",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-哥哥.wav",
+    "character": "哥哥",
+    "jyutping": "go1 go1",
+    "gloss": "older brother",
+    "syllables": [
+      {
+        "character": "哥",
+        "jyutping": "go1",
+        "tone": 1
+      },
+      {
+        "character": "哥",
+        "jyutping": "go1",
+        "tone": 1
+      }
+    ],
+    "pageid": 90413620,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "glossSource": "Gloss adapted with reference to CC-CEDICT (MDBG), CC BY-SA 4.0: https://www.mdbg.net/chinese/dictionary?page=cc-cedict",
+    "id": "commons-90413620",
+    "audio": "audio/commons-90413620.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E5%93%A5%E5%93%A5.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "b6eb1817de96e6f1a8ba2cd88fb1485db5b1eb93",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-得.wav",
+    "character": "得",
+    "jyutping": "dak1",
+    "gloss": "(adverb) 1. Ok, 2. Yes",
+    "syllables": [
+      {
+        "character": "得",
+        "jyutping": "dak1",
+        "tone": 1
+      }
+    ],
+    "pageid": 90418207,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "id": "commons-90418207",
+    "audio": "audio/commons-90418207.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E5%BE%97.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "20cf76b068f7cd85ddd40fd41aed0f2601e2c237",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-跟.wav",
+    "character": "跟",
+    "jyutping": "gan1",
+    "gloss": "heel",
+    "syllables": [
+      {
+        "character": "跟",
+        "jyutping": "gan1",
+        "tone": 1
+      }
+    ],
+    "pageid": 90440173,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "id": "commons-90440173",
+    "audio": "audio/commons-90440173.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E8%B7%9F.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "49757e82e93ab551585599734a5be0b3e998c951",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-哭.wav",
+    "character": "哭",
+    "jyutping": "huk1",
+    "gloss": "to cry",
+    "syllables": [
+      {
+        "character": "哭",
+        "jyutping": "huk1",
+        "tone": 1
+      }
+    ],
+    "pageid": 90440402,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "id": "commons-90440402",
+    "audio": "audio/commons-90440402.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E5%93%AD.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "5388c6b1dd565d3cbd2bf2c34b094a8058517b87",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-包.wav",
+    "character": "包",
+    "jyutping": "baau1",
+    "gloss": "(food) bun",
+    "syllables": [
+      {
+        "character": "包",
+        "jyutping": "baau1",
+        "tone": 1
+      }
+    ],
+    "pageid": 90440407,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "id": "commons-90440407",
+    "audio": "audio/commons-90440407.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E5%8C%85.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "b378f98d1fb08a7f226c60829498c61fbe5ea20c",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-西.wav",
+    "character": "西",
+    "jyutping": "sai1",
+    "gloss": "west",
+    "syllables": [
+      {
+        "character": "西",
+        "jyutping": "sai1",
+        "tone": 1
+      }
+    ],
+    "pageid": 90440454,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "id": "commons-90440454",
+    "audio": "audio/commons-90440454.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E8%A5%BF.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "018aa3b44137b4f1b2a140372cb69cca257b2351",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-春.wav",
+    "character": "春",
+    "jyutping": "ceon1",
+    "gloss": "spring (time)",
+    "syllables": [
+      {
+        "character": "春",
+        "jyutping": "ceon1",
+        "tone": 1
+      }
+    ],
+    "pageid": 90440687,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "id": "commons-90440687",
+    "audio": "audio/commons-90440687.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E6%98%A5.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "d2e25a6b2f2bd461952fe4a694fb8f711953c783",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-冬.wav",
+    "character": "冬",
+    "jyutping": "dung1",
+    "gloss": "winter",
+    "syllables": [
+      {
+        "character": "冬",
+        "jyutping": "dung1",
+        "tone": 1
+      }
+    ],
+    "pageid": 90440701,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "glossSource": "Gloss adapted with reference to CC-CEDICT (MDBG), CC BY-SA 4.0: https://www.mdbg.net/chinese/dictionary?page=cc-cedict",
+    "id": "commons-90440701",
+    "audio": "audio/commons-90440701.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E5%86%AC.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "a78d0ef78f9926d1ae8972d8eab4d22a16ae71e6",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-之.wav",
+    "character": "之",
+    "jyutping": "zi1",
+    "gloss": "1. (possessive particle, literary equivalent of 的de [的]), ‘s 2. him 3. her 4. it",
+    "syllables": [
+      {
+        "character": "之",
+        "jyutping": "zi1",
+        "tone": 1
+      }
+    ],
+    "pageid": 90442416,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "id": "commons-90442416",
+    "audio": "audio/commons-90442416.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E4%B9%8B.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "0619b26847db9a011ce45cd82a2f64993dcbf9e8",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-猜.wav",
+    "character": "猜",
+    "jyutping": "caai1",
+    "gloss": "(verb) 1. Conjecture",
+    "syllables": [
+      {
+        "character": "猜",
+        "jyutping": "caai1",
+        "tone": 1
+      }
+    ],
+    "pageid": 90442510,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "id": "commons-90442510",
+    "audio": "audio/commons-90442510.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E7%8C%9C.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "e709ce633cb574a15dc37b34964132a18dd2fe71",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-光.wav",
+    "character": "光",
+    "jyutping": "gwong1",
+    "gloss": "light",
+    "syllables": [
+      {
+        "character": "光",
+        "jyutping": "gwong1",
+        "tone": 1
+      }
+    ],
+    "pageid": 90442626,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "id": "commons-90442626",
+    "audio": "audio/commons-90442626.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E5%85%89.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "db45773d90f84408c77f285dd008d10724597e87",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-交.wav",
+    "character": "交",
+    "jyutping": "gaau1",
+    "gloss": "to hand over",
+    "syllables": [
+      {
+        "character": "交",
+        "jyutping": "gaau1",
+        "tone": 1
+      }
+    ],
+    "pageid": 90442639,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "id": "commons-90442639",
+    "audio": "audio/commons-90442639.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E4%BA%A4.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "946ddcd6ae0207833abc31fc268d3df827524e3f",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-收.wav",
+    "character": "收",
+    "jyutping": "sau1",
+    "gloss": "to receive; to collect",
+    "syllables": [
+      {
+        "character": "收",
+        "jyutping": "sau1",
+        "tone": 1
+      }
+    ],
+    "pageid": 90442678,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "glossSource": "Gloss adapted with reference to CC-CEDICT (MDBG), CC BY-SA 4.0: https://www.mdbg.net/chinese/dictionary?page=cc-cedict",
+    "id": "commons-90442678",
+    "audio": "audio/commons-90442678.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E6%94%B6.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "74f100a9dc352292a1f2ce278aee8b5786abddf8",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-深.wav",
+    "character": "深",
+    "jyutping": "sam1",
+    "gloss": "depth",
+    "syllables": [
+      {
+        "character": "深",
+        "jyutping": "sam1",
+        "tone": 1
+      }
+    ],
+    "pageid": 90442792,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "id": "commons-90442792",
+    "audio": "audio/commons-90442792.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E6%B7%B1.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "9f4b827f1418bd0620f16017b9fe6f77406e2540",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-出生.wav",
+    "character": "出生",
+    "jyutping": "ceot1 saang1",
+    "gloss": "to be born; birth",
+    "syllables": [
+      {
+        "character": "出",
+        "jyutping": "ceot1",
+        "tone": 1
+      },
+      {
+        "character": "生",
+        "jyutping": "saang1",
+        "tone": 1
+      }
+    ],
+    "pageid": 90442880,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "glossSource": "Gloss adapted with reference to CC-CEDICT (MDBG), CC BY-SA 4.0: https://www.mdbg.net/chinese/dictionary?page=cc-cedict",
+    "id": "commons-90442880",
+    "audio": "audio/commons-90442880.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E5%87%BA%E7%94%9F.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "3838cc31295c17e28f4409a1531223da1f545d42",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-租.wav",
+    "character": "租",
+    "jyutping": "zou1",
+    "gloss": "to hire",
+    "syllables": [
+      {
+        "character": "租",
+        "jyutping": "zou1",
+        "tone": 1
+      }
+    ],
+    "pageid": 90442974,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "id": "commons-90442974",
+    "audio": "audio/commons-90442974.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E7%A7%9F.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "9f2a7d4e43e61ea3dacdae8c46041f2a20595098",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-酸.wav",
+    "character": "酸",
+    "jyutping": "syun1",
+    "gloss": "sour",
+    "syllables": [
+      {
+        "character": "酸",
+        "jyutping": "syun1",
+        "tone": 1
+      }
+    ],
+    "pageid": 90445581,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "id": "commons-90445581",
+    "audio": "audio/commons-90445581.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E9%85%B8.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "67e3799b300a37535f76353bd1a49f0dd6053400",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-灰心.wav",
+    "character": "灰心",
+    "jyutping": "fui1 sam1",
+    "gloss": "(adjective) Disheartened",
+    "syllables": [
+      {
+        "character": "灰",
+        "jyutping": "fui1",
+        "tone": 1
+      },
+      {
+        "character": "心",
+        "jyutping": "sam1",
+        "tone": 1
+      }
+    ],
+    "pageid": 90487503,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "id": "commons-90487503",
+    "audio": "audio/commons-90487503.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E7%81%B0%E5%BF%83.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "cf1148d01d0fed265bc53bb2b46ac96f2af4985f",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-根.wav",
+    "character": "根",
+    "jyutping": "gan1",
+    "gloss": "root",
+    "syllables": [
+      {
+        "character": "根",
+        "jyutping": "gan1",
+        "tone": 1
+      }
+    ],
+    "pageid": 90571060,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "glossSource": "Gloss adapted with reference to CC-CEDICT (MDBG), CC BY-SA 4.0: https://www.mdbg.net/chinese/dictionary?page=cc-cedict",
+    "id": "commons-90571060",
+    "audio": "audio/commons-90571060.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E6%A0%B9.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "4046a23d96c222075a2394ff82585dadc0e3c1b6",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-支.wav",
+    "character": "支",
+    "jyutping": "zi1",
+    "gloss": "(noun) bottle",
+    "syllables": [
+      {
+        "character": "支",
+        "jyutping": "zi1",
+        "tone": 1
+      }
+    ],
+    "pageid": 90571073,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "id": "commons-90571073",
+    "audio": "audio/commons-90571073.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E6%94%AF.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "637d357fb0372f75794198a0a4aea1f9231c0aa8",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-中心.wav",
+    "character": "中心",
+    "jyutping": "zung1 sam1",
+    "gloss": "center",
+    "syllables": [
+      {
+        "character": "中",
+        "jyutping": "zung1",
+        "tone": 1
+      },
+      {
+        "character": "心",
+        "jyutping": "sam1",
+        "tone": 1
+      }
+    ],
+    "pageid": 90571075,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "glossSource": "Gloss adapted with reference to CC-CEDICT (MDBG), CC BY-SA 4.0: https://www.mdbg.net/chinese/dictionary?page=cc-cedict",
+    "id": "commons-90571075",
+    "audio": "audio/commons-90571075.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E4%B8%AD%E5%BF%83.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "b43103f9bce76bed486489924f495e636099e961",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-消失.wav",
+    "character": "消失",
+    "jyutping": "siu1 sat1",
+    "gloss": "disappearance",
+    "syllables": [
+      {
+        "character": "消",
+        "jyutping": "siu1",
+        "tone": 1
+      },
+      {
+        "character": "失",
+        "jyutping": "sat1",
+        "tone": 1
+      }
+    ],
+    "pageid": 90571079,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "id": "commons-90571079",
+    "audio": "audio/commons-90571079.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E6%B6%88%E5%A4%B1.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "169afe1ec1c95bad009a78ca169d236fbc14d496",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-方.wav",
+    "character": "方",
+    "jyutping": "fong1",
+    "gloss": "square; direction",
+    "syllables": [
+      {
+        "character": "方",
+        "jyutping": "fong1",
+        "tone": 1
+      }
+    ],
+    "pageid": 90699642,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "glossSource": "Gloss adapted with reference to CC-CEDICT (MDBG), CC BY-SA 4.0: https://www.mdbg.net/chinese/dictionary?page=cc-cedict",
+    "id": "commons-90699642",
+    "audio": "audio/commons-90699642.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E6%96%B9.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "8bbcb203cfdcbd8c3981d79956f46a7b14628bb6",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-翻.wav",
+    "character": "翻",
+    "jyutping": "faan1",
+    "gloss": "to turn over",
+    "syllables": [
+      {
+        "character": "翻",
+        "jyutping": "faan1",
+        "tone": 1
+      }
+    ],
+    "pageid": 90699649,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "id": "commons-90699649",
+    "audio": "audio/commons-90699649.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E7%BF%BB.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "4038cd2440f2922af5e586bdfda352a92890eae0",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-幅.wav",
+    "character": "幅",
+    "jyutping": "fuk1",
+    "gloss": "width",
+    "syllables": [
+      {
+        "character": "幅",
+        "jyutping": "fuk1",
+        "tone": 1
+      }
+    ],
+    "pageid": 90699844,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "id": "commons-90699844",
+    "audio": "audio/commons-90699844.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E5%B9%85.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "31750846a5b774ceace12f049f5e4260ea7b193c",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-胸.wav",
+    "character": "胸",
+    "jyutping": "hung1",
+    "gloss": "chest",
+    "syllables": [
+      {
+        "character": "胸",
+        "jyutping": "hung1",
+        "tone": 1
+      }
+    ],
+    "pageid": 90699853,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "id": "commons-90699853",
+    "audio": "audio/commons-90699853.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E8%83%B8.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "3bfca94c4a3509f4b798988150895c850b52dc25",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-批.wav",
+    "character": "批",
+    "jyutping": "pai1",
+    "gloss": "(slang)",
+    "syllables": [
+      {
+        "character": "批",
+        "jyutping": "pai1",
+        "tone": 1
+      }
+    ],
+    "pageid": 90750751,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "id": "commons-90750751",
+    "audio": "audio/commons-90750751.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E6%89%B9.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "d1f1ef079d798e354d9df10014154d67edd75ca8",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-升.wav",
+    "character": "升",
+    "jyutping": "sing1",
+    "gloss": "(verb) to level up",
+    "syllables": [
+      {
+        "character": "升",
+        "jyutping": "sing1",
+        "tone": 1
+      }
+    ],
+    "pageid": 90750756,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "id": "commons-90750756",
+    "audio": "audio/commons-90750756.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E5%8D%87.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "7e4a1add759527c4979da9aac0775b0c59b7d8a6",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-深刻.wav",
+    "character": "深刻",
+    "jyutping": "sam1 hak1",
+    "gloss": "profound; deeply impressed",
+    "syllables": [
+      {
+        "character": "深",
+        "jyutping": "sam1",
+        "tone": 1
+      },
+      {
+        "character": "刻",
+        "jyutping": "hak1",
+        "tone": 1
+      }
+    ],
+    "pageid": 90750784,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "glossSource": "Gloss adapted with reference to CC-CEDICT (MDBG), CC BY-SA 4.0: https://www.mdbg.net/chinese/dictionary?page=cc-cedict",
+    "id": "commons-90750784",
+    "audio": "audio/commons-90750784.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E6%B7%B1%E5%88%BB.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "91055ef5003c36c76a4bcd4809b6ef2b749bf3b4",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-伸.wav",
+    "character": "伸",
+    "jyutping": "san1",
+    "gloss": "to stretch",
+    "syllables": [
+      {
+        "character": "伸",
+        "jyutping": "san1",
+        "tone": 1
+      }
+    ],
+    "pageid": 90750816,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "id": "commons-90750816",
+    "audio": "audio/commons-90750816.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E4%BC%B8.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "b6a7f22e91c0f497c451254037cc515f199a8c25",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-不安.wav",
+    "character": "不安",
+    "jyutping": "bat1 on1",
+    "gloss": "(adjective) Unease",
+    "syllables": [
+      {
+        "character": "不",
+        "jyutping": "bat1",
+        "tone": 1
+      },
+      {
+        "character": "安",
+        "jyutping": "on1",
+        "tone": 1
+      }
+    ],
+    "pageid": 90750873,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "id": "commons-90750873",
+    "audio": "audio/commons-90750873.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E4%B8%8D%E5%AE%89.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "c6154ef97f72fd0ca6edb161a0b0cc07cce4cc16",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-灰.wav",
+    "character": "灰",
+    "jyutping": "fui1",
+    "gloss": "ash; gray",
+    "syllables": [
+      {
+        "character": "灰",
+        "jyutping": "fui1",
+        "tone": 1
+      }
+    ],
+    "pageid": 90750945,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "glossSource": "Gloss adapted with reference to CC-CEDICT (MDBG), CC BY-SA 4.0: https://www.mdbg.net/chinese/dictionary?page=cc-cedict",
+    "id": "commons-90750945",
+    "audio": "audio/commons-90750945.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E7%81%B0.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "07d569ac359e3296f26deba9c685c826b6b69ac6",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-祝福.wav",
+    "character": "祝福",
+    "jyutping": "zuk1 fuk1",
+    "gloss": "to bless",
+    "syllables": [
+      {
+        "character": "祝",
+        "jyutping": "zuk1",
+        "tone": 1
+      },
+      {
+        "character": "福",
+        "jyutping": "fuk1",
+        "tone": 1
+      }
+    ],
+    "pageid": 90751056,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "id": "commons-90751056",
+    "audio": "audio/commons-90751056.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E7%A5%9D%E7%A6%8F.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "4aa96c0dcac7deced63f609a90fc373c16fcd8cf",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-吸收.wav",
+    "character": "吸收",
+    "jyutping": "kap1 sau1",
+    "gloss": "to absorb",
+    "syllables": [
+      {
+        "character": "吸",
+        "jyutping": "kap1",
+        "tone": 1
+      },
+      {
+        "character": "收",
+        "jyutping": "sau1",
+        "tone": 1
+      }
+    ],
+    "pageid": 90811459,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "glossSource": "Gloss adapted with reference to CC-CEDICT (MDBG), CC BY-SA 4.0: https://www.mdbg.net/chinese/dictionary?page=cc-cedict",
+    "id": "commons-90811459",
+    "audio": "audio/commons-90811459.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E5%90%B8%E6%94%B6.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "35d385f71f66e8ceb6d7f720dffd367775085339",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-州.wav",
+    "character": "州",
+    "jyutping": "zau1",
+    "gloss": "state; province",
+    "syllables": [
+      {
+        "character": "州",
+        "jyutping": "zau1",
+        "tone": 1
+      }
+    ],
+    "pageid": 90812380,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "glossSource": "Gloss adapted with reference to CC-CEDICT (MDBG), CC BY-SA 4.0: https://www.mdbg.net/chinese/dictionary?page=cc-cedict",
+    "id": "commons-90812380",
+    "audio": "audio/commons-90812380.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E5%B7%9E.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "7678ddb4a29e2518926f36c13f212dc1ff6393a9",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-天生.wav",
+    "character": "天生",
+    "jyutping": "tin1 saang1",
+    "gloss": "(adjective) 1. Inborn",
+    "syllables": [
+      {
+        "character": "天",
+        "jyutping": "tin1",
+        "tone": 1
+      },
+      {
+        "character": "生",
+        "jyutping": "saang1",
+        "tone": 1
+      }
+    ],
+    "pageid": 90813313,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "id": "commons-90813313",
+    "audio": "audio/commons-90813313.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E5%A4%A9%E7%94%9F.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "907a7771a3521fee1001510f1ecce93545cd1e49",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-基金.wav",
+    "character": "基金",
+    "jyutping": "gei1 gam1",
+    "gloss": "fund",
+    "syllables": [
+      {
+        "character": "基",
+        "jyutping": "gei1",
+        "tone": 1
+      },
+      {
+        "character": "金",
+        "jyutping": "gam1",
+        "tone": 1
+      }
+    ],
+    "pageid": 90813415,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "glossSource": "Gloss adapted with reference to CC-CEDICT (MDBG), CC BY-SA 4.0: https://www.mdbg.net/chinese/dictionary?page=cc-cedict",
+    "id": "commons-90813415",
+    "audio": "audio/commons-90813415.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E5%9F%BA%E9%87%91.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "37c50669b8b058a20b54d62040be41e128e627a3",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-皆.wav",
+    "character": "皆",
+    "jyutping": "gaai1",
+    "gloss": "all",
+    "syllables": [
+      {
+        "character": "皆",
+        "jyutping": "gaai1",
+        "tone": 1
+      }
+    ],
+    "pageid": 90813764,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "id": "commons-90813764",
+    "audio": "audio/commons-90813764.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E7%9A%86.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "5a52ac00296a89e4bcd0947c20b4205e8a61b87f",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-交叉.wav",
+    "character": "交叉",
+    "jyutping": "gaau1 caa1",
+    "gloss": "a cross (as opposite to a tick)",
+    "syllables": [
+      {
+        "character": "交",
+        "jyutping": "gaau1",
+        "tone": 1
+      },
+      {
+        "character": "叉",
+        "jyutping": "caa1",
+        "tone": 1
+      }
+    ],
+    "pageid": 90861915,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "id": "commons-90861915",
+    "audio": "audio/commons-90861915.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E4%BA%A4%E5%8F%89.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "eb6f8cf3932cf26fe761f974fb4b3eef1f0d2e45",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-煎.wav",
+    "character": "煎",
+    "jyutping": "zin1",
+    "gloss": "to pan fry",
+    "syllables": [
+      {
+        "character": "煎",
+        "jyutping": "zin1",
+        "tone": 1
+      }
+    ],
+    "pageid": 90888908,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "id": "commons-90888908",
+    "audio": "audio/commons-90888908.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E7%85%8E.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "3df983be2ab6f8a8d7055692706e4bc8c95b632f",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-疤.wav",
+    "character": "疤",
+    "jyutping": "baa1",
+    "gloss": "scar",
+    "syllables": [
+      {
+        "character": "疤",
+        "jyutping": "baa1",
+        "tone": 1
+      }
+    ],
+    "pageid": 90889497,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "id": "commons-90889497",
+    "audio": "audio/commons-90889497.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E7%96%A4.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "90251dcca281839d6549401ed96b98ec73d52f25",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-斑.wav",
+    "character": "斑",
+    "jyutping": "baan1",
+    "gloss": "spot",
+    "syllables": [
+      {
+        "character": "斑",
+        "jyutping": "baan1",
+        "tone": 1
+      }
+    ],
+    "pageid": 91987201,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "id": "commons-91987201",
+    "audio": "audio/commons-91987201.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E6%96%91.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "f282cbbe4685cfdc712e0df468c6b65750d44371",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-出息.wav",
+    "character": "出息",
+    "jyutping": "ceot1 sik1",
+    "gloss": "to achieve in one's life (esp. in career)",
+    "syllables": [
+      {
+        "character": "出",
+        "jyutping": "ceot1",
+        "tone": 1
+      },
+      {
+        "character": "息",
+        "jyutping": "sik1",
+        "tone": 1
+      }
+    ],
+    "pageid": 92040746,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "id": "commons-92040746",
+    "audio": "audio/commons-92040746.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E5%87%BA%E6%81%AF.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "4d0d06883782ad024609a14a06b813922bdbc41a",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-舟.wav",
+    "character": "舟",
+    "jyutping": "zau1",
+    "gloss": "boat",
+    "syllables": [
+      {
+        "character": "舟",
+        "jyutping": "zau1",
+        "tone": 1
+      }
+    ],
+    "pageid": 92040778,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "id": "commons-92040778",
+    "audio": "audio/commons-92040778.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E8%88%9F.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "ec99f78629ef181bd6bc9a926d4fcbe05f529162",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-心得.wav",
+    "character": "心得",
+    "jyutping": "sam1 dak1",
+    "gloss": "expertise",
+    "syllables": [
+      {
+        "character": "心",
+        "jyutping": "sam1",
+        "tone": 1
+      },
+      {
+        "character": "得",
+        "jyutping": "dak1",
+        "tone": 1
+      }
+    ],
+    "pageid": 92041341,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "id": "commons-92041341",
+    "audio": "audio/commons-92041341.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E5%BF%83%E5%BE%97.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "c88a563ba12038e1d07ba962c40cc15f9324665d",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-成果.wav",
+    "character": "成果",
+    "jyutping": "sing4 gwo2",
+    "gloss": "result",
+    "syllables": [
+      {
+        "character": "成",
+        "jyutping": "sing4",
+        "tone": 4
+      },
+      {
+        "character": "果",
+        "jyutping": "gwo2",
+        "tone": 2
+      }
+    ],
+    "pageid": 90811306,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "id": "commons-90811306",
+    "audio": "audio/commons-90811306.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E6%88%90%E6%9E%9C.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "f984fdb2c665eeec86bc6ac3be435f7e1fc8148a",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-密切.wav",
+    "character": "密切",
+    "jyutping": "mat6 cit3",
+    "gloss": "close",
+    "syllables": [
+      {
+        "character": "密",
+        "jyutping": "mat6",
+        "tone": 6
+      },
+      {
+        "character": "切",
+        "jyutping": "cit3",
+        "tone": 3
+      }
+    ],
+    "pageid": 90811549,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "id": "commons-90811549",
+    "audio": "audio/commons-90811549.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E5%AF%86%E5%88%87.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "e0721bd0eeafe6cfdd96bd882ebe86ae632826f8",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Wandering Maiden-全部.wav",
+    "character": "全部",
+    "jyutping": "cyun4 bou6",
+    "gloss": "all",
+    "syllables": [
+      {
+        "character": "全",
+        "jyutping": "cyun4",
+        "tone": 4
+      },
+      {
+        "character": "部",
+        "jyutping": "bou6",
+        "tone": 6
+      }
+    ],
+    "pageid": 173769231,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "id": "commons-173769231",
+    "audio": "audio/commons-173769231.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Wandering_Maiden-%E5%85%A8%E9%83%A8.wav",
+    "author": "Speaker: Wandering Maiden\nRecorder: Wandering Maiden",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "e4666c4705b36dff86fe1eced1cf8ed9e9c2722f",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Jonashtand-全部.wav",
+    "character": "全部",
+    "jyutping": "cyun4 bou6",
+    "gloss": "all",
+    "syllables": [
+      {
+        "character": "全",
+        "jyutping": "cyun4",
+        "tone": 4
+      },
+      {
+        "character": "部",
+        "jyutping": "bou6",
+        "tone": 6
+      }
+    ],
+    "pageid": 147747100,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "id": "commons-147747100",
+    "audio": "audio/commons-147747100.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Jonashtand-%E5%85%A8%E9%83%A8.wav",
+    "author": "Speaker: Jonashtand\nRecorder: Jonashtand",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "09550909eb16aee58714d10cf464307b02a5188b",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Justinrleung-全部.wav",
+    "character": "全部",
+    "jyutping": "cyun4 bou6",
+    "gloss": "all",
+    "syllables": [
+      {
+        "character": "全",
+        "jyutping": "cyun4",
+        "tone": 4
+      },
+      {
+        "character": "部",
+        "jyutping": "bou6",
+        "tone": 6
+      }
+    ],
+    "pageid": 88201873,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "id": "commons-88201873",
+    "audio": "audio/commons-88201873.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Justinrleung-%E5%85%A8%E9%83%A8.wav",
+    "author": "Speaker: Justinrleung\nRecorder: Justinrleung",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "907b58e6049d24e721bb55b2e34a070c82989273",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-全部.wav",
+    "character": "全部",
+    "jyutping": "cyun4 bou6",
+    "gloss": "all",
+    "syllables": [
+      {
+        "character": "全",
+        "jyutping": "cyun4",
+        "tone": 4
+      },
+      {
+        "character": "部",
+        "jyutping": "bou6",
+        "tone": 6
+      }
+    ],
+    "pageid": 90442633,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "id": "commons-90442633",
+    "audio": "audio/commons-90442633.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E5%85%A8%E9%83%A8.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "01f4663c5bce0f3d506f8bc4bffe772f45da0ceb",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-一共.wav",
+    "character": "一共",
+    "jyutping": "jat1 gung6",
+    "gloss": "in total",
+    "syllables": [
+      {
+        "character": "一",
+        "jyutping": "jat1",
+        "tone": 1
+      },
+      {
+        "character": "共",
+        "jyutping": "gung6",
+        "tone": 6
+      }
+    ],
+    "pageid": 90440650,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "id": "commons-90440650",
+    "audio": "audio/commons-90440650.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E4%B8%80%E5%85%B1.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "680f0db1e6f9f54dce240d7aeaf42880d14c4807",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-甲.wav",
+    "character": "甲",
+    "jyutping": "gaap3",
+    "gloss": "grade A",
+    "syllables": [
+      {
+        "character": "甲",
+        "jyutping": "gaap3",
+        "tone": 3
+      }
+    ],
+    "pageid": 90811156,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "id": "commons-90811156",
+    "audio": "audio/commons-90811156.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E7%94%B2.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "6c31001495ab7417b868eaf01ed2db450271f940",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-甩.wav",
+    "character": "甩",
+    "jyutping": "lat1",
+    "gloss": "come off",
+    "syllables": [
+      {
+        "character": "甩",
+        "jyutping": "lat1",
+        "tone": 1
+      }
+    ],
+    "pageid": 90699779,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "id": "commons-90699779",
+    "audio": "audio/commons-90699779.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E7%94%A9.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "66848266d1a377d0efddcc1b839305f6f8ca0e87",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-前提.wav",
+    "character": "前提",
+    "jyutping": "cin4 tai4",
+    "gloss": "precondition",
+    "syllables": [
+      {
+        "character": "前",
+        "jyutping": "cin4",
+        "tone": 4
+      },
+      {
+        "character": "提",
+        "jyutping": "tai4",
+        "tone": 4
+      }
+    ],
+    "pageid": 90889498,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "id": "commons-90889498",
+    "audio": "audio/commons-90889498.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E5%89%8D%E6%8F%90.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "c2243dfcf7abb6cba29d872522e8f3d4ec7b4acb",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Justinrleung-司.wav",
+    "character": "司",
+    "jyutping": "si1",
+    "gloss": "take charge",
+    "syllables": [
+      {
+        "character": "司",
+        "jyutping": "si1",
+        "tone": 1
+      }
+    ],
+    "pageid": 149276355,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "id": "commons-149276355",
+    "audio": "audio/commons-149276355.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Justinrleung-%E5%8F%B8.wav",
+    "author": "Speaker: Justinrleung\nRecorder: Justinrleung",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "92cf06e727231a5c2eb0097583cae15dd817c785",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
+  },
+  {
+    "title": "File:LL-Q9186 (yue)-Luilui6666-念.wav",
+    "character": "念",
+    "jyutping": "nim6",
+    "gloss": "think of",
+    "syllables": [
+      {
+        "character": "念",
+        "jyutping": "nim6",
+        "tone": 6
+      }
+    ],
+    "pageid": 90699750,
+    "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+    "reviewStatus": "dictionary matched; recording not independently auditioned",
+    "id": "commons-90699750",
+    "audio": "audio/commons-90699750.mp3",
+    "anchor": false,
+    "source": "https://commons.wikimedia.org/wiki/File:LL-Q9186_(yue)-Luilui6666-%E5%BF%B5.wav",
+    "author": "Speaker: Luilui6666\nRecorder: Luilui6666",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "originalSha1": "fb52d1a6399d109e9739cf237b30428a3cbb7771",
+    "conversion": "Converted from Wikimedia original to MP3 with FFmpeg; pronunciation unchanged."
   }
 ]

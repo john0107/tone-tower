@@ -15226,6 +15226,1241 @@
         }
       ],
       "dictionarySource": "https://github.com/amadeusine/cc-canto-data"
+    },
+    {
+      "id": "word-commons-90442977",
+      "character": "浪漫",
+      "jyutping": "long6 maan6",
+      "gloss": "romance",
+      "syllables": [
+        {
+          "character": "浪",
+          "jyutping": "long6",
+          "tone": 6
+        },
+        {
+          "character": "漫",
+          "jyutping": "maan6",
+          "tone": 6
+        }
+      ],
+      "dictionarySource": "https://github.com/amadeusine/cc-canto-data"
+    },
+    {
+      "id": "word-commons-149277137",
+      "character": "書包",
+      "jyutping": "syu1 baau1",
+      "gloss": "(noun) Backpack (of students for carrying textbooks)",
+      "syllables": [
+        {
+          "character": "書",
+          "jyutping": "syu1",
+          "tone": 1
+        },
+        {
+          "character": "包",
+          "jyutping": "baau1",
+          "tone": 1
+        }
+      ],
+      "dictionarySource": "https://github.com/amadeusine/cc-canto-data"
+    },
+    {
+      "id": "word-commons-90487091",
+      "character": "勿",
+      "jyutping": "mat6",
+      "gloss": "do not",
+      "syllables": [
+        {
+          "character": "勿",
+          "jyutping": "mat6",
+          "tone": 6
+        }
+      ],
+      "dictionarySource": "https://github.com/amadeusine/cc-canto-data"
+    },
+    {
+      "id": "word-commons-149277189",
+      "character": "東方",
+      "jyutping": "dung1 fong1",
+      "gloss": "oriental",
+      "syllables": [
+        {
+          "character": "東",
+          "jyutping": "dung1",
+          "tone": 1
+        },
+        {
+          "character": "方",
+          "jyutping": "fong1",
+          "tone": 1
+        }
+      ],
+      "dictionarySource": "https://github.com/amadeusine/cc-canto-data"
+    },
+    {
+      "id": "word-commons-90557300",
+      "character": "利害",
+      "jyutping": "lei6 hoi6",
+      "gloss": "benefits and shortfalls",
+      "syllables": [
+        {
+          "character": "利",
+          "jyutping": "lei6",
+          "tone": 6
+        },
+        {
+          "character": "害",
+          "jyutping": "hoi6",
+          "tone": 6
+        }
+      ],
+      "dictionarySource": "https://github.com/amadeusine/cc-canto-data"
+    },
+    {
+      "id": "word-commons-149277190",
+      "character": "東西",
+      "jyutping": "dung1 sai1",
+      "gloss": "thing; item",
+      "syllables": [
+        {
+          "character": "東",
+          "jyutping": "dung1",
+          "tone": 1
+        },
+        {
+          "character": "西",
+          "jyutping": "sai1",
+          "tone": 1
+        }
+      ],
+      "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+      "glossSource": "Gloss adapted with reference to CC-CEDICT (MDBG), CC BY-SA 4.0: https://www.mdbg.net/chinese/dictionary?page=cc-cedict"
+    },
+    {
+      "id": "word-commons-179112627",
+      "character": "機",
+      "jyutping": "gei1",
+      "gloss": "(noun) device",
+      "syllables": [
+        {
+          "character": "機",
+          "jyutping": "gei1",
+          "tone": 1
+        }
+      ],
+      "dictionarySource": "https://github.com/amadeusine/cc-canto-data"
+    },
+    {
+      "id": "word-commons-179112649",
+      "character": "烏蠅",
+      "jyutping": "wu1 jing1",
+      "gloss": "(noun) (insect) a fly",
+      "syllables": [
+        {
+          "character": "烏",
+          "jyutping": "wu1",
+          "tone": 1
+        },
+        {
+          "character": "蠅",
+          "jyutping": "jing1",
+          "tone": 1
+        }
+      ],
+      "dictionarySource": "https://github.com/amadeusine/cc-canto-data"
+    },
+    {
+      "id": "word-commons-90699868",
+      "character": "瞎",
+      "jyutping": "hat6",
+      "gloss": "blind",
+      "syllables": [
+        {
+          "character": "瞎",
+          "jyutping": "hat6",
+          "tone": 6
+        }
+      ],
+      "dictionarySource": "https://github.com/amadeusine/cc-canto-data"
+    },
+    {
+      "id": "word-commons-90751132",
+      "character": "集合",
+      "jyutping": "zaap6 hap6",
+      "gloss": "(noun) Gathering",
+      "syllables": [
+        {
+          "character": "集",
+          "jyutping": "zaap6",
+          "tone": 6
+        },
+        {
+          "character": "合",
+          "jyutping": "hap6",
+          "tone": 6
+        }
+      ],
+      "dictionarySource": "https://github.com/amadeusine/cc-canto-data"
+    },
+    {
+      "id": "word-commons-179112667",
+      "character": "甘",
+      "jyutping": "gam1",
+      "gloss": "sweet",
+      "syllables": [
+        {
+          "character": "甘",
+          "jyutping": "gam1",
+          "tone": 1
+        }
+      ],
+      "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+      "glossSource": "Gloss adapted with reference to CC-CEDICT (MDBG), CC BY-SA 4.0: https://www.mdbg.net/chinese/dictionary?page=cc-cedict"
+    },
+    {
+      "id": "word-commons-179112724",
+      "character": "舒",
+      "jyutping": "syu1",
+      "gloss": "to stretch",
+      "syllables": [
+        {
+          "character": "舒",
+          "jyutping": "syu1",
+          "tone": 1
+        }
+      ],
+      "dictionarySource": "https://github.com/amadeusine/cc-canto-data"
+    },
+    {
+      "id": "word-commons-90751195",
+      "character": "弱",
+      "jyutping": "joek6",
+      "gloss": "(adjective) fragile",
+      "syllables": [
+        {
+          "character": "弱",
+          "jyutping": "joek6",
+          "tone": 6
+        }
+      ],
+      "dictionarySource": "https://github.com/amadeusine/cc-canto-data"
+    },
+    {
+      "id": "word-commons-179112834",
+      "character": "關",
+      "jyutping": "gwaan1",
+      "gloss": "(noun) 1. gateway",
+      "syllables": [
+        {
+          "character": "關",
+          "jyutping": "gwaan1",
+          "tone": 1
+        }
+      ],
+      "dictionarySource": "https://github.com/amadeusine/cc-canto-data"
+    },
+    {
+      "id": "word-commons-90751230",
+      "character": "摘",
+      "jyutping": "zaak6",
+      "gloss": "to take",
+      "syllables": [
+        {
+          "character": "摘",
+          "jyutping": "zaak6",
+          "tone": 6
+        }
+      ],
+      "dictionarySource": "https://github.com/amadeusine/cc-canto-data"
+    },
+    {
+      "id": "word-commons-90811495",
+      "character": "地道",
+      "jyutping": "dei6 dou6",
+      "gloss": "local",
+      "syllables": [
+        {
+          "character": "地",
+          "jyutping": "dei6",
+          "tone": 6
+        },
+        {
+          "character": "道",
+          "jyutping": "dou6",
+          "tone": 6
+        }
+      ],
+      "dictionarySource": "https://github.com/amadeusine/cc-canto-data"
+    },
+    {
+      "id": "word-commons-90813296",
+      "character": "系列",
+      "jyutping": "hai6 lit6",
+      "gloss": "range",
+      "syllables": [
+        {
+          "character": "系",
+          "jyutping": "hai6",
+          "tone": 6
+        },
+        {
+          "character": "列",
+          "jyutping": "lit6",
+          "tone": 6
+        }
+      ],
+      "dictionarySource": "https://github.com/amadeusine/cc-canto-data"
+    },
+    {
+      "id": "word-commons-90409948",
+      "character": "先生",
+      "jyutping": "sin1 saang1",
+      "gloss": "(used before a man's family name) Mr.",
+      "syllables": [
+        {
+          "character": "先",
+          "jyutping": "sin1",
+          "tone": 1
+        },
+        {
+          "character": "生",
+          "jyutping": "saang1",
+          "tone": 1
+        }
+      ],
+      "dictionarySource": "https://github.com/amadeusine/cc-canto-data"
+    },
+    {
+      "id": "word-commons-90888901",
+      "character": "跪",
+      "jyutping": "gwai6",
+      "gloss": "to kneel",
+      "syllables": [
+        {
+          "character": "跪",
+          "jyutping": "gwai6",
+          "tone": 6
+        }
+      ],
+      "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+      "glossSource": "Gloss adapted with reference to CC-CEDICT (MDBG), CC BY-SA 4.0: https://www.mdbg.net/chinese/dictionary?page=cc-cedict"
+    },
+    {
+      "id": "word-commons-90889523",
+      "character": "亦",
+      "jyutping": "jik6",
+      "gloss": "also",
+      "syllables": [
+        {
+          "character": "亦",
+          "jyutping": "jik6",
+          "tone": 6
+        }
+      ],
+      "dictionarySource": "https://github.com/amadeusine/cc-canto-data"
+    },
+    {
+      "id": "word-commons-90413393",
+      "character": "真",
+      "jyutping": "zan1",
+      "gloss": "really",
+      "syllables": [
+        {
+          "character": "真",
+          "jyutping": "zan1",
+          "tone": 1
+        }
+      ],
+      "dictionarySource": "https://github.com/amadeusine/cc-canto-data"
+    },
+    {
+      "id": "word-commons-91986832",
+      "character": "愈",
+      "jyutping": "jyu6",
+      "gloss": "the more...(the more...)",
+      "syllables": [
+        {
+          "character": "愈",
+          "jyutping": "jyu6",
+          "tone": 6
+        }
+      ],
+      "dictionarySource": "https://github.com/amadeusine/cc-canto-data"
+    },
+    {
+      "id": "word-commons-90413450",
+      "character": "出",
+      "jyutping": "ceot1",
+      "gloss": "(adjective) outside",
+      "syllables": [
+        {
+          "character": "出",
+          "jyutping": "ceot1",
+          "tone": 1
+        }
+      ],
+      "dictionarySource": "https://github.com/amadeusine/cc-canto-data"
+    },
+    {
+      "id": "word-commons-91987108",
+      "character": "玉",
+      "jyutping": "juk6",
+      "gloss": "jade",
+      "syllables": [
+        {
+          "character": "玉",
+          "jyutping": "juk6",
+          "tone": 6
+        }
+      ],
+      "dictionarySource": "https://github.com/amadeusine/cc-canto-data"
+    },
+    {
+      "id": "word-commons-90413493",
+      "character": "穿",
+      "jyutping": "cyun1",
+      "gloss": "to bore through",
+      "syllables": [
+        {
+          "character": "穿",
+          "jyutping": "cyun1",
+          "tone": 1
+        }
+      ],
+      "dictionarySource": "https://github.com/amadeusine/cc-canto-data"
+    },
+    {
+      "id": "word-commons-90413536",
+      "character": "高",
+      "jyutping": "gou1",
+      "gloss": "(adjective) 1. high (in rank)",
+      "syllables": [
+        {
+          "character": "高",
+          "jyutping": "gou1",
+          "tone": 1
+        }
+      ],
+      "dictionarySource": "https://github.com/amadeusine/cc-canto-data"
+    },
+    {
+      "id": "word-commons-90413610",
+      "character": "休息",
+      "jyutping": "jau1 sik1",
+      "gloss": "take a break",
+      "syllables": [
+        {
+          "character": "休",
+          "jyutping": "jau1",
+          "tone": 1
+        },
+        {
+          "character": "息",
+          "jyutping": "sik1",
+          "tone": 1
+        }
+      ],
+      "dictionarySource": "https://github.com/amadeusine/cc-canto-data"
+    },
+    {
+      "id": "word-commons-90413620",
+      "character": "哥哥",
+      "jyutping": "go1 go1",
+      "gloss": "older brother",
+      "syllables": [
+        {
+          "character": "哥",
+          "jyutping": "go1",
+          "tone": 1
+        },
+        {
+          "character": "哥",
+          "jyutping": "go1",
+          "tone": 1
+        }
+      ],
+      "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+      "glossSource": "Gloss adapted with reference to CC-CEDICT (MDBG), CC BY-SA 4.0: https://www.mdbg.net/chinese/dictionary?page=cc-cedict"
+    },
+    {
+      "id": "word-commons-90418207",
+      "character": "得",
+      "jyutping": "dak1",
+      "gloss": "(adverb) 1. Ok, 2. Yes",
+      "syllables": [
+        {
+          "character": "得",
+          "jyutping": "dak1",
+          "tone": 1
+        }
+      ],
+      "dictionarySource": "https://github.com/amadeusine/cc-canto-data"
+    },
+    {
+      "id": "word-commons-90440173",
+      "character": "跟",
+      "jyutping": "gan1",
+      "gloss": "heel",
+      "syllables": [
+        {
+          "character": "跟",
+          "jyutping": "gan1",
+          "tone": 1
+        }
+      ],
+      "dictionarySource": "https://github.com/amadeusine/cc-canto-data"
+    },
+    {
+      "id": "word-commons-90440402",
+      "character": "哭",
+      "jyutping": "huk1",
+      "gloss": "to cry",
+      "syllables": [
+        {
+          "character": "哭",
+          "jyutping": "huk1",
+          "tone": 1
+        }
+      ],
+      "dictionarySource": "https://github.com/amadeusine/cc-canto-data"
+    },
+    {
+      "id": "word-commons-90440407",
+      "character": "包",
+      "jyutping": "baau1",
+      "gloss": "(food) bun",
+      "syllables": [
+        {
+          "character": "包",
+          "jyutping": "baau1",
+          "tone": 1
+        }
+      ],
+      "dictionarySource": "https://github.com/amadeusine/cc-canto-data"
+    },
+    {
+      "id": "word-commons-90440454",
+      "character": "西",
+      "jyutping": "sai1",
+      "gloss": "west",
+      "syllables": [
+        {
+          "character": "西",
+          "jyutping": "sai1",
+          "tone": 1
+        }
+      ],
+      "dictionarySource": "https://github.com/amadeusine/cc-canto-data"
+    },
+    {
+      "id": "word-commons-90440687",
+      "character": "春",
+      "jyutping": "ceon1",
+      "gloss": "spring (time)",
+      "syllables": [
+        {
+          "character": "春",
+          "jyutping": "ceon1",
+          "tone": 1
+        }
+      ],
+      "dictionarySource": "https://github.com/amadeusine/cc-canto-data"
+    },
+    {
+      "id": "word-commons-90440701",
+      "character": "冬",
+      "jyutping": "dung1",
+      "gloss": "winter",
+      "syllables": [
+        {
+          "character": "冬",
+          "jyutping": "dung1",
+          "tone": 1
+        }
+      ],
+      "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+      "glossSource": "Gloss adapted with reference to CC-CEDICT (MDBG), CC BY-SA 4.0: https://www.mdbg.net/chinese/dictionary?page=cc-cedict"
+    },
+    {
+      "id": "word-commons-90442416",
+      "character": "之",
+      "jyutping": "zi1",
+      "gloss": "1. (possessive particle, literary equivalent of 的de [的]), ‘s 2. him 3. her 4. it",
+      "syllables": [
+        {
+          "character": "之",
+          "jyutping": "zi1",
+          "tone": 1
+        }
+      ],
+      "dictionarySource": "https://github.com/amadeusine/cc-canto-data"
+    },
+    {
+      "id": "word-commons-90442510",
+      "character": "猜",
+      "jyutping": "caai1",
+      "gloss": "(verb) 1. Conjecture",
+      "syllables": [
+        {
+          "character": "猜",
+          "jyutping": "caai1",
+          "tone": 1
+        }
+      ],
+      "dictionarySource": "https://github.com/amadeusine/cc-canto-data"
+    },
+    {
+      "id": "word-commons-90442626",
+      "character": "光",
+      "jyutping": "gwong1",
+      "gloss": "light",
+      "syllables": [
+        {
+          "character": "光",
+          "jyutping": "gwong1",
+          "tone": 1
+        }
+      ],
+      "dictionarySource": "https://github.com/amadeusine/cc-canto-data"
+    },
+    {
+      "id": "word-commons-90442639",
+      "character": "交",
+      "jyutping": "gaau1",
+      "gloss": "to hand over",
+      "syllables": [
+        {
+          "character": "交",
+          "jyutping": "gaau1",
+          "tone": 1
+        }
+      ],
+      "dictionarySource": "https://github.com/amadeusine/cc-canto-data"
+    },
+    {
+      "id": "word-commons-90442678",
+      "character": "收",
+      "jyutping": "sau1",
+      "gloss": "to receive; to collect",
+      "syllables": [
+        {
+          "character": "收",
+          "jyutping": "sau1",
+          "tone": 1
+        }
+      ],
+      "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+      "glossSource": "Gloss adapted with reference to CC-CEDICT (MDBG), CC BY-SA 4.0: https://www.mdbg.net/chinese/dictionary?page=cc-cedict"
+    },
+    {
+      "id": "word-commons-90442792",
+      "character": "深",
+      "jyutping": "sam1",
+      "gloss": "depth",
+      "syllables": [
+        {
+          "character": "深",
+          "jyutping": "sam1",
+          "tone": 1
+        }
+      ],
+      "dictionarySource": "https://github.com/amadeusine/cc-canto-data"
+    },
+    {
+      "id": "word-commons-90442880",
+      "character": "出生",
+      "jyutping": "ceot1 saang1",
+      "gloss": "to be born; birth",
+      "syllables": [
+        {
+          "character": "出",
+          "jyutping": "ceot1",
+          "tone": 1
+        },
+        {
+          "character": "生",
+          "jyutping": "saang1",
+          "tone": 1
+        }
+      ],
+      "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+      "glossSource": "Gloss adapted with reference to CC-CEDICT (MDBG), CC BY-SA 4.0: https://www.mdbg.net/chinese/dictionary?page=cc-cedict"
+    },
+    {
+      "id": "word-commons-90442974",
+      "character": "租",
+      "jyutping": "zou1",
+      "gloss": "to hire",
+      "syllables": [
+        {
+          "character": "租",
+          "jyutping": "zou1",
+          "tone": 1
+        }
+      ],
+      "dictionarySource": "https://github.com/amadeusine/cc-canto-data"
+    },
+    {
+      "id": "word-commons-90445581",
+      "character": "酸",
+      "jyutping": "syun1",
+      "gloss": "sour",
+      "syllables": [
+        {
+          "character": "酸",
+          "jyutping": "syun1",
+          "tone": 1
+        }
+      ],
+      "dictionarySource": "https://github.com/amadeusine/cc-canto-data"
+    },
+    {
+      "id": "word-commons-90487503",
+      "character": "灰心",
+      "jyutping": "fui1 sam1",
+      "gloss": "(adjective) Disheartened",
+      "syllables": [
+        {
+          "character": "灰",
+          "jyutping": "fui1",
+          "tone": 1
+        },
+        {
+          "character": "心",
+          "jyutping": "sam1",
+          "tone": 1
+        }
+      ],
+      "dictionarySource": "https://github.com/amadeusine/cc-canto-data"
+    },
+    {
+      "id": "word-commons-90571073",
+      "character": "支",
+      "jyutping": "zi1",
+      "gloss": "(noun) bottle",
+      "syllables": [
+        {
+          "character": "支",
+          "jyutping": "zi1",
+          "tone": 1
+        }
+      ],
+      "dictionarySource": "https://github.com/amadeusine/cc-canto-data"
+    },
+    {
+      "id": "word-commons-90571075",
+      "character": "中心",
+      "jyutping": "zung1 sam1",
+      "gloss": "center",
+      "syllables": [
+        {
+          "character": "中",
+          "jyutping": "zung1",
+          "tone": 1
+        },
+        {
+          "character": "心",
+          "jyutping": "sam1",
+          "tone": 1
+        }
+      ],
+      "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+      "glossSource": "Gloss adapted with reference to CC-CEDICT (MDBG), CC BY-SA 4.0: https://www.mdbg.net/chinese/dictionary?page=cc-cedict"
+    },
+    {
+      "id": "word-commons-90571079",
+      "character": "消失",
+      "jyutping": "siu1 sat1",
+      "gloss": "disappearance",
+      "syllables": [
+        {
+          "character": "消",
+          "jyutping": "siu1",
+          "tone": 1
+        },
+        {
+          "character": "失",
+          "jyutping": "sat1",
+          "tone": 1
+        }
+      ],
+      "dictionarySource": "https://github.com/amadeusine/cc-canto-data"
+    },
+    {
+      "id": "word-commons-90699642",
+      "character": "方",
+      "jyutping": "fong1",
+      "gloss": "square; direction",
+      "syllables": [
+        {
+          "character": "方",
+          "jyutping": "fong1",
+          "tone": 1
+        }
+      ],
+      "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+      "glossSource": "Gloss adapted with reference to CC-CEDICT (MDBG), CC BY-SA 4.0: https://www.mdbg.net/chinese/dictionary?page=cc-cedict"
+    },
+    {
+      "id": "word-commons-90699649",
+      "character": "翻",
+      "jyutping": "faan1",
+      "gloss": "to turn over",
+      "syllables": [
+        {
+          "character": "翻",
+          "jyutping": "faan1",
+          "tone": 1
+        }
+      ],
+      "dictionarySource": "https://github.com/amadeusine/cc-canto-data"
+    },
+    {
+      "id": "word-commons-90699844",
+      "character": "幅",
+      "jyutping": "fuk1",
+      "gloss": "width",
+      "syllables": [
+        {
+          "character": "幅",
+          "jyutping": "fuk1",
+          "tone": 1
+        }
+      ],
+      "dictionarySource": "https://github.com/amadeusine/cc-canto-data"
+    },
+    {
+      "id": "word-commons-90750751",
+      "character": "批",
+      "jyutping": "pai1",
+      "gloss": "(slang)",
+      "syllables": [
+        {
+          "character": "批",
+          "jyutping": "pai1",
+          "tone": 1
+        }
+      ],
+      "dictionarySource": "https://github.com/amadeusine/cc-canto-data"
+    },
+    {
+      "id": "word-commons-90750756",
+      "character": "升",
+      "jyutping": "sing1",
+      "gloss": "(verb) to level up",
+      "syllables": [
+        {
+          "character": "升",
+          "jyutping": "sing1",
+          "tone": 1
+        }
+      ],
+      "dictionarySource": "https://github.com/amadeusine/cc-canto-data"
+    },
+    {
+      "id": "word-commons-90750784",
+      "character": "深刻",
+      "jyutping": "sam1 hak1",
+      "gloss": "profound; deeply impressed",
+      "syllables": [
+        {
+          "character": "深",
+          "jyutping": "sam1",
+          "tone": 1
+        },
+        {
+          "character": "刻",
+          "jyutping": "hak1",
+          "tone": 1
+        }
+      ],
+      "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+      "glossSource": "Gloss adapted with reference to CC-CEDICT (MDBG), CC BY-SA 4.0: https://www.mdbg.net/chinese/dictionary?page=cc-cedict"
+    },
+    {
+      "id": "word-commons-90750816",
+      "character": "伸",
+      "jyutping": "san1",
+      "gloss": "to stretch",
+      "syllables": [
+        {
+          "character": "伸",
+          "jyutping": "san1",
+          "tone": 1
+        }
+      ],
+      "dictionarySource": "https://github.com/amadeusine/cc-canto-data"
+    },
+    {
+      "id": "word-commons-90750873",
+      "character": "不安",
+      "jyutping": "bat1 on1",
+      "gloss": "(adjective) Unease",
+      "syllables": [
+        {
+          "character": "不",
+          "jyutping": "bat1",
+          "tone": 1
+        },
+        {
+          "character": "安",
+          "jyutping": "on1",
+          "tone": 1
+        }
+      ],
+      "dictionarySource": "https://github.com/amadeusine/cc-canto-data"
+    },
+    {
+      "id": "word-commons-90751056",
+      "character": "祝福",
+      "jyutping": "zuk1 fuk1",
+      "gloss": "to bless",
+      "syllables": [
+        {
+          "character": "祝",
+          "jyutping": "zuk1",
+          "tone": 1
+        },
+        {
+          "character": "福",
+          "jyutping": "fuk1",
+          "tone": 1
+        }
+      ],
+      "dictionarySource": "https://github.com/amadeusine/cc-canto-data"
+    },
+    {
+      "id": "word-commons-90812380",
+      "character": "州",
+      "jyutping": "zau1",
+      "gloss": "state; province",
+      "syllables": [
+        {
+          "character": "州",
+          "jyutping": "zau1",
+          "tone": 1
+        }
+      ],
+      "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+      "glossSource": "Gloss adapted with reference to CC-CEDICT (MDBG), CC BY-SA 4.0: https://www.mdbg.net/chinese/dictionary?page=cc-cedict"
+    },
+    {
+      "id": "word-commons-90813313",
+      "character": "天生",
+      "jyutping": "tin1 saang1",
+      "gloss": "(adjective) 1. Inborn",
+      "syllables": [
+        {
+          "character": "天",
+          "jyutping": "tin1",
+          "tone": 1
+        },
+        {
+          "character": "生",
+          "jyutping": "saang1",
+          "tone": 1
+        }
+      ],
+      "dictionarySource": "https://github.com/amadeusine/cc-canto-data"
+    },
+    {
+      "id": "word-commons-90813415",
+      "character": "基金",
+      "jyutping": "gei1 gam1",
+      "gloss": "fund",
+      "syllables": [
+        {
+          "character": "基",
+          "jyutping": "gei1",
+          "tone": 1
+        },
+        {
+          "character": "金",
+          "jyutping": "gam1",
+          "tone": 1
+        }
+      ],
+      "dictionarySource": "https://github.com/amadeusine/cc-canto-data",
+      "glossSource": "Gloss adapted with reference to CC-CEDICT (MDBG), CC BY-SA 4.0: https://www.mdbg.net/chinese/dictionary?page=cc-cedict"
+    },
+    {
+      "id": "word-commons-90813764",
+      "character": "皆",
+      "jyutping": "gaai1",
+      "gloss": "all",
+      "syllables": [
+        {
+          "character": "皆",
+          "jyutping": "gaai1",
+          "tone": 1
+        }
+      ],
+      "dictionarySource": "https://github.com/amadeusine/cc-canto-data"
+    },
+    {
+      "id": "word-commons-90861915",
+      "character": "交叉",
+      "jyutping": "gaau1 caa1",
+      "gloss": "a cross (as opposite to a tick)",
+      "syllables": [
+        {
+          "character": "交",
+          "jyutping": "gaau1",
+          "tone": 1
+        },
+        {
+          "character": "叉",
+          "jyutping": "caa1",
+          "tone": 1
+        }
+      ],
+      "dictionarySource": "https://github.com/amadeusine/cc-canto-data"
+    },
+    {
+      "id": "word-commons-90888908",
+      "character": "煎",
+      "jyutping": "zin1",
+      "gloss": "to pan fry",
+      "syllables": [
+        {
+          "character": "煎",
+          "jyutping": "zin1",
+          "tone": 1
+        }
+      ],
+      "dictionarySource": "https://github.com/amadeusine/cc-canto-data"
+    },
+    {
+      "id": "word-commons-90889497",
+      "character": "疤",
+      "jyutping": "baa1",
+      "gloss": "scar",
+      "syllables": [
+        {
+          "character": "疤",
+          "jyutping": "baa1",
+          "tone": 1
+        }
+      ],
+      "dictionarySource": "https://github.com/amadeusine/cc-canto-data"
+    },
+    {
+      "id": "word-commons-91987201",
+      "character": "斑",
+      "jyutping": "baan1",
+      "gloss": "spot",
+      "syllables": [
+        {
+          "character": "斑",
+          "jyutping": "baan1",
+          "tone": 1
+        }
+      ],
+      "dictionarySource": "https://github.com/amadeusine/cc-canto-data"
+    },
+    {
+      "id": "word-commons-92040746",
+      "character": "出息",
+      "jyutping": "ceot1 sik1",
+      "gloss": "to achieve in one's life (esp. in career)",
+      "syllables": [
+        {
+          "character": "出",
+          "jyutping": "ceot1",
+          "tone": 1
+        },
+        {
+          "character": "息",
+          "jyutping": "sik1",
+          "tone": 1
+        }
+      ],
+      "dictionarySource": "https://github.com/amadeusine/cc-canto-data"
+    },
+    {
+      "id": "word-commons-92040778",
+      "character": "舟",
+      "jyutping": "zau1",
+      "gloss": "boat",
+      "syllables": [
+        {
+          "character": "舟",
+          "jyutping": "zau1",
+          "tone": 1
+        }
+      ],
+      "dictionarySource": "https://github.com/amadeusine/cc-canto-data"
+    },
+    {
+      "id": "word-commons-92041341",
+      "character": "心得",
+      "jyutping": "sam1 dak1",
+      "gloss": "expertise",
+      "syllables": [
+        {
+          "character": "心",
+          "jyutping": "sam1",
+          "tone": 1
+        },
+        {
+          "character": "得",
+          "jyutping": "dak1",
+          "tone": 1
+        }
+      ],
+      "dictionarySource": "https://github.com/amadeusine/cc-canto-data"
+    },
+    {
+      "id": "word-commons-90811306",
+      "character": "成果",
+      "jyutping": "sing4 gwo2",
+      "gloss": "result",
+      "syllables": [
+        {
+          "character": "成",
+          "jyutping": "sing4",
+          "tone": 4
+        },
+        {
+          "character": "果",
+          "jyutping": "gwo2",
+          "tone": 2
+        }
+      ],
+      "dictionarySource": "https://github.com/amadeusine/cc-canto-data"
+    },
+    {
+      "id": "word-commons-90811549",
+      "character": "密切",
+      "jyutping": "mat6 cit3",
+      "gloss": "close",
+      "syllables": [
+        {
+          "character": "密",
+          "jyutping": "mat6",
+          "tone": 6
+        },
+        {
+          "character": "切",
+          "jyutping": "cit3",
+          "tone": 3
+        }
+      ],
+      "dictionarySource": "https://github.com/amadeusine/cc-canto-data"
+    },
+    {
+      "id": "word-commons-173769231",
+      "character": "全部",
+      "jyutping": "cyun4 bou6",
+      "gloss": "all",
+      "syllables": [
+        {
+          "character": "全",
+          "jyutping": "cyun4",
+          "tone": 4
+        },
+        {
+          "character": "部",
+          "jyutping": "bou6",
+          "tone": 6
+        }
+      ],
+      "dictionarySource": "https://github.com/amadeusine/cc-canto-data"
+    },
+    {
+      "id": "word-commons-90440650",
+      "character": "一共",
+      "jyutping": "jat1 gung6",
+      "gloss": "in total",
+      "syllables": [
+        {
+          "character": "一",
+          "jyutping": "jat1",
+          "tone": 1
+        },
+        {
+          "character": "共",
+          "jyutping": "gung6",
+          "tone": 6
+        }
+      ],
+      "dictionarySource": "https://github.com/amadeusine/cc-canto-data"
+    },
+    {
+      "id": "word-commons-90811156",
+      "character": "甲",
+      "jyutping": "gaap3",
+      "gloss": "grade A",
+      "syllables": [
+        {
+          "character": "甲",
+          "jyutping": "gaap3",
+          "tone": 3
+        }
+      ],
+      "dictionarySource": "https://github.com/amadeusine/cc-canto-data"
+    },
+    {
+      "id": "word-commons-90699779",
+      "character": "甩",
+      "jyutping": "lat1",
+      "gloss": "come off",
+      "syllables": [
+        {
+          "character": "甩",
+          "jyutping": "lat1",
+          "tone": 1
+        }
+      ],
+      "dictionarySource": "https://github.com/amadeusine/cc-canto-data"
+    },
+    {
+      "id": "word-commons-90889498",
+      "character": "前提",
+      "jyutping": "cin4 tai4",
+      "gloss": "precondition",
+      "syllables": [
+        {
+          "character": "前",
+          "jyutping": "cin4",
+          "tone": 4
+        },
+        {
+          "character": "提",
+          "jyutping": "tai4",
+          "tone": 4
+        }
+      ],
+      "dictionarySource": "https://github.com/amadeusine/cc-canto-data"
+    },
+    {
+      "id": "word-commons-149276355",
+      "character": "司",
+      "jyutping": "si1",
+      "gloss": "take charge",
+      "syllables": [
+        {
+          "character": "司",
+          "jyutping": "si1",
+          "tone": 1
+        }
+      ],
+      "dictionarySource": "https://github.com/amadeusine/cc-canto-data"
+    },
+    {
+      "id": "word-commons-90699750",
+      "character": "念",
+      "jyutping": "nim6",
+      "gloss": "think of",
+      "syllables": [
+        {
+          "character": "念",
+          "jyutping": "nim6",
+          "tone": 6
+        }
+      ],
+      "dictionarySource": "https://github.com/amadeusine/cc-canto-data"
     }
   ],
   "recordingWords": {
@@ -16382,6 +17617,102 @@
     "commons-149276421": "word-commons-149276421",
     "commons-149276859": "word-commons-149276859",
     "commons-90442767": "word-commons-90442767",
-    "commons-149276885": "word-commons-149276885"
+    "commons-149276885": "word-commons-149276885",
+    "commons-90442977": "word-commons-90442977",
+    "commons-149277137": "word-commons-149277137",
+    "commons-90487091": "word-commons-90487091",
+    "commons-149277189": "word-commons-149277189",
+    "commons-90557300": "word-commons-90557300",
+    "commons-149277190": "word-commons-149277190",
+    "commons-90571096": "word-commons-58304548",
+    "commons-179112555": "word-commons-58303877",
+    "commons-90699629": "word-commons-173769665",
+    "commons-179112627": "word-commons-179112627",
+    "commons-90699822": "word-commons-176366985",
+    "commons-179112649": "word-commons-179112649",
+    "commons-90699868": "word-commons-90699868",
+    "commons-90751132": "word-commons-90751132",
+    "commons-179112667": "word-commons-179112667",
+    "commons-179112724": "word-commons-179112724",
+    "commons-90751195": "word-commons-90751195",
+    "commons-179112834": "word-commons-179112834",
+    "commons-90751230": "word-commons-90751230",
+    "commons-179112853": "word-jam1",
+    "commons-90811319": "word-commons-173769275",
+    "commons-90811495": "word-commons-90811495",
+    "commons-90409904": "word-commons-147747107",
+    "commons-90409909": "word-commons-173769234",
+    "commons-90813296": "word-commons-90813296",
+    "commons-90409935": "word-commons-147747102",
+    "commons-90409948": "word-commons-90409948",
+    "commons-90888901": "word-commons-90888901",
+    "commons-90889523": "word-commons-90889523",
+    "commons-90413393": "word-commons-90413393",
+    "commons-91986832": "word-commons-91986832",
+    "commons-90413450": "word-commons-90413450",
+    "commons-91987070": "word-commons-173769393",
+    "commons-90413490": "word-commons-147747423",
+    "commons-91987108": "word-commons-91987108",
+    "commons-90413493": "word-commons-90413493",
+    "commons-90413522": "word-commons-174335166",
+    "commons-90413536": "word-commons-90413536",
+    "commons-90413610": "word-commons-90413610",
+    "commons-90413620": "word-commons-90413620",
+    "commons-90418207": "word-commons-90418207",
+    "commons-90440173": "word-commons-90440173",
+    "commons-90440402": "word-commons-90440402",
+    "commons-90440407": "word-commons-90440407",
+    "commons-90440454": "word-commons-90440454",
+    "commons-90440687": "word-commons-90440687",
+    "commons-90440701": "word-commons-90440701",
+    "commons-90442416": "word-commons-90442416",
+    "commons-90442510": "word-commons-90442510",
+    "commons-90442626": "word-commons-90442626",
+    "commons-90442639": "word-commons-90442639",
+    "commons-90442678": "word-commons-90442678",
+    "commons-90442792": "word-commons-90442792",
+    "commons-90442880": "word-commons-90442880",
+    "commons-90442974": "word-commons-90442974",
+    "commons-90445581": "word-commons-90445581",
+    "commons-90487503": "word-commons-90487503",
+    "commons-90571060": "word-commons-173769315",
+    "commons-90571073": "word-commons-90571073",
+    "commons-90571075": "word-commons-90571075",
+    "commons-90571079": "word-commons-90571079",
+    "commons-90699642": "word-commons-90699642",
+    "commons-90699649": "word-commons-90699649",
+    "commons-90699844": "word-commons-90699844",
+    "commons-90699853": "word-commons-173770256",
+    "commons-90750751": "word-commons-90750751",
+    "commons-90750756": "word-commons-90750756",
+    "commons-90750784": "word-commons-90750784",
+    "commons-90750816": "word-commons-90750816",
+    "commons-90750873": "word-commons-90750873",
+    "commons-90750945": "word-commons-173769621",
+    "commons-90751056": "word-commons-90751056",
+    "commons-90811459": "word-commons-58303858",
+    "commons-90812380": "word-commons-90812380",
+    "commons-90813313": "word-commons-90813313",
+    "commons-90813415": "word-commons-90813415",
+    "commons-90813764": "word-commons-90813764",
+    "commons-90861915": "word-commons-90861915",
+    "commons-90888908": "word-commons-90888908",
+    "commons-90889497": "word-commons-90889497",
+    "commons-91987201": "word-commons-91987201",
+    "commons-92040746": "word-commons-92040746",
+    "commons-92040778": "word-commons-92040778",
+    "commons-92041341": "word-commons-92041341",
+    "commons-90811306": "word-commons-90811306",
+    "commons-90811549": "word-commons-90811549",
+    "commons-173769231": "word-commons-173769231",
+    "commons-147747100": "word-commons-173769231",
+    "commons-88201873": "word-commons-173769231",
+    "commons-90442633": "word-commons-173769231",
+    "commons-90440650": "word-commons-90440650",
+    "commons-90811156": "word-commons-90811156",
+    "commons-90699779": "word-commons-90699779",
+    "commons-90889498": "word-commons-90889498",
+    "commons-149276355": "word-commons-149276355",
+    "commons-90699750": "word-commons-90699750"
   }
 }
