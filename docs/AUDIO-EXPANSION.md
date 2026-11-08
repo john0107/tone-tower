@@ -1,14 +1,14 @@
 # November 2026 audio expansion
 
-The prepared batch adds **2,614 Wikimedia Commons recordings**, covering **2,299
+The completed batch added **2,614 Wikimedia Commons recordings**, covering **2,299
 new words/readings**. There are 2,541 two-syllable recordings and 73 single-syllable
 recordings. Some words have two speakers, and 72 existing words/readings gain
 another voice. The queue's 1,098 earlier entries are preserved.
 
-Starting from 1,250 saved recordings and 970 words/readings, successful imports
-would bring the collection to **3,864 recordings and 3,269 words/readings**.
-These are selection totals; technical or source checks can reject individual
-downloads. The audio has not been independently auditioned.
+All selected recordings passed import checks. The synchronized collection now
+contains **3,864 recordings and 3,269 words/readings**, with no queue entries
+remaining and no missing audio files. Corpus metadata matches 3,191 words/readings;
+the other 78 have no source match. The audio has not been independently auditioned.
 
 ## Start and resume
 
@@ -19,7 +19,8 @@ npm run audio:status
 npm run audio:download
 ```
 
-No discovery or selection command is needed before starting this prepared queue.
+This queue is complete; running the downloader again skips completed entries and
+exits. The same command resumes future queue additions.
 New vocabulary is ahead of alternate voices. Examples near the beginning include
 多謝 (thanks), 學校 (school), 聽日 (tomorrow), 尋日 (yesterday), 咖啡 (coffee),
 手機 (mobile phone), and 巴士 (bus).
