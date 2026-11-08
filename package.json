@@ -20,6 +20,7 @@
     "format:check": "prettier --check .",
     "audio:download": "node tools/audio/download.mjs",
     "audio:discover": "node tools/audio/discover.mjs",
+    "audio:select": "node tools/audio/select.mjs",
     "audio:import": "node tools/audio/import-curated.mjs",
     "audio:verify": "node tools/audio/verify.mjs",
     "audio:sync": "node tools/catalog/sync.mjs",

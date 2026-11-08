@@ -21,7 +21,7 @@ remain under their indicated licence.
 
 Readings and English glosses include adaptations from:
 
-- CC-Canto, copyright 2015–2016 Pleco Software Incorporated:
+- CC-Canto, copyright 2015–2017 Pleco Software Incorporated:
   https://github.com/amadeusine/cc-canto-data
   Licensed under CC BY-SA 3.0: https://creativecommons.org/licenses/by-sa/3.0/
 - CC-CEDICT and its contributors:
@@ -32,6 +32,14 @@ Entries with dictionarySource or glossSource identify their source. Glosses are
 selected or adapted to identify the intended word, and readings are aligned to
 the game's syllables. Those adaptations retain the applicable share-alike terms.
 Manual corrections are recorded separately in data/audio/corrections.json.
+
+Expansion selection also cross-checks written forms and readings against Cantonese
+Wordnet, by Joanna Ut-Seong Sio and Luis Morgado da Costa:
+https://github.com/lmorgadodacosta/CantoneseWN
+Licensed under CC BY 4.0: https://creativecommons.org/licenses/by/4.0/
+Citation: Sio and Morgado da Costa (2019), “Building the Cantonese Wordnet,”
+Proceedings of the Tenth Global Wordnet Conference, pp. 206–215. This cross-check
+does not imply that a recording is supplied or endorsed by Cantonese Wordnet.
 
 ## Corpus frequency metadata
 

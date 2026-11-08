@@ -26,11 +26,17 @@ npm start
 
 `audio:sync` explicitly updates the stable word registry. Ordinary catalog generation, development startup, and production builds do not modify versioned metadata. If the registry is out of date, they explain that synchronization is required.
 
-The current selected queue is complete when status reports zero remaining. Running
+The selected queue is complete when status reports zero remaining. Running
 `audio:download` again then skips every completed recording and exits; discovering
 more files does not automatically expand the selected queue. After new vocabulary
 is selected, the same command resumes it. See the [catalog reference](AUDIO-CATALOG.md)
 for refreshing sourced word metadata with `npm run audio:metadata`.
+
+The November expansion adds 2,614 recordings covering 2,299 new words/readings.
+See [the batch selection notes](AUDIO-EXPANSION.md) for its sources, criteria,
+limitations and expected totals. Start it with the same `npm run audio:download`
+command above. After importing, run `npm run audio:sync` followed by
+`npm run audio:metadata` to refresh the available factual metadata for the new words.
 
 For a release, run:
 
@@ -68,5 +74,10 @@ npm run audio:import -- --source-dir ../audio-originals --batch 100
 Keep originals outside the repository. Use original Commons filenames or `commons-<pageid>` plus the original extension. Missing local files are skipped. Cached source metadata is reused; missing metadata still requires internet access. Add `--all` to process the remaining local queue, or `--selection path/to/queue.json` to use a different selected queue.
 
 `npm run audio:discover` scans Commons categories into the ignored `.audio-import-cache/candidates.json`. Add `-- --refresh` to rescan. Discovery does not automatically add candidates to the selected queue.
+
+`npm run audio:select` selects an expansion using the cached dictionary, Wordnet
+and corpus snapshots described in [the batch selection notes](AUDIO-EXPANSION.md).
+It changes the selected queue and writes an ignored selection report; it does not
+download audio. Repeating it with the same inputs leaves the queue unchanged.
 
 Source, dictionary, and technical checks do not establish pronunciation correctness. Listen to recordings independently when curating them. See [the catalog reference](AUDIO-CATALOG.md) for word corrections and exclusions.
