@@ -1,5 +1,4 @@
 export const RAIL_SPAN = 180;
-export const RAIL_APPROACH = 100;
 export const RAIL_CROSSING_SECONDS = 0.85;
 const settled = (p) => ['correct', 'landing', 'review'].includes(p);
 const smooth = (p) => p * p * (3 - 2 * p);
@@ -45,7 +44,7 @@ export function createRailJourney(start = 0) {
       }
       progress = next.progress ?? progress;
     },
-    tick(dt, { approach = 0, paused = false, reduced = false } = {}) {
+    tick(dt, { paused = false, reduced = false } = {}) {
       if (!paused) {
         dt = Math.max(0, dt);
         elapsed += dt;
@@ -53,20 +52,20 @@ export function createRailJourney(start = 0) {
           missed = phase === 'review' && reason === 'timeout';
         const target =
           (segment + (crossing ? 1 : 0)) * RAIL_SPAN +
-          (missed
-            ? 132 + Math.min(4, Math.floor(progress / 20)) * 3
-            : phase === 'answering'
-              ? Math.max(0, Math.min(1, approach)) * RAIL_APPROACH
-              : 0);
-        if (reduced) camera = Math.max(camera, target);
-        else if (crossing || missed)
-          camera = Math.max(
-            camera,
-            from +
-              (target - from) *
-                smooth(Math.min(1, elapsed / (missed ? 0.55 : RAIL_CROSSING_SECONDS))),
-          );
-        else camera += Math.max(0, target - camera) * (1 - Math.exp(-14 * dt));
+          (missed ? 132 + Math.min(4, Math.floor(progress / 20)) * 3 : 0);
+        // Hold the entire view still while the player listens and types.
+        // Countdown feedback lives on the signal; travel is reserved for outcomes.
+        if (phase !== 'answering') {
+          if (reduced) camera = Math.max(camera, target);
+          else if (crossing || missed)
+            camera = Math.max(
+              camera,
+              from +
+                (target - from) *
+                  smooth(Math.min(1, elapsed / (missed ? 0.55 : RAIL_CROSSING_SECONDS))),
+            );
+          else camera += Math.max(0, target - camera) * (1 - Math.exp(-14 * dt));
+        }
         region = reduced
           ? Math.min(4, Math.floor(progress / 20))
           : region + (Math.min(4, Math.floor(progress / 20)) - region) * (1 - Math.exp(-2 * dt));

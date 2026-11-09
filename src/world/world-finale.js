@@ -1,3 +1,4 @@
+import { drawGlow, drawSprout, drawRoof } from './pixel-art.js';
 // A persistent epilogue in the same scene: the world lights up around the traveller.
 export function drawFinale(ctx, s, P) {
   const t = s.reduced ? 12 : Math.max(0, s.elapsed || 0),
@@ -7,7 +8,7 @@ export function drawFinale(ctx, s, P) {
   const r = (x, y, w, h, c) => {
     ctx.fillStyle = c;
     ctx.fillRect(
-      Math.round(x * 2) / 2,
+      Math.round(x),
       Math.round(y),
       Math.max(0, Math.round(w)),
       Math.max(0, Math.round(h)),
@@ -23,32 +24,20 @@ export function drawFinale(ctx, s, P) {
         c,
       );
   };
-  const roof = (x, y, w) => {
-    r(x + 12, y, w - 24, 4, P.water);
-    r(x + 5, y + 4, w - 10, 4, P.teal);
-    r(x - 4, y + 8, w + 8, 3, P.gold);
-    r(x - 7, y + 4, 4, 5, P.teal);
-    r(x + w + 3, y + 4, 4, 5, P.teal);
-    r(x, y + 11, w, 3, P.dark);
-  };
+  const roof = (x, y, w) => drawRoof(ctx, x, y, w, P);
   const lantern = (x, y, small = false) => {
     const a = small ? 2 : 3;
+    if (!small) drawGlow(ctx, x, y, P);
     r(x - a, y - a, 2 * a + 1, 2 * a + 3, P.gold);
     r(x - 1, y - a + 1, 2, 2 * a, P.cream);
     r(x, y + a + 3, 1, 3, P.red);
   };
-  const person = (x, y) => {
-    r(x - 4, y - 17, 8, 10, P.gold);
-    r(x - 6, y - 15, 12, 6, P.cream);
-    r(x - 3, y - 13, 1, 2, P.dark);
-    r(x + 3, y - 13, 1, 2, P.dark);
-    r(x - 4, y - 7, 8, 7, P.wood);
-    r(x - 5, y, 4, 2, P.dark);
-    r(x + 2, y, 4, 2, P.dark);
-    r(x, y - 22, 2, 5, P.grass);
-    r(x - 4, y - 25, 5, 4, P.leaf);
-    r(x + 2, y - 27, 5, 4, P.leaf);
-  };
+  const person = (x, y) =>
+    drawSprout(ctx, x, y - 2, P, {
+      time: t,
+      reduced: s.reduced,
+      walking: rail && t >= 2.7 && t < 5.1,
+    });
   r(0, 0, W, H, '#1b2945');
   r(0, 118, W, 122, '#354661');
   disc(238, 65, 44, '#33475c');

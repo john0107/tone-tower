@@ -1,3 +1,13 @@
+import {
+  drawCloud,
+  drawGlow,
+  drawSky,
+  drawSprout,
+  drawTree,
+  drawRoof,
+  drawIsland,
+  drawGarden,
+} from './pixel-art.js';
 import { drawSkyrail } from './skyrail-world.js';
 import {
   drawFloorGauge,
@@ -7,26 +17,26 @@ import {
 } from './tower-details.js';
 // One pixel grid and one palette for the map, destinations, sprites and effects.
 export const P = {
-  sky: '#263f58',
-  night: '#19293d',
-  far: '#385669',
-  cloud: '#66848b',
-  mist: '#8fa49a',
-  stone: '#647b7c',
-  edge: '#a1aaa0',
-  shade: '#405b65',
-  deep: '#293f4b',
-  grass: '#6d947d',
-  leaf: '#a1b98a',
-  cream: '#f4d8a1',
-  gold: '#d7a65c',
-  wood: '#9a6853',
-  brick: '#ba8060',
-  red: '#d77c72',
-  water: '#6aabaa',
-  teal: '#83c5bc',
-  glass: '#b5dbcf',
-  dark: '#172b38',
+  sky: '#202c49',
+  night: '#151e35',
+  far: '#344461',
+  cloud: '#536887',
+  mist: '#91a6b4',
+  stone: '#6d7f8b',
+  edge: '#b4bab3',
+  shade: '#46546b',
+  deep: '#2d354f',
+  grass: '#497969',
+  leaf: '#a4c784',
+  cream: '#ffe3ac',
+  gold: '#e6ae62',
+  wood: '#8c574e',
+  brick: '#c38363',
+  red: '#e88d83',
+  water: '#478e91',
+  teal: '#7bc4b0',
+  glass: '#c6e5c9',
+  dark: '#151e32',
 };
 export function doorSlots(count = 2) {
   return (
@@ -73,7 +83,7 @@ export function drawWorld(ctx, s) {
     ctx.fillRect(0, 0, 480, s.height);
     ctx.translate(0, hubOffset);
   }
-  const t = s.time || 0;
+  const t = s.reduced ? 0 : s.time || 0;
   ctx.imageSmoothingEnabled = false;
   const r = (x, y, w, h, c) => {
     ctx.fillStyle = c;
@@ -96,13 +106,9 @@ export function drawWorld(ctx, s) {
       for (let xx = -rad; xx <= rad; xx++)
         if (xx * xx + yy * yy <= rad * rad) r(x + xx, y + yy, 1, 1, c);
   };
-  const cloud = (x, y, w) => {
-    r(x + 8, y, w - 16, 4, P.cloud);
-    r(x, y + 4, w, 7, P.cloud);
-    r(x + 4, y + 11, w - 8, 3, P.cloud);
-    line(x + 10, y + 4, w - 20, P.mist);
-  };
+  const cloud = (x, y, w) => drawCloud(ctx, x, y, w, P);
   const lantern = (x, y, on = true) => {
+    if (on) drawGlow(ctx, x + 1, y + 14, P, 1.5);
     r(x, y, 2, 8, P.deep);
     r(x - 3, y + 8, 8, 2, P.dark);
     r(x - 2, y + 10, 6, 8, on ? P.gold : P.shade);
@@ -110,16 +116,7 @@ export function drawWorld(ctx, s) {
     r(x - 3, y + 18, 8, 2, P.dark);
   };
   function roof(x, y, w) {
-    r(x + 10, y, w - 20, 3, P.teal);
-    r(x + 6, y + 3, w - 12, 3, P.water);
-    r(x + 2, y + 6, w - 4, 3, P.teal);
-    r(x - 4, y + 5, 6, 3, P.gold);
-    r(x + w - 2, y + 5, 6, 3, P.gold);
-    r(x - 6, y + 2, 3, 4, P.teal);
-    r(x + w + 3, y + 2, 3, 4, P.teal);
-    r(x, y + 9, w, 3, P.dark);
-    r(x + 3, y + 12, w - 6, 2, P.gold);
-    for (let k = 14; k < w - 10; k += 9) r(x + k, y + 3, 1, 5, P.shade);
+    drawRoof(ctx, x, y, w, P);
   }
   function window(x, y, on) {
     r(x, y, 7, 11, P.deep);
@@ -128,23 +125,10 @@ export function drawWorld(ctx, s) {
     r(x - 1, y + 11, 9, 2, P.edge);
   }
   function cliff(x, y, w, h) {
-    r(x + 3, y, w - 6, h, P.deep);
-    r(x, y, w, 5, P.grass);
-    r(x + 3, y + 5, w - 6, 4, P.stone);
-    r(x + 8, y + 9, w - 16, 6, P.shade);
-    for (let i = 0; i < w / 18; i++) {
-      r(x + 8 + i * 17, y + 16, 3, h - 25, P.shade);
-      r(x + 6 + i * 17, y + 16, 2, 12, P.stone);
-    }
-    r(x + 10, y + h - 7, w - 20, 5, P.deep);
-    r(x + 22, y + h - 2, w - 44, 3, P.far);
+    drawIsland(ctx, x, y, w, h, P);
   }
   function tree(x, y) {
-    r(x + 7, y + 9, 3, 18, P.wood);
-    r(x + 2, y + 7, 14, 10, P.grass);
-    r(x + 5, y + 2, 10, 17, P.grass);
-    r(x, y + 10, 18, 5, P.leaf);
-    r(x + 7, y, 5, 3, P.leaf);
+    drawTree(ctx, x, y, P);
   }
   function track(x, y, w, offset = 0) {
     r(x, y + 5, w, 9, P.deep);
@@ -270,37 +254,26 @@ export function drawWorld(ctx, s) {
     r(x + 27, y - 15, 4, 6, P.cream);
     r(x - 27, y - 15, 3, 6, P.red);
   }
-  function sprite(x, y, walking = false) {
-    const step = walking ? Math.floor(t * 10) % 2 : 0;
-    r(x - 4, y - 13, 8, 10, P.gold);
-    r(x - 6, y - 11, 12, 6, P.cream);
-    r(x - 3, y - 9, 1, 2, P.dark);
-    r(x + 3, y - 9, 1, 2, P.dark);
-    r(x - 2, y - 5, 4, 1, P.brick);
-    r(x - 4, y - 2, 8, 5, P.wood);
-    r(x - 4 - step, y + 3, 3, 2, P.deep);
-    r(x + 2 + step, y + 3, 3, 2, P.deep);
-    r(x, y - 17, 2, 4, P.grass);
-    r(x - 4, y - 20, 5, 4, P.leaf);
-    r(x + 2, y - 22, 5, 4, P.leaf);
+  function sprite(x, y, walking = false, direction = s.direction || 1) {
+    drawSprout(ctx, x, y, P, {
+      time: t,
+      walking,
+      reduced: s.reduced,
+      direction,
+      hurt: (s.hit || 0) > 0.4,
+    });
   }
-  r(0, 0, 480, 288, P.sky);
-  r(0, 190, 480, 98 + hubOffset, P.far);
-  const moonX = 410;
-  pixCircle(moonX, 39, 14, P.mist);
-  pixCircle(moonX + 7, 34, 13, P.sky);
-  for (let i = 0; i < 29; i++) {
-    const x = (i * 67 + 19) % 480,
-      y = 12 + ((i * 23) % 125);
-    r(x, y, 1, 1, i % 3 === 0 ? P.cloud : P.mist);
-  }
-  // Distant islands and cloud layers share the same stepped silhouette.
-  for (let i = 0; i < 6; i++) {
-    let x = i * 95 - 20;
-    r(x, 112 + (i % 2) * 18, 58, 3, P.cloud);
-    r(x + 6, 115 + (i % 2) * 18, 46, 9, P.far);
-    r(x + 15, 124 + (i % 2) * 18, 27, 18, P.far);
-    r(x + 27, 142 + (i % 2) * 18, 6, 7, P.far);
+  drawSky(ctx, { time: t, reduced: s.reduced, height: 288 + hubOffset }, P);
+  const distantPalette = {
+    ...P,
+    grass: P.cloud,
+    leaf: P.cloud,
+    stone: P.far,
+    shade: P.far,
+    deep: P.far,
+  };
+  for (let i = 0; i < 5; i++) {
+    drawIsland(ctx, i * 113 - 28, 123 + (i % 2) * 22, 67, 31, distantPalette, i);
   }
   cloud(13 + (s.reduced ? 0 : Math.sin(t * 0.09) * 5), 72, 62);
   cloud(204 + (s.reduced ? 0 : Math.sin(t * 0.06) * 8), 42, 57);
@@ -320,11 +293,7 @@ export function drawWorld(ctx, s) {
     r(136, 186, 18, 21, P.wood);
     r(142, 188, 6, 19, P.gold);
 
-    ctx.save();
-    ctx.translate(274, 112);
-    ctx.scale(1.3, 1.3);
-    station(0, 0);
-    ctx.restore();
+    station(290, 139);
     track(264, 211, 216, s.travel > 0 ? t * 12 : 0);
     cart(398, 208, s.travel > 0);
 
@@ -334,6 +303,21 @@ export function drawWorld(ctx, s) {
     tree(268, 182);
     tree(438, 181);
     tree(456, 185);
+    for (const [gx, gy, seed] of [
+      [80, 205, 0],
+      [180, 205, 1],
+      [303, 204, 2],
+      [418, 205, 3],
+    ])
+      drawGarden(ctx, gx, gy, P, seed);
+    // A small shrine and stepping stones turn the connecting path into a place.
+    r(213, 200, 8, 6, P.stone);
+    r(211, 199, 12, 2, P.edge);
+    r(215, 192, 4, 7, P.deep);
+    r(213, 190, 8, 3, P.gold);
+    for (let stone = 0; stone < 5; stone++) {
+      r(224 + stone * 8, 210, 5, 1, P.cream);
+    }
     for (const x of [225, 258]) {
       r(x, 173, 2, 43, P.wood);
       lantern(x, 172);
@@ -341,7 +325,7 @@ export function drawWorld(ctx, s) {
     }
     for (let i = 0; i < 4; i++) {
       r(274 + i * 3, 225, 2, 36, P.water);
-      r(275 + i * 3, 229 + ((t * 9 + i * 3) % 15), 1, 6, P.glass);
+      r(275 + i * 3, 229 + (((s.reduced ? 0 : t) * 9 + i * 3) % 15), 1, 6, P.glass);
     }
     for (let i = 0; i < 7; i++) {
       const x = 35 + i * 68,
@@ -392,19 +376,35 @@ export function drawWorld(ctx, s) {
     const level = Math.max(0, Math.min(4, Math.floor((s.floor ?? s.progress ?? 0) / 20))),
       accent = [P.grass, P.water, P.gold, P.leaf, '#b4b2dc'][level];
     r(0, 0, 480, 240, P.deep);
-    r(18, 18, 444, 210, P.shade);
+    r(18, 18, 444, 210, P.deep);
     for (let row = 0; row < 12; row++)
       for (let col = 0; col < 17; col++) {
-        r(20 + col * 27 - (row % 2) * 13, 22 + row * 16, 25, 14, row % 3 === 0 ? P.shade : P.deep);
+        r(
+          20 + col * 27 - (row % 2) * 13,
+          22 + row * 16,
+          25,
+          14,
+          row % 3 === 0 ? '#333d56' : '#303950',
+        );
       }
     r(0, 0, 480, 13, P.stone);
     r(0, 13, 480, 3, P.edge);
     r(18, 18, 12, 207, P.stone);
     r(450, 18, 12, 207, P.stone);
-    r(30, 18, 420, 4, P.shade);
+    r(30, 18, 420, 4, P.dark);
+    r(30, 22, 420, 5, P.wood);
+    r(30, 22, 420, 1, P.brick);
+    for (const beamX of [74, 400]) {
+      r(beamX, 27, 6, 10, P.deep);
+      r(beamX + 1, 27, 4, 6, P.gold);
+    }
     r(0, 224, 480, 16, P.stone);
     r(0, 224, 480, 3, P.edge);
     for (let i = 0; i < 17; i++) r(i * 30, 228, 1, 12, P.shade);
+    for (let i = 0; i < 16; i++) {
+      r(i * 32 + 4, 233, 24, 1, P.shade);
+      r(i * 32 + 5, 230, 12, 1, P.edge);
+    }
     drawFloorGauge(ctx, s, P);
     for (const x of [34, 429]) {
       r(x - 2, 98, 21, 85, P.stone);
@@ -498,11 +498,25 @@ export function drawWorld(ctx, s) {
         bad = selected && s.result === 'wrong',
         solution = s.result === 'wrong' && i === s.answer;
       block(x - 5, y - 4, w + 10, h + 5);
+      for (const post of [x - 4, x + w]) {
+        r(post, y + 1, 4, h - 1, P.wood);
+        r(post, y + 1, 1, h - 1, P.brick);
+        r(post - 1, y + 8, 6, 2, P.gold);
+        r(post - 1, y + h - 9, 6, 2, P.gold);
+        r(post - 2, y + h - 4, 8, 4, P.stone);
+      }
       roof(x - 5, y - 17, w + 10);
       r(x + 5, y + 3, w - 10, h - 7, success ? '#315e46' : bad ? '#492e38' : P.dark);
       if (success) {
-        r(x + 9, y + 7, w - 18, h - 15, '#4f8860');
-        r(x + 15, y + 12, w - 30, h - 25, '#a1b98a');
+        drawGlow(ctx, x + w / 2, y + h * 0.7, P, 2);
+        r(x + 9, y + 7, w - 18, h - 15, '#264f48');
+        r(x + 14, y + 11, w - 28, h - 23, '#36695a');
+        r(x + 20, y + 16, w - 40, h - 31, '#568b6b');
+        for (let step = 0; step < 5; step++) {
+          const inset = 10 + step * 3;
+          r(x + inset, y + h - 7 - step * 6, w - inset * 2, 3, step % 2 ? P.grass : P.leaf);
+          r(x + inset, y + h - 8 - step * 6, w - inset * 2, 1, P.glass);
+        }
       }
       if (bad && open > 0.3 && !(s.ending === 'lost' && (s.elapsed || 0) > 1.4))
         drawDoorCreature(ctx, { x, y, w, h, elapsed: s.elapsed, reduced: s.reduced }, P);
@@ -512,7 +526,50 @@ export function drawWorld(ctx, s) {
       for (let k = 0; k < 3; k++)
         if (15 + (k * (w - 28)) / 3 < (w - 8) * leaf)
           r(x + 15 + (k * (w - 28)) / 3, y + 10, 1, h - 20, P.deep);
-      if (leaf > 0.4) r(x + (w - 18) * leaf, y + h * 0.65, 3, 5, P.gold);
+      if (leaf > 0.08) {
+        const panelW = Math.max(0, (w - 30) * leaf);
+        for (const py of [y + 15, y + h * 0.56]) {
+          r(x + 12, py, panelW, h * 0.3, P.deep);
+          r(
+            x + 13,
+            py + 1,
+            Math.max(0, panelW - 2),
+            Math.max(0, h * 0.3 - 3),
+            solution ? P.gold : P.wood,
+          );
+          r(x + 14, py + 2, Math.max(0, panelW - 4), 1, P.brick);
+        }
+        if (leaf > 0.85) {
+          for (let lattice = 0; lattice < 3; lattice++) {
+            const lx = x + 16 + (lattice * (w - 36)) / 3;
+            r(lx, y + 19, 1, Math.max(2, h * 0.11), P.brick);
+            r(lx, y + 19, Math.max(2, (w - 40) / 3), 1, P.gold);
+          }
+          r(x + 13, y + h - 11, w - 28, 2, P.deep);
+          for (const sx of [x + 11, x + w - 13]) {
+            r(sx, y + 10, 2, 2, P.gold);
+            r(sx, y + h - 14, 2, 2, P.gold);
+          }
+        }
+        if (leaf > 0.4) {
+          r(x + (w - 18) * leaf - 1, y + h * 0.51, 5, 7, P.deep);
+          r(x + (w - 18) * leaf, y + h * 0.51, 3, 5, P.gold);
+          r(x + (w - 18) * leaf, y + h * 0.51, 1, 2, P.cream);
+        }
+      }
+      if (success && !s.reduced) {
+        const age = s.elapsed || 0;
+        for (let k = 0; k < 7; k++) {
+          const rise = (age * 25 + k * 11) % (h - 16);
+          r(
+            x + 13 + ((k * 17) % (w - 26)),
+            y + h - 8 - rise,
+            1 + (k % 2),
+            2,
+            k % 2 ? P.cream : P.leaf,
+          );
+        }
+      }
       r(x - 7, y + h, w + 14, 3, success ? P.leaf : P.edge);
       r(x - 5, y + h + 3, w + 10, 2, P.deep);
       if (success || solution) {
@@ -553,6 +610,7 @@ export function drawWorld(ctx, s) {
             : 0),
         ay,
         walk > 0 && walk < 1,
+        (target.x < start.x ? -1 : 1) * (s.result === 'wrong' && (s.elapsed || 0) > 0.55 ? -1 : 1),
       );
     }
     if (s.ending === 'lost') {
@@ -562,16 +620,9 @@ export function drawWorld(ctx, s) {
       if (age > 0.9) {
         const sit = Math.min(1, Math.max(0, (age - 1.1) / 0.6)),
           sy = 230 + sit * 3;
-        r(236, sy - 13, 8, 9, P.gold);
-        r(234, sy - 11, 12, 6, P.cream);
-        r(237, sy - 8, 2, 1, P.dark);
-        r(242, sy - 8, 2, 1, P.dark);
-        r(236, sy - 4, 8, 4, P.wood);
+        drawSprout(ctx, 240, sy - 1, P, { time: t, reduced: s.reduced, hurt: true, seated: true });
         r(233, sy, 6, 2, P.dark);
         r(241, sy, 6, 2, P.dark);
-        r(240, sy - 17, 2, 4, P.grass);
-        r(236, sy - 20, 5, 4, P.leaf);
-        r(242, sy - 21, 5, 4, P.leaf);
         const ly = 208 - Math.min(26, (age - 0.9) * 14);
         r(232, ly - 14, 18, 23, 'rgba(215,166,92,.12)');
         lantern(240, ly - 23, true);

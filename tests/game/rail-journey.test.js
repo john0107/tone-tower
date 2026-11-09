@@ -1,14 +1,13 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { createRailJourney, RAIL_SPAN, RAIL_APPROACH } from '../../src/world/rail-journey.js';
+import { createRailJourney, RAIL_SPAN } from '../../src/world/rail-journey.js';
 
 test('the camera follows one route through rapid word handoffs, without rewinding', () => {
   const j = createRailJourney();
   j.update({ phase: 'listening', progress: 0 });
   j.update({ phase: 'answering', progress: 0 });
   const approaching = j.tick(1, { approach: 0.6 });
-  assert.ok(approaching.camera > 0);
-  assert.ok(approaching.camera <= RAIL_APPROACH);
+  assert.equal(approaching.camera, 0);
   j.update({ phase: 'correct', progress: 1 });
   const crossing = j.tick(0.18);
   assert.ok(crossing.camera > approaching.camera);
@@ -87,7 +86,7 @@ test('timeout coasts to the unsupported edge before gravity begins', () => {
   j.update({ phase: 'review', reason: 'timeout', progress: 0 });
   const early = j.tick(0.3, { approach: 1 });
   assert.equal(early.fall, 0);
-  assert.ok(early.camera > RAIL_APPROACH);
+  assert.ok(early.camera > 0);
   assert.ok(270 - early.camera > 144);
   const edge = j.tick(0.25, { approach: 1 });
   assert.equal(edge.fall, 0);
@@ -122,5 +121,25 @@ test('every upgraded car keeps support until its rear wheel reaches the gap', ()
     assert.equal(coast.fall, 0);
     assert.ok(gap < rearWheel);
     assert.ok(j.tick(0.05, { approach: 1 }).fall > 0);
+  }
+});
+
+test('the camera stays fixed throughout the countdown, including after a crossing', () => {
+  for (const start of [0, 19, 40, 80]) {
+    const j = createRailJourney(start);
+    j.update({ phase: 'answering', progress: start });
+    const before = j.camera;
+    for (let tick = 0; tick <= 120; tick++) {
+      assert.equal(j.tick(0.125, { approach: tick / 120 }).camera, before);
+    }
+    j.update({ phase: 'correct', progress: start + 1 });
+    assert.ok(j.tick(0.4).camera > before);
+    j.tick(0.5);
+    j.update({ phase: 'listening', progress: start + 1 });
+    j.tick(0.1);
+    j.update({ phase: 'answering', progress: start + 1 });
+    const parked = j.camera;
+    assert.equal(j.tick(15, { approach: 1 }).camera, parked);
+    assert.equal(j.tick(15, { approach: 1, reduced: true }).camera, parked);
   }
 });

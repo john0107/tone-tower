@@ -33,6 +33,7 @@ export function animateWorld(canvas, initial = {}) {
     id = 0,
     disposed = false,
     actor = { ...(initial.actor || destinations.tone) },
+    direction = 1,
     target = null,
     waypoints = [],
     journey = null;
@@ -85,6 +86,7 @@ export function animateWorld(canvas, initial = {}) {
           dy = p.y - actor.y,
           dist = Math.hypot(dx, dy),
           step = 120 * dt;
+        if (Math.abs(dx) > 1) direction = dx < 0 ? -1 : 1;
         if (dist <= step || reduced.matches) {
           actor = { ...p };
           waypoints.shift();
@@ -102,7 +104,6 @@ export function animateWorld(canvas, initial = {}) {
     const rail =
       state.scene === 'rail'
         ? journey?.tick(dt, {
-            approach: state.approach,
             paused: state.paused,
             reduced: reduced.matches,
           })
@@ -123,6 +124,7 @@ export function animateWorld(canvas, initial = {}) {
       entry: Math.min(1, entry / 1.65),
       time,
       actor,
+      direction,
       walking: Boolean(target),
       reduced: reduced.matches,
       ...motion,

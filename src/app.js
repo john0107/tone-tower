@@ -562,6 +562,8 @@ function practiceFromRun(run) {
     variant: run.config.variant,
     focusIds: [...new Set(run.missedIds || [])],
   };
+  // Missed recordings may contain whole words even when practice defaults to single syllables.
+  if (config.focusIds.length) config.content = 'mixed';
   if (run.world === 'tone') {
     const pair = Object.entries(run.confusions || {})
       .sort((a, b) => b[1] - a[1])[0]?.[0]
@@ -573,7 +575,6 @@ function practiceFromRun(run) {
     }
   }
   if (run.world === 'tide' && config.focusIds.length) {
-    config.content = 'mixed';
     config.target = run.opened >= 40 ? 'whole' : 'highlighted';
   }
   showWorkshop(config);

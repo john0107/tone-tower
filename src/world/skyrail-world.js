@@ -1,11 +1,22 @@
+import {
+  drawCloud,
+  drawGlow,
+  drawSky,
+  drawSprout,
+  drawTree,
+  drawRoof,
+  drawIsland,
+  drawGarden,
+  drawRepairSpan,
+} from './pixel-art.js';
 import { drawTowerHearts } from './tower-details.js';
 import { RAIL_SPAN } from './rail-journey.js';
 const clamp = (n, a, b) => Math.max(a, Math.min(b, n));
 export const RAIL_CARS = ['Local', 'Climber', 'Express', 'Skyglider', 'Comet'];
 export function drawSkyrail(ctx, s, base) {
   const region = s.journey?.region ?? Math.min(4, Math.floor((s.progress || 0) / 20));
-  const skies = ['#263f58', '#244c57', '#433b50', '#303858', '#242d49'],
-    fars = ['#385669', '#3d6870', '#65505c', '#535e80', '#495676'];
+  const skies = ['#202c49', '#203e48', '#493647', '#303453', '#20243e'],
+    fars = ['#344461', '#355961', '#715161', '#515779', '#414e70'];
   const blend = (a, b, f) =>
     '#' +
     [1, 3, 5]
@@ -22,11 +33,10 @@ export function drawSkyrail(ctx, s, base) {
       sky: blend(skies[lo], skies[hi], region - lo),
       far: blend(fars[lo], fars[hi], region - lo),
     };
-  const W = 480,
-    H = 288,
-    t = s.time || 0,
+  const H = 288,
+    t = s.reduced ? 0 : s.time || 0,
     j = s.journey || {
-      camera: (s.progress || 0) * RAIL_SPAN + (s.approach || 0) * 72,
+      camera: (s.progress || 0) * RAIL_SPAN,
       segment: s.progress || 0,
       progress: s.progress || 0,
       repaired: new Set(),
@@ -39,7 +49,7 @@ export function drawSkyrail(ctx, s, base) {
   const r = (x, y, w, h, c) => {
     ctx.fillStyle = c;
     ctx.fillRect(
-      Math.round(x * 2) / 2,
+      Math.round(x),
       Math.round(y),
       Math.max(0, Math.round(w)),
       Math.max(0, Math.round(h)),
@@ -57,35 +67,16 @@ export function drawSkyrail(ctx, s, base) {
     ctx.fillText(String(value), Math.round(x), Math.round(y));
   };
   const hash = (n) => (((n * 137 + 73) % 997) + 997) % 997;
-  const cloud = (x, y, w) => {
-    r(x + 7, y, w - 14, 3, P.cloud);
-    r(x, y + 3, w, 6, P.cloud);
-    r(x + 4, y + 9, w - 8, 2, P.cloud);
-    r(x + 10, y + 3, w - 20, 1, P.mist);
-  };
-  const tree = (x, y, grand = false) => {
-    r(x + 6, y + 7, 3, 20, P.wood);
-    r(x + 2, y + 3, 12, 13, P.grass);
-    r(x, y + 9, 16, 5, P.leaf);
-    if (grand) {
-      r(x - 3, y + 6, 22, 5, P.grass);
-      r(x + 4, y, 8, 5, P.leaf);
-    }
-  };
+  const cloud = (x, y, w) => drawCloud(ctx, x, y, w, P);
+  const tree = (x, y, grand = false) => drawTree(ctx, x, y, P, grand);
   const lamp = (x, y, lit = true) => {
+    if (lit) drawGlow(ctx, x + 1, y + 9, P, 1.5);
     r(x, y, 2, 18, P.deep);
     r(x - 3, y + 3, 8, 2, P.gold);
     r(x - 2, y + 5, 6, 8, lit ? P.gold : P.shade);
     r(x, y + 6, 2, 5, lit ? P.cream : P.stone);
   };
-  const eaves = (x, y, w) => {
-    r(x + 7, y, w - 14, 3, P.water);
-    r(x + 3, y + 3, w - 6, 3, P.teal);
-    r(x - 3, y + 5, w + 6, 3, P.deep);
-    r(x - 5, y + 2, 3, 4, P.teal);
-    r(x + w + 2, y + 2, 3, 4, P.teal);
-    r(x - 3, y + 8, w + 6, 1, P.gold);
-  };
+  const eaves = (x, y, w) => drawRoof(ctx, x, y - 4, w, P);
   const house = (x, y, w = 30) => {
     r(x, y, w, 28, P.shade);
     r(x + 2, y + 2, w - 4, 24, P.stone);
@@ -95,21 +86,22 @@ export function drawSkyrail(ctx, s, base) {
     r(x + w - 11, y + 8, 5, 9, P.deep);
     r(x + w / 2 - 3, y + 18, 7, 10, P.deep);
   };
-  r(0, 0, W, H, P.sky);
-  r(0, 190, W, 98, P.far);
-  circle(408 - ((cam * 0.012) % 120), 35, 12, P.mist);
-  circle(413 - ((cam * 0.012) % 120), 31, 11, P.sky);
-  for (let n = 0; n < 24; n++)
-    r((n * 71 + 13) % 480, 12 + ((n * 23) % 114), 1, 1, n % 3 ? P.cloud : P.mist);
+  ctx.imageSmoothingEnabled = false;
+  drawSky(ctx, { time: t, reduced: s.reduced, camera: cam, height: H }, P);
   // Distant mountain/island silhouettes move at a fraction of the foreground pace.
   const farStart = Math.floor((cam * 0.12) / 130) - 2;
   for (let i = farStart; i < farStart + 8; i++) {
     const x = i * 130 - cam * 0.12,
       y = 120 + (hash(i) % 42);
-    r(x, y, 105, 4, P.cloud);
-    r(x + 8, y + 4, 89, 14, P.far);
-    r(x + 20, y + 18, 65, 18, P.far);
-    r(x + 35, y + 36, 34, 15, P.far);
+    drawIsland(
+      ctx,
+      x,
+      y,
+      105,
+      47,
+      { ...P, grass: P.cloud, leaf: P.cloud, stone: P.far, shade: P.far, deep: P.far },
+      i,
+    );
     if (hash(i) % 3 === 0) house(x + 40, y - 24, 25);
     if (level >= 2) {
       r(x + 18, y - 48, 16, 48, P.far);
@@ -132,9 +124,7 @@ export function drawSkyrail(ctx, s, base) {
         4,
       ),
       y = 150 + (hash(i) % 18);
-    r(x, y, 116, 4, P.stone);
-    r(x + 8, y + 4, 100, 12, P.shade);
-    r(x + 22, y + 16, 72, 22, P.deep);
+    drawIsland(ctx, x, y, 116, 39, P, i);
     if (region === 0) {
       house(x + 36, y - 29, 32);
       tree(x + 82, y - 25);
@@ -188,6 +178,8 @@ export function drawSkyrail(ctx, s, base) {
       for (let k = 0; k < 7; k++) {
         r(x + 10 + k * 24, 225, 3, 50, P.shade);
         r(x + 7 + k * 24, 228, 2, 16, P.stone);
+        r(x + 8 + k * 24, 246 + (k % 3) * 5, 13, 2, P.shade);
+        r(x + 6 + k * 24, 249 + (k % 3) * 5, 6, 3, P.deep);
       }
     } else {
       r(x, 214, RAIL_SPAN, 5, P.stone);
@@ -199,7 +191,18 @@ export function drawSkyrail(ctx, s, base) {
         r(x + k * 40 + 32, 225, 4, 6, P.shade);
       }
     }
-    for (let k = 0; k < 15; k++) r(x + k * 12, 207, 5, 12, P.wood);
+    if (isCliff) {
+      drawGarden(ctx, x + 14, 204, P, i);
+      drawGarden(ctx, x + 150, 205, P, i + 1);
+      r(x + 36, 220, 23, 2, P.grass);
+      r(x + 41, 222, 2, 17, P.grass);
+      r(x + 39, 232, 5, 2, P.leaf);
+    }
+    for (let k = 0; k < 15; k++) {
+      r(x + k * 12, 207, 5, 12, P.deep);
+      r(x + k * 12, 208, 4, 10, P.wood);
+      r(x + k * 12 + 1, 209, 1, 7, P.brick);
+    }
     r(x, 207, RAIL_SPAN, 2, P.edge);
     r(x, 215, RAIL_SPAN, 2, P.stone);
     if (i === 0) {
@@ -246,6 +249,7 @@ export function drawSkyrail(ctx, s, base) {
       for (let k = 0; k < 4; k++) r(x + 99 + k * 13, 123, 2, 14, P.teal);
     }
   }
+  const newestRepair = j.repaired.size ? Math.max(...j.repaired) : null;
   // Gaps are separate from scenery chunks, so construction and camera motion never reset.
   for (let i = first - 1; i < first + 6; i++) {
     const gx = i * RAIL_SPAN + 270 - cam,
@@ -257,15 +261,10 @@ export function drawSkyrail(ctx, s, base) {
       r(gx - 7, 215, 7, 3, P.wood);
       r(gx + 58, 215, 7, 3, P.wood);
     } else {
-      r(
-        gx,
-        208,
-        58,
-        3,
-        j.celebration > 0 && (i === j.segment || i === j.segment - 1) ? P.leaf : P.edge,
-      );
-      for (let k = 0; k < 5; k++) r(gx + k * 12, 211, 4, 9, P.wood);
-      if (!s.reduced && j.celebration > 0 && (i === j.segment || i === j.segment - 1)) {
+      const building = i === newestRepair && j.celebration > 0;
+      if (building && !s.reduced && j.celebration > 1.43) r(gx, 205, 58, 83, P.far);
+      drawRepairSpan(ctx, gx, P, { age: building ? 1.65 - j.celebration : 1, reduced: s.reduced });
+      if (building && !s.reduced && j.celebration < 1.43) {
         for (let k = 0; k < 4; k++)
           r(gx + 8 + k * 13, 199 - ((t * 15 + k * 3) % 13), 2, 3, P.cream);
       }
@@ -332,6 +331,9 @@ export function drawSkyrail(ctx, s, base) {
     r(carX - 14, carY - 57, 2, 22, P.edge);
     r(carX + 12, carY - 57, 2, 22, P.edge);
   }
+  r(carX - half + 4, carY - 37, half * 2 - 8, 2, P.dark);
+  r(carX - half, carY - 35, half * 2, 2, P.wood);
+  r(carX - half + 5, carY - 36, half * 2 - 10, 1, P.gold);
   r(carX - half - 2, carY - 34, half * 2 + 4, 3, P.deep);
   r(carX - half - 4, carY - 31, half * 2 + 8, 4, level >= 2 ? P.gold : P.wood);
   r(carX - half + 2, carY - 27, half * 2 - 4, 24, level >= 3 ? P.water : P.teal);
@@ -340,8 +342,17 @@ export function drawSkyrail(ctx, s, base) {
     r(carX + side * 12 - 7, carY - 22, 14, 13, P.sky);
     r(carX + side * 12 - 5, carY - 20, 3, 9, P.glass);
   }
+  for (const cx of [carX - half + 3, carX + half - 6]) {
+    r(cx, carY - 24, 3, 20, P.wood);
+    r(cx, carY - 24, 1, 19, P.gold);
+  }
   r(carX - half - 3, carY - 5, half * 2 + 6, 6, P.gold);
   r(carX - half - 5, carY + 1, half * 2 + 10, 3, P.deep);
+  r(carX - half + 7, carY + 5, half * 2 - 14, 2, P.wood);
+  for (const sx of [carX - half + 11, carX + half - 15]) {
+    r(sx, carY, 5, 1, P.edge);
+    r(sx + 1, carY + 2, 3, 1, P.stone);
+  }
   if (level >= 1) {
     r(carX - half - 9, carY - 11, 8, 3, P.gold);
     r(carX + half + 2, carY - 15, 4, 6, P.cream);
@@ -373,17 +384,20 @@ export function drawSkyrail(ctx, s, base) {
       P.edge,
     );
   }
-  // The same sprout rides inside the cab.
-  r(carX - 4, carY - 24, 8, 9, P.gold);
-  r(carX - 6, carY - 22, 12, 6, P.cream);
-  r(carX - 3, carY - 20, 1, 2, P.dark);
-  r(carX + 3, carY - 20, 1, 2, P.dark);
-  r(carX, carY - 29, 2, 5, P.grass);
-  r(carX - 4, carY - 32, 5, 4, P.leaf);
-  r(carX + 2, carY - 34, 5, 4, P.leaf);
+  // The explorer uses the same face, scarf and leaf poses in every scene.
+  drawSprout(ctx, carX, carY - 8, P, { time: t, reduced: s.reduced, seated: true });
+  r(carX - 9, carY - 7, 18, 3, P.water);
+  r(carX - half + 5, carY - 4, half * 2 - 10, 1, P.cream);
+  for (let k = 0; k < 3; k++) r(carX - half + 5 + k * 4, carY - 12, 2, 4, P.deep);
+  r(carX + half - 4, carY - 19, 5, 9, P.deep);
+  r(carX + half - 3, carY - 18, 4, 6, P.gold);
+  r(carX + half - 2, carY - 17, 3, 3, P.cream);
+  drawGlow(ctx, carX + half, carY - 15, P, 1.5);
   for (let k = 0; k < 3; k++) {
     const age = s.reduced ? k * 8 : (t * 12 + k * 10) % 36;
-    r(carX - half - 5 - age, carY - 25 - age / 3, 5, 3, P.cloud);
+    const puff = 3 + Math.floor(age / 9);
+    r(carX - half - 5 - age, carY - 29 - age / 3, puff, 3, age > 23 ? P.far : P.cloud);
+    r(carX - half - 4 - age, carY - 30 - age / 3, Math.max(1, puff - 2), 1, P.mist);
   }
   if (j.celebration > 0) {
     const cx = carX + half + 8,
@@ -421,12 +435,8 @@ export function drawSkyrail(ctx, s, base) {
     r(lx + 13, ly - 42, 2, 30, P.wood);
     r(lx - 18, ly - 12, 36, 13, P.gold);
     r(lx - 14, ly - 8, 28, 7, P.wood);
-    r(lx - 4, ly - 28, 8, 11, P.gold);
-    r(lx - 6, ly - 26, 12, 6, P.cream);
-    r(lx - 3, ly - 24, 1, 2, P.dark);
-    r(lx + 3, ly - 24, 1, 2, P.dark);
-    r(lx, ly - 33, 2, 5, P.grass);
-    r(lx - 4, ly - 36, 5, 3, P.leaf);
+    drawSprout(ctx, lx, ly - 11, P, { time: t, reduced: s.reduced, seated: true });
+    r(lx - 14, ly - 8, 28, 2, P.gold);
     for (let k = 0; k < 6; k++) cloud(lx - 100 + k * 37, 218 + Math.sin(t + k) * 3, 48);
   }
 }

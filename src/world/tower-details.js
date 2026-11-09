@@ -1,3 +1,4 @@
+import { drawGlow, drawSky, drawRoof, drawGarden } from './pixel-art.js';
 const districtColors = (P) => [P.grass, P.water, P.gold, P.leaf, '#b4b2dc'];
 const heart = ['11011', '11111', '01110', '00100'];
 function pixels(ctx) {
@@ -55,15 +56,22 @@ export function drawFloorGauge(ctx, s, P) {
   label(ctx, 'FLOOR ' + String(floor).padStart(2, '0') + ' / 100', 56, 10, P.cream, 8);
 }
 
-export function drawTowerHearts(ctx, s, P, { x = 94, y = 22, scale = 3 } = {}) {
+export function drawTowerHearts(ctx, s, P, { x = 94, y = 20, scale = 3 } = {}) {
   if (s.lives === undefined) return;
+  const r = pixels(ctx),
+    max = s.maxLives || 4;
+  const width = s.lives === null ? 24 : max * (scale * 5 + 3) - 3;
+  // An opaque plaque separates the HUD from masonry, banners and moving scenery.
+  r(x - 6, y - 4, width + 12, scale * 4 + 8, P.dark);
+  r(x - 6, y - 4, width + 12, 1, P.stone);
+  r(x - 6, y - 3, 1, scale * 4 + 6, P.shade);
+  r(x + width + 5, y - 3, 1, scale * 4 + 6, P.shade);
+  r(x - 6, y + scale * 4 + 3, width + 12, 1, P.shade);
   if (s.lives === null) {
     label(ctx, '∞', x + 12, y + 12, P.cream, 16);
     return;
   }
-  const r = pixels(ctx),
-    max = s.maxLives || 4,
-    elapsed = s.elapsed || 0,
+  const elapsed = s.elapsed || 0,
     rest = s.restTime;
   const recovered = s.recovered || 0,
     previous = s.lives - recovered;
@@ -73,10 +81,23 @@ export function drawTowerHearts(ctx, s, P, { x = 94, y = 22, scale = 3 } = {}) {
       : s.phase === 'landing'
         ? previous
         : s.lives;
-  const drawHeart = (hx, hy, color) => {
-    for (let yy = 0; yy < 4; yy++)
-      for (let xx = 0; xx < 5; xx++)
-        if (heart[yy][xx] === '1') r(hx + xx * scale, hy + yy * scale, scale, scale, color);
+  const drawHeart = (hx, hy, color, empty = false) => {
+    const shape = (dx, dy, ink) => {
+      for (let yy = 0; yy < 4; yy++)
+        for (let xx = 0; xx < 5; xx++)
+          if (heart[yy][xx] === '1')
+            r(hx + xx * scale + dx, hy + yy * scale + dy, scale, scale, ink);
+    };
+    const outline = empty ? P.stone : '#ffbeb0';
+    for (const [dx, dy] of [
+      [-1, 0],
+      [1, 0],
+      [0, -1],
+      [0, 1],
+    ])
+      shape(dx, dy, outline);
+    shape(0, 0, empty ? P.dark : color);
+    if (!empty) r(hx + 1, hy + 1, Math.max(1, scale - 1), 1, P.cream);
   };
   for (let i = 0; i < max; i++) {
     const hx = x + i * (scale * 5 + 3),
@@ -84,7 +105,8 @@ export function drawTowerHearts(ctx, s, P, { x = 94, y = 22, scale = 3 } = {}) {
     const age =
       rest !== undefined ? rest - (i - previous) * 0.25 : elapsed - 0.25 - (i - previous) * 0.14;
     const arrived = !fresh || s.reduced || age > 0.5;
-    drawHeart(hx, y, i < visible && arrived ? (fresh && age < 0.8 ? P.cream : P.red) : P.deep);
+    const filled = i < visible && arrived;
+    drawHeart(hx, y, fresh && age < 0.8 ? P.cream : P.red, !filled);
     if (fresh && !s.reduced && age >= 0 && age < 0.8) {
       const p = Math.min(1, age / 0.5),
         ease = 1 - (1 - p) * (1 - p);
@@ -131,33 +153,33 @@ export function drawDoorCreature(ctx, { x, y, w, h, elapsed = 0, reduced = false
   const cx = x + w / 2,
     cy = y + h * 0.66 + (1 - peek) * 8,
     bob = reduced ? 0 : Math.round(Math.sin(elapsed * 5));
-  // A small mischievous dust creature lives behind the mistaken door.
-  r(cx - 10, cy - 9 + bob, 20, 14, P.shade);
-  r(cx - 7, cy - 13 + bob, 14, 20, '#9690b9');
-  r(cx - 10, cy - 16 + bob, 5, 8, '#b4b2dc');
-  r(cx + 5, cy - 16 + bob, 5, 8, '#b4b2dc');
-  r(cx - 6, cy - 7 + bob, 4, 5, P.cream);
+  // A shy dust creature: stepped fur, a lit face and ears that perk up as it peeks.
+  r(cx - 11, cy + 8, 23, 2, P.dark);
+  r(cx - 10, cy - 8 + bob, 21, 13, P.dark);
+  r(cx - 7, cy - 13 + bob, 15, 21, P.dark);
+  r(cx - 9, cy - 7 + bob, 19, 11, '#706186');
+  r(cx - 6, cy - 12 + bob, 13, 18, '#9690b9');
+  r(cx - 8, cy - 17 + bob, 4, 8, P.dark);
+  r(cx + 5, cy - 16 + bob, 4, 8, P.dark);
+  r(cx - 7, cy - 16 + bob, 2, 7, '#b4b2dc');
+  r(cx + 6, cy - 15 + bob, 2, 6, '#b4b2dc');
+  r(cx - 5, cy - 11 + bob, 8, 2, '#b4b2dc');
+  r(cx - 6, cy - 7 + bob, 5, 5, P.cream);
   r(cx + 3, cy - 7 + bob, 4, 5, P.cream);
   r(cx - 4, cy - 5 + bob, 2, 3, P.dark);
   r(cx + 3, cy - 5 + bob, 2, 3, P.dark);
-  r(cx - 3, cy + 2 + bob, 7, 2, P.deep);
-  r(cx - 7, cy + 7, 4, 3, P.shade);
-  r(cx + 4, cy + 7, 4, 3, P.shade);
+  r(cx - 8, cy - 1 + bob, 3, 2, P.red);
+  r(cx + 6, cy - 1 + bob, 3, 2, P.red);
+  r(cx - 1, cy + 1 + bob, 3, 2, P.dark);
+  r(cx - 7, cy + 6, 4, 3, '#706186');
+  r(cx + 4, cy + 6, 4, 3, '#706186');
 }
 
 export function drawRestLanding(ctx, s, P, sprite) {
   const r = pixels(ctx),
     colors = districtColors(P),
     level = Math.min(4, Math.floor((s.progress || 0) / 20));
-  r(0, 0, 480, 240, P.sky);
-  r(0, 154, 480, 86, P.far);
-  for (let i = 0; i < 5; i++) {
-    const x = i * 108 - 35,
-      y = 95 + (i % 2) * 25;
-    r(x, y, 84, 4, P.cloud);
-    r(x + 10, y + 4, 64, 13, P.far);
-    r(x + 25, y + 17, 32, 22, P.far);
-  }
+  drawSky(ctx, { time: s.time, reduced: s.reduced, height: 240 }, P);
   r(0, 0, 480, 15, P.stone);
   r(0, 15, 480, 3, P.edge);
   r(18, 18, 13, 208, P.stone);
@@ -169,16 +191,8 @@ export function drawRestLanding(ctx, s, P, sprite) {
   // Quiet reading space beside a lantern fountain and the open sky.
   // An open balcony, rather than a blank backing panel, keeps the landing alive on phones.
   r(36, 38, 408, 3, colors[level]);
-  r(381, 49, 18, 3, P.mist);
-  r(377, 52, 26, 10, P.mist);
-  r(381, 62, 18, 3, P.mist);
-  r(389, 47, 16, 13, P.sky);
   r(73, 153, 61, 41, P.shade);
-  r(79, 145, 49, 4, P.water);
-  r(74, 149, 59, 4, P.teal);
-  r(68, 152, 71, 3, P.gold);
-  r(67, 148, 3, 5, P.teal);
-  r(138, 148, 3, 5, P.teal);
+  drawRoof(ctx, 73, 140, 61, P);
   for (let k = 0; k < 4; k++) r(82 + k * 12, 164, 4, 12, P.gold);
   for (const x of [49, 185, 426]) {
     r(x, 204, 14, 16, P.wood);
@@ -194,10 +208,27 @@ export function drawRestLanding(ctx, s, P, sprite) {
     r(lx - 1, ly + 1, 3, 6, P.cream);
     r(lx, ly + 9, 1, 4, P.red);
   }
+  // A little reading bench and an open book give the rest landing a purpose.
+  r(217, 200, 61, 5, P.wood);
+  r(219, 200, 57, 1, P.brick);
+  r(220, 205, 4, 15, P.deep);
+  r(271, 205, 4, 15, P.deep);
+  r(214, 192, 3, 10, P.wood);
+  r(278, 192, 3, 10, P.wood);
+  r(232, 193, 12, 6, P.cream);
+  r(245, 193, 12, 6, P.gold);
+  r(244, 194, 1, 6, P.wood);
+  for (let line = 0; line < 2; line++) {
+    r(234, 195 + line * 2, 7, 1, P.wood);
+    r(248, 195 + line * 2, 6, 1, P.wood);
+  }
+  drawGarden(ctx, 163, 219, P, 0);
+  drawGarden(ctx, 295, 219, P, 1);
   r(343, 205, 69, 6, P.stone);
   r(350, 196, 55, 9, P.water);
   r(358, 191, 39, 5, P.glass);
   r(373, 168, 8, 25, P.wood);
+  drawGlow(ctx, 377, 164, P, 2);
   r(368, 157, 18, 12, P.gold);
   r(372, 160, 10, 6, P.cream);
   if (!s.reduced)

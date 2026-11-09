@@ -169,3 +169,37 @@ test('phone keyboard keeps the rail journey visible above the typing field', asy
   await page.setViewportSize(size);
   await expect(page.locator('body')).not.toHaveClass(/keyboard-open/);
 });
+
+test('missed-sound practice retains multi-syllable recordings from the tower', async ({ page }) => {
+  // Force every missed recording to be a word, so the default single-syllable filter cannot hide it.
+  await page.route('**/catalog.json', (route) =>
+    route.fulfill({
+      json: {
+        ...catalog,
+        words: singles.map((word) => ({
+          ...word,
+          syllables: [...word.syllables, ...word.syllables],
+        })),
+        recordings: catalog.recordings.filter((recording) => recording.wordId !== 'morning'),
+      },
+    }),
+  );
+  await page.reload();
+  await start(page, 'tone');
+  await page.clock.runFor(2200);
+  for (let miss = 0; miss < 4; miss++) {
+    const correct = await currentTone(page);
+    await page
+      .locator('[data-tone]:not([data-tone="' + correct + '"])')
+      .first()
+      .click();
+    if (miss < 3) {
+      await page.locator('#continue-game').click();
+      await page.clock.runFor(150);
+    }
+  }
+  await page.clock.runFor(2900);
+  await page.locator('#ending-practice').click();
+  await expect(page.getByRole('heading', { name: 'Practice tones' })).toBeVisible();
+  await expectNoOverflow(page);
+});
