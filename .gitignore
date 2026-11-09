@@ -3,3 +3,4 @@
 /dist/
 /catalog.json
 *.json.tmp-*
+/debug.log
