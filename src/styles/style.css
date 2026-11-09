@@ -1955,14 +1955,6 @@ input[type='number'] {
   color: var(--teal);
   padding-left: 0;
 }
-.guide-starting-points .info-card h3 {
-  font-size: 18px;
-  line-height: 1.4;
-}
-.guide-starting-points .info-card p:last-child {
-  margin-top: auto;
-  margin-bottom: 0;
-}
 .guide-table {
   margin: 22px 0;
   overflow-x: auto;
@@ -1999,25 +1991,42 @@ input[type='number'] {
 .guide-table tr:last-child td {
   border-bottom: 0;
 }
-.guide-comparison {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin: 17px 0 0;
+.guide-initial-sample {
+  display: inline-block;
+  white-space: nowrap;
 }
-.guide-comparison button {
-  font-size: 14px;
-  gap: 10px;
-  min-height: 44px;
+.guide-word-audio {
+  display: inline-flex;
+  align-items: center;
+  vertical-align: baseline;
+  gap: 5px;
+  min-height: 0;
+  padding: 2px 3px;
+  margin: 0 1px;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  font: inherit;
+  line-height: 1.5;
+  white-space: nowrap;
 }
-.guide-comparison button[data-playing='true'] {
+.guide-word-audio > span:first-child {
+  font-size: 10px;
+  color: var(--teal);
+}
+.guide-word-audio > b {
+  color: var(--cream);
+  text-decoration: underline;
+  text-decoration-color: #647b7c;
+  text-underline-offset: 3px;
+}
+.guide-word-audio:active:not(:disabled) {
+  translate: none;
+  box-shadow: none;
+}
+.guide-word-audio[data-playing='true'] {
   border-color: var(--teal);
   background: #315e46;
-}
-.info-section .guide-example-status {
-  min-height: 22px;
-  margin: 8px 0 0;
-  color: var(--teal);
 }
 .info-page .resource-links .resource-type {
   color: var(--teal);

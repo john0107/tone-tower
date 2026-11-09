@@ -59,10 +59,7 @@ export function guideResourcesMarkup() {
     <a href="https://jyutping.org/en/learn/" target="_blank" rel="noopener"
       >Jyutping.org: guide for English speakers ↗<span class="resource-type"
         >English explanations · illustrated guide with audio</span
-      ><span
-        >Explains spelling and pronunciation through comparisons with English. Use those comparisons
-        where they are familiar to you.</span
-      ></a
+      ><span>Explains spelling and pronunciation through comparisons with English.</span></a
     >
     <a
       href="https://opencantonese.org/books/cantonese-life-1/pronunciation-guide/jyutping-chart"
@@ -95,21 +92,30 @@ export function guideResourcesMarkup() {
   </div>`;
 }
 
-function wordExamples(recordings, spellings, label) {
-  const examples = spellings.map((jyutping) =>
-    recordings.find((word) => word.jyutping === jyutping),
-  );
-  if (examples.some((word) => !word)) return '';
-  return /* HTML */ `<div class="guide-example-block">
-    <div class="guide-comparison" role="group" aria-label="${escape(label)}">
-      ${examples.map((word) => /* HTML */ `<button class="secondary" data-guide-word="${escape(word.id)}" type="button" aria-label="Hear ${escape(word.jyutping)}, ${escape(word.character)}"><span aria-hidden="true">▶</span> <b>${escape(word.jyutping)}</b> <span lang="zh-Hant">${escape(word.character)}</span></button>`).join('')}
-    </div>
-    <p class="small guide-example-status" role="status" aria-live="polite"></p>
-  </div>`;
+function inlineWordAudio(recordings, jyutping, recordingId) {
+  const word =
+    recordings.find((entry) => entry.id === recordingId && entry.jyutping === jyutping) ||
+    recordings.find((entry) => entry.jyutping === jyutping);
+  if (!word) return `<b>${escape(jyutping)}</b>`;
+  return /* HTML */ `<button
+    class="guide-word-audio"
+    data-guide-word="${escape(word.id)}"
+    type="button"
+    aria-label="Hear ${escape(word.jyutping)}, ${escape(word.character)}"
+  >
+    <span aria-hidden="true">▶</span> <b>${escape(word.jyutping)}</b>
+    <span lang="zh-Hant">${escape(word.character)}</span>
+  </button>`;
 }
 
 export function soundPageMarkup(anchors, toneDefinitions, recordings = []) {
   const example = anchors.find((word) => word.tone === 2);
+  const audio = (jyutping, recordingId) => inlineWordAudio(recordings, jyutping, recordingId);
+  const audioStatus = /* HTML */ `<span
+    class="sr-only guide-example-status"
+    role="status"
+    aria-live="polite"
+  ></span>`;
   return /* HTML */ `<article class="info-page sound-page">
     <header class="page-heading">
       <button class="text-button back-link" data-page="home" type="button">← World map</button>
@@ -122,12 +128,17 @@ export function soundPageMarkup(anchors, toneDefinitions, recordings = []) {
           >Linguistic Society of Hong Kong in 1993</a
         >, it helps you read a word’s pronunciation even before you know its Chinese characters.
       </p>
+      <p class="small guide-introduction">
+        Some courses use Yale, another system for writing Cantonese pronunciation. This guide and
+        the games use Jyutping because its letters and tone numbers can be typed directly on a
+        standard keyboard, including when you enter answers in Skyrail.
+      </p>
     </header>
     <section class="info-section" aria-labelledby="jyutping-heading">
       <h2 id="jyutping-heading">Syllable structure</h2>
       <p>
-        An <b>initial</b> starts the sound. A <b>final</b> is the vowel and any ending. The
-        <b>tone number</b> tells you the pitch pattern of the whole syllable.
+        An <b>initial</b> starts the sound. A <b>final</b> usually contains a vowel and any ending.
+        The <b>tone number</b> tells you the pitch pattern of the whole syllable.
       </p>
       <div class="syllable-lesson">
         <div
@@ -150,9 +161,10 @@ export function soundPageMarkup(anchors, toneDefinitions, recordings = []) {
           ▶ Hear fu2
         </button>
       </div>
-      <p>
+      <p class="guide-example-block">
         In <b>gong2</b> (<span lang="zh-Hant">講</span>, speak), the parts are <b>g + ong + 2</b>.
-        The final is <b>ong</b>: the vowel <b>o</b> and the ending <b>ng</b>.
+        The final is <b>ong</b>: the vowel <b>o</b> and the ending <b>ng</b>. Hear
+        ${audio('gong2')}. ${audioStatus}
       </p>
       <p class="small">
         Some syllables have no initial: <b>aa3</b> starts directly with a vowel. Keep the tone digit
@@ -167,67 +179,6 @@ export function soundPageMarkup(anchors, toneDefinitions, recordings = []) {
         for the full set of initials, vowels and endings.
       </p>
     </section>
-    <section class="info-section" aria-labelledby="starting-heading">
-      <h2 id="starting-heading">How to use this guide</h2>
-      <div class="info-grid guide-starting-points">
-        <div class="info-card">
-          <h3>If you know Cantonese</h3>
-          <p>
-            If you already speak or understand Cantonese, much of the task may be learning how
-            familiar sounds are written. Compare words you know with their Jyutping, paying
-            attention to the initial, final and tone number.
-          </p>
-          <p>
-            This
-            <a href="https://www.youtube.com/watch?v=MOsf0BcLzlc" target="_blank" rel="noopener"
-              >video tutorial</a
-            >
-            is taught in Cantonese and demonstrates the spelling system.
-          </p>
-        </div>
-        <div class="info-card">
-          <h3>If the sounds are new</h3>
-          <p>
-            Learn the pronunciation and spelling together. Listen to examples, practise producing
-            the sounds, and compare contrasting words. Recognising a sound and pronouncing it are
-            related skills that both need attention.
-          </p>
-          <p>
-            The
-            <a
-              href="https://opencantonese.org/books/cantonese-life-1/pronunciation-guide"
-              target="_blank"
-              rel="noopener"
-              >Open Cantonese lessons</a
-            >
-            provide explanations in English, with recordings and mouth-position guidance.
-          </p>
-        </div>
-      </div>
-      <p>
-        You may need elements of both approaches, particularly if you understand more Cantonese than
-        you speak.
-      </p>
-      <details class="guide-detail">
-        <summary>How your other languages affect pronunciation learning</summary>
-        <p>
-          The sound categories you have learnt in other languages influence how you hear and produce
-          new sounds. Two Cantonese sounds may initially seem alike if you associate both with one
-          familiar sound. Experience with another language can also make a contrast more familiar.
-        </p>
-        <p>
-          This depends on the particular contrast and your experience, rather than a simple ranking
-          of languages by difficulty. For example, Cantonese <b>yu</b> is a vowel made with the
-          front of the tongue raised and the lips rounded. Learners familiar with this combination
-          have a different starting point from those learning it for the first time.
-        </p>
-        <p>
-          Comparisons with English in this guide are labelled as such. They are approximate aids,
-          not the definitions of Cantonese sounds; use the recordings and mouth-position
-          explanations as your reference.
-        </p>
-      </details>
-    </section>
     <section class="info-section" aria-labelledby="initials-heading">
       <span class="eyebrow">01</span>
       <h2 id="initials-heading">Initials</h2>
@@ -236,117 +187,105 @@ export function soundPageMarkup(anchors, toneDefinitions, recordings = []) {
         <b>19 written initials</b>; spellings such as <b>ng</b> and <b>gw</b> each represent one
         initial.
       </p>
-      <p>
-        Many initials may feel familiar from English, such as <b>m, n, f, s, h, l</b> and <b>w</b>.
-        Start with the sounds you recognise, then listen more closely to the spellings below.
+      <p class="guide-example-block">
+        These seven initials are close to their English sounds:
+        <span class="guide-initial-sample"><b>m</b> in ${audio('maa1')}</span>,
+        <span class="guide-initial-sample"><b>n</b> in ${audio('nei5', 'commons-147747458')}</span>,
+        <span class="guide-initial-sample"><b>f</b> in ${audio('fu1')}</span>,
+        <span class="guide-initial-sample"><b>s</b> in ${audio('si1')}</span>,
+        <span class="guide-initial-sample"><b>h</b> in ${audio('hou2')}</span>,
+        <span class="guide-initial-sample"><b>l</b> in ${audio('lou5')}</span>, and
+        <span class="guide-initial-sample"><b>w</b> in ${audio('wai1')}</span>. ${audioStatus}
       </p>
-      <h3>Spellings to listen for</h3>
+      <p>
+        The initials <b>b/p, d/t, g/k, z/c</b> and <b>gw/kw</b> form five pairs. The second sound in
+        each pair has a stronger puff of air, called <b>aspiration</b>. Hold a loose piece of paper
+        just in front of your mouth and say <b>baa1</b>, then <b>paa1</b> at a similar volume: the
+        paper should move more with <b>paa1</b>.
+      </p>
       <dl class="spelling-notes">
         <div>
-          <dt>j</dt>
-          <dd>
-            In an English comparison, this is the <b>y</b> sound in <i>yes</i>, not the <b>j</b> in
-            <i>job</i>: <b>jat1</b> (<span lang="zh-Hant">一</span>, one).
+          <dt>b / p</dt>
+          <dd class="guide-example-block">
+            Close the lips, then open them. Compare ${audio('baa1', 'commons-149276752')} and
+            ${audio('paa1', 'commons-90813605')}; both use the final <b>aa</b> and tone <b>1</b>.
+            ${audioStatus}
           </dd>
         </div>
         <div>
-          <dt>ng</dt>
-          <dd>
-            In an English comparison, this is the nasal sound at the end of <i>sing</i>. In
-            Cantonese it can also begin a syllable, as in <b>ngo5</b> (<span lang="zh-Hant">我</span
-            >, I). It is also found at the end of finals such as <b>ong</b>.
+          <dt>d / t</dt>
+          <dd class="guide-example-block">
+            Place the front of the tongue against the ridge just behind the upper front teeth, then
+            release it. Compare ${audio('dim2', 'commons-173769223')} and
+            ${audio('tim2', 'commons-90557971')}. ${audioStatus}
+          </dd>
+        </div>
+        <div>
+          <dt>g / k</dt>
+          <dd class="guide-example-block">
+            Raise the back of the tongue against the soft palate at the back of the roof of the
+            mouth, then release it: ${audio('gau2', 'commons-173769299')} and
+            ${audio('kau3', 'commons-90812580')}. Both words have the final <b>au</b>; their tones
+            differ. ${audioStatus}
           </dd>
         </div>
         <div>
           <dt>z / c</dt>
-          <dd>
-            These begin with a brief closure followed by an s-like sound, pronounced as one initial.
-            As an English approximation, think of the <b>ts</b> in <i>cats</i>, used at the start of
-            a syllable. <b>c</b> has a stronger puff of air. Use the
-            <a
-              href="https://opencantonese.org/books/cantonese-life-1/pronunciation-guide/pronunciation-lesson-2/3-the-initial-pair-z-and-c"
-              target="_blank"
-              rel="noopener"
-              >z and c lesson</a
-            >
-            to hear the contrast.
+          <dd class="guide-example-block">
+            Begin with a brief closure followed by an s-like sound, pronounced as one initial. As an
+            English approximation, use the <b>ts</b> in <i>cats</i> at the start of a syllable.
+            Compare ${audio('zou2', 'commons-149277092')} and ${audio('cou2', 'commons-173769321')};
+            <b>c</b> adds the stronger puff of air. ${audioStatus}
+          </dd>
+        </div>
+        <div>
+          <dt>gw / kw</dt>
+          <dd class="guide-example-block">
+            Use the tongue position for <b>g/k</b> while rounding the lips for <b>w</b>. Make them
+            together as one initial, without inserting a vowel between them. Hear <b>gw</b> in
+            ${audio('gwok3', 'commons-147769176')} and <b>kw</b> in
+            ${audio('kwan3', 'commons-90442925')}. ${audioStatus}
+          </dd>
+        </div>
+
+        <div>
+          <dt>j</dt>
+          <dd class="guide-example-block">
+            Use the English <b>y</b> sound in <i>yes</i>: ${audio('jat1')} (one). It is different
+            from the English <b>j</b> in <i>job</i>. ${audioStatus}
+          </dd>
+        </div>
+        <div>
+          <dt>ng</dt>
+          <dd class="guide-example-block">
+            Use the nasal sound at the end of English <i>sing</i>. In Cantonese it can also begin a
+            syllable, as in ${audio('ngaa4', 'commons-147747191')} (tooth). To practise, hold the
+            <b>ng</b> sound with the back of the tongue raised, then move straight into the vowel.
+            There is no separate <b>g</b> sound after it. ${audioStatus}
           </dd>
         </div>
       </dl>
-      <h3>Listen to the pairs</h3>
-      <p>
-        The initials <b>b/p, d/t, g/k, gw/kw</b> and <b>z/c</b> form five pairs. The second sound in
-        each pair has a stronger puff of air.
-      </p>
-      <p>
-        Compare <b>baa1</b> (<span lang="zh-Hant">巴</span>) and <b>paa1</b> (<span lang="zh-Hant"
-          >趴</span
-        >). Listen for the puff of air in <b>p</b>. If the difference already feels natural, move
-        on.
-      </p>
-      ${wordExamples(recordings, ['baa1', 'paa1'], 'Compare b and p: listen for the puff of air')}
-      <details class="guide-detail">
-        <summary>All five pairs and the term “aspiration”</summary>
-        <p>
-          <b>Aspiration</b> is the release of a noticeable puff of air. The five pairs differ in
-          aspiration: the first sound is unaspirated and the second is aspirated. This distinction
-          matters even if your other languages use the same letters differently.
-        </p>
-        <div class="guide-table">
-          <table>
-            <caption>
-              Initial pairs
-            </caption>
-            <thead>
-              <tr>
-                <th scope="col">Unaspirated</th>
-                <th scope="col">Aspirated</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${[
-                ['b', 'p'],
-                ['d', 't'],
-                ['g', 'k'],
-                ['z', 'c'],
-                ['gw', 'kw'],
-              ]
-                .map(
-                  ([a, b]) =>
-                    /* HTML */ `<tr>
-                      <td><b>${a}</b></td>
-                      <td><b>${b}</b></td>
-                    </tr>`,
-                )
-                .join('')}
-            </tbody>
-          </table>
-        </div>
-      </details>
       <p class="small">
-        For recordings and articulation instructions, see
+        For more mouth-position guidance, see
         <a
           href="https://opencantonese.org/books/cantonese-life-1/pronunciation-guide/pronunciation-lesson-1/3-initial-pairs"
           target="_blank"
           rel="noopener"
           >Open Cantonese’s initial-pair lesson</a
         >
-        and the
+        and its
         <a
-          href="https://opencantonese.org/books/cantonese-life-1/pronunciation-guide/jyutping-chart"
+          href="https://opencantonese.org/books/cantonese-life-1/pronunciation-guide/pronunciation-lesson-6/1-the-initial-pair-gw-and-kw"
           target="_blank"
           rel="noopener"
-          >complete sound chart</a
+          >gw and kw lesson</a
         >.
       </p>
     </section>
     <section class="info-section" aria-labelledby="finals-heading">
       <span class="eyebrow">02</span>
       <h2 id="finals-heading">Finals</h2>
-      <p>
-        A final contains a vowel and any ending that follows it. It can be a vowel alone, a vowel
-        that moves towards another vowel, or a vowel followed by a nasal or stop consonant.
-      </p>
+      <p>Most finals contain a vowel, sometimes followed by another vowel or a consonant.</p>
       <div class="guide-table">
         <table>
           <caption>
@@ -363,86 +302,124 @@ export function soundPageMarkup(anchors, toneDefinitions, recordings = []) {
             <tr>
               <td><b>aa</b></td>
               <td>Vowel alone</td>
-              <td><b>s + aa + 1</b> = saa1 <span lang="zh-Hant">沙</span> · sand</td>
+              <td class="guide-example-block">
+                <b>s + aa + 1</b> = ${audio('saa1')} · sand ${audioStatus}
+              </td>
             </tr>
             <tr>
               <td><b>aai</b></td>
               <td>Vowel with an <b>i</b> ending</td>
-              <td><b>g + aai + 1</b> = gaai1 <span lang="zh-Hant">街</span> · street</td>
+              <td class="guide-example-block">
+                <b>m + aai + 5</b> = ${audio('maai5')} · buy ${audioStatus}
+              </td>
             </tr>
             <tr>
               <td><b>aan</b></td>
               <td>Vowel with an <b>n</b> ending</td>
-              <td><b>s + aan + 1</b> = saan1 <span lang="zh-Hant">山</span> · mountain</td>
+              <td class="guide-example-block">
+                <b>ng + aan + 5</b> = ${audio('ngaan5')} · eye ${audioStatus}
+              </td>
             </tr>
             <tr>
               <td><b>aat</b></td>
               <td>Vowel with a <b>t</b> ending</td>
-              <td><b>b + aat + 3</b> = baat3 <span lang="zh-Hant">八</span> · eight</td>
+              <td class="guide-example-block">
+                <b>b + aat + 3</b> = ${audio('baat3')} · eight ${audioStatus}
+              </td>
             </tr>
           </tbody>
         </table>
       </div>
       <p>
-        Other endings include <b>-u</b>, the nasals <b>-m, -ng</b>, and the stops <b>-p, -k</b>. Not
-        every vowel combines with every ending; learn the combinations from words and the
+        Other endings include <b>-u</b>, the nasals <b>-m, -ng</b>, and the stops <b>-p, -k</b>. The
         <a
           href="https://opencantonese.org/books/cantonese-life-1/pronunciation-guide/jyutping-chart"
           target="_blank"
           rel="noopener"
           >full finals chart</a
-        >.
+        >
+        shows which vowels and endings combine.
       </p>
       <dl class="spelling-notes">
         <div>
           <dt>aa / a</dt>
-          <dd>
+          <dd class="guide-example-block">
             These differ in vowel quality as well as length: <b>aa</b> is more open and longer;
-            <b>a</b> is more central and shorter. Compare <b>saam1</b> (<span lang="zh-Hant"
-              >三</span
-            >, three) with <b>sam1</b> (<span lang="zh-Hant">心</span>, heart). The initial and tone
-            stay the same; the final changes from <b>aam</b> to <b>am</b>.
-            <a href="https://jyutping.org/en/learn/" target="_blank" rel="noopener"
-              >Hear the aa / a examples in Jyutping.org’s guide</a
-            >.
+            <b>a</b> is more central and shorter. Compare ${audio('haam4', 'commons-179112876')}
+            (salty) with ${audio('ham4', 'commons-149276092')} (hold in the mouth). The initial,
+            ending and tone stay the same; only the vowel changes. ${audioStatus}
           </dd>
         </div>
         <div>
           <dt>yu</dt>
-          <dd>
-            This is one rounded vowel, not a sequence of <b>j + u</b>. The
+          <dd class="guide-example-block">
+            This is one rounded vowel, not a sequence of <b>j + u</b>. Raise the tongue as for
+            <b>i</b> and round the lips. Hear it in ${audio('syu1')} (book). The
             <a
               href="https://opencantonese.org/books/cantonese-life-1/pronunciation-guide/pronunciation-lesson-4/6-the-final-yu"
               target="_blank"
               rel="noopener"
               >yu lesson</a
             >
-            demonstrates it with tongue and lip instructions.
+            demonstrates the mouth position. ${audioStatus}
           </dd>
         </div>
         <div>
           <dt>oe / eo</dt>
-          <dd>
+          <dd class="guide-example-block">
             These spell different rounded vowels. <b>oe</b> occurs alone and in finals such as
-            <b>oeng</b>; <b>eo</b> appears in <b>eoi, eon, eot</b>. Compare the recordings in
-            <a href="https://jyutping.org/en/learn/" target="_blank" rel="noopener"
-              >Jyutping.org’s vowel guide</a
-            >.
+            <b>oeng</b>; <b>eo</b> appears in <b>eoi, eon, eot</b>. Hear <b>oe</b> in
+            ${audio('soeng2')} (think) and <b>eo</b> in ${audio('seoi2')} (water). The endings
+            differ in these two examples as well. ${audioStatus}
           </dd>
         </div>
         <div>
           <dt>-p -t -k</dt>
-          <dd>
+          <dd class="guide-example-block">
             These endings are unreleased: close the lips or place the tongue to stop the sound,
-            without a final burst or an added vowel. In <b>sik6</b> (<span lang="zh-Hant">食</span>,
-            eat), the final is <b>ik</b>, including the <b>k</b>.
+            without a final burst or an added vowel. Hear <b>-p</b> in ${audio('sap1')},
+            <b>-t</b> in ${audio('baat3')}, and <b>-k</b> in ${audio('fuk1')}. ${audioStatus}
+          </dd>
+        </div>
+        <div>
+          <dt>m / ng</dt>
+          <dd class="guide-example-block">
+            Some syllables consist only of <b>m</b> or <b>ng</b> and a tone. In
+            ${audio('ng5', 'commons-147747112')} (five), <b>ng</b> is the whole final; there is no
+            initial or vowel. In ${audio('ngaa4', 'commons-147747191')} (tooth), <b>ng</b> is the
+            initial and <b>aa</b> is the final. ${audioStatus}
           </dd>
         </div>
       </dl>
-      <p class="small">
-        The nasal sounds <b>m</b> and <b>ng</b> can also form syllables without a vowel, as in
-        <b>m4</b> (<span lang="zh-Hant">唔</span>, not).
-      </p>
+      <details class="guide-detail">
+        <summary>Why do i and u sound different in some finals?</summary>
+        <p>
+          In <b>ing</b> and <b>ik</b>, the vowel <b>i</b> is shorter and more open than when it
+          stands alone. The same happens to <b>u</b> in <b>ung</b> and <b>uk</b>.
+        </p>
+        <p class="guide-example-block">
+          Compare ${audio('si1')} (poem) with ${audio('sing1')} (rise), then ${audio('fu1')}
+          (husband) with ${audio('fuk1')} (width). Each pair keeps the initial and tone the same, so
+          you can hear the vowel change when the ending is added. ${audioStatus}
+        </p>
+        <p>
+          Open Cantonese’s lessons on
+          <a
+            href="https://opencantonese.org/books/cantonese-life-1/pronunciation-guide/pronunciation-lesson-4/10-the-finals-ending-with-ng"
+            target="_blank"
+            rel="noopener"
+            >-ng finals</a
+          >
+          and
+          <a
+            href="https://opencantonese.org/books/cantonese-life-1/pronunciation-guide/pronunciation-lesson-5/8-the-finals-ending-with-k"
+            target="_blank"
+            rel="noopener"
+            >-k finals</a
+          >
+          show the mouth positions for these vowel variants.
+        </p>
+      </details>
     </section>
     <section class="info-section" aria-labelledby="tones-heading">
       <span class="eyebrow">03</span>
@@ -475,15 +452,209 @@ export function soundPageMarkup(anchors, toneDefinitions, recordings = []) {
       <details class="guide-detail">
         <summary>Why do some resources say Cantonese has nine tones?</summary>
         <p>
-          The traditional nine-tone count treats syllables ending in <b>-p, -t, -k</b> as separate
-          “entering tone” categories. Jyutping writes those with <b>1, 3 or 6</b>, so you still use
-          just six tone numbers. See
+          The difference comes from how syllables with a stop ending are counted. An
+          <b>entering tone</b> (<span lang="zh-Hant">入聲</span>), also called a
+          <b>checked tone</b>, is a traditional category for syllables ending in
+          <b>-p, -t or -k</b>. The lips or tongue close to cut off the sound. “Entering” names this
+          category; it does not mean that the pitch rises.
+        </p>
+        <p>
+          These syllables normally have a high, middle or low level pitch. The traditional count
+          gives them three separate tone categories, alongside the six tones on syllables without
+          these stop endings: <b>six + three = nine</b>. Their pitch levels match tones
+          <b>1, 3 and 6</b>:
+        </p>
+        <div class="guide-table">
+          <table>
+            <caption>
+              Same pitch level, different ending
+            </caption>
+            <thead>
+              <tr>
+                <th scope="col">Pitch</th>
+                <th scope="col">Without a stop ending</th>
+                <th scope="col">With a stop ending</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>High · 1</td>
+                <td class="guide-example-block">${audio('fu1')} ${audioStatus}</td>
+                <td class="guide-example-block">${audio('fuk1')} ${audioStatus}</td>
+              </tr>
+              <tr>
+                <td>Middle · 3</td>
+                <td class="guide-example-block">${audio('fu3')} ${audioStatus}</td>
+                <td class="guide-example-block">${audio('baat3')} ${audioStatus}</td>
+              </tr>
+              <tr>
+                <td>Low · 6</td>
+                <td class="guide-example-block">${audio('fu6')} ${audioStatus}</td>
+                <td class="guide-example-block">${audio('sap6')} ${audioStatus}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          For syllables ending in <b>-p, -t or -k</b>, the usual tone numbers are <b>1</b> for high
+          pitch, <b>3</b> for middle pitch and <b>6</b> for low pitch. For example, <b>fu1</b> and
+          <b>fuk1</b> both have high level pitch. The <b>k</b> tells you how the second syllable
+          ends; the <b>1</b> still marks its pitch.
+        </p>
+        <p>
+          Some words have more than one tone reading. For example,
+          <span lang="zh-Hant">碟</span> (dish) has the regular reading <b>dip6</b> and the changed
+          reading <b>dip2</b>. This is why a stop-final syllable can sometimes have a rising tone.
+          See
           <a
             href="https://corpus.eduhk.hk/cantonese/eng/chapter3/3-0.html"
             target="_blank"
             rel="noopener"
             >EdUHK’s explanation of the tone categories</a
           >.
+        </p>
+      </details>
+      <details class="guide-detail">
+        <summary>How are Mandarin and Cantonese tones related?</summary>
+        <p>
+          <b>Some tones sound similar.</b> Cantonese tone <b>1</b> is high and level, much like
+          Mandarin first tone. Cantonese tone <b>2</b> rises high, making Mandarin second tone a
+          useful starting point. The other numbers do not line up in the same way: Cantonese tone
+          <b>3</b> is level rather than dipping, and tone <b>4</b> falls low rather than falling
+          from high pitch.
+        </p>
+        <p class="guide-example-block">
+          For tones <b>2 and 5</b>, listen especially to where the rise finishes. Tone
+          <b>2</b> reaches high; tone <b>5</b> rises to around the middle of the voice. Compare
+          ${audio('fu2')} and ${audio('fu5')}. ${audioStatus}
+        </p>
+        <p>
+          <b>Related character readings.</b> The languages share a history, but their older tone
+          categories developed differently. This leaves patterns between familiar characters’
+          readings, even when the corresponding tones sound different:
+        </p>
+        <div class="guide-table">
+          <table>
+            <caption>
+              Common tone correspondences for the same character
+            </caption>
+            <thead>
+              <tr>
+                <th scope="col">Mandarin tone</th>
+                <th scope="col">Often Cantonese tone</th>
+                <th scope="col">Examples: Pinyin → Jyutping</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>1</td>
+                <td class="guide-example-block">
+                  <i lang="cmn-Latn">tiān</i> → ${audio('tin1')} ${audioStatus}
+                </td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>4</td>
+                <td class="guide-example-block">
+                  <i lang="cmn-Latn">yá</i> → ${audio('ngaa4', 'commons-147747191')} ${audioStatus}
+                </td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>2 or 5</td>
+                <td class="guide-example-block">
+                  <i lang="cmn-Latn">hǎo</i> → ${audio('hou2')};<br />
+                  <i lang="cmn-Latn">mǎ</i> → ${audio('maa5')} ${audioStatus}
+                </td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>3 or 6</td>
+                <td class="guide-example-block">
+                  <i lang="cmn-Latn">sì</i> → ${audio('sei3')};<br />
+                  <i lang="cmn-Latn">fù</i> → ${audio('fu6')} ${audioStatus}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          These correspondences concern character readings, rather than similar-sounding tones. For
+          example, Mandarin <i lang="cmn-Latn">yá</i> rises, but Cantonese <b>ngaa4</b> falls low.
+          The Mandarin reading is also less informative for Cantonese syllables ending in
+          <b>-p, -t or -k</b>, because Mandarin lost those endings.
+        </p>
+        <p>
+          <b>Why do Mandarin third-tone characters often have Cantonese tone 2 or 5?</b> This split
+          reflects an older distinction between <b>yin</b> (<span lang="zh-Hant">陰</span>, upper
+          register) and <b>yang</b> (<span lang="zh-Hant">陽</span>, lower register). Cantonese
+          tones <b>1, 2 and 3</b> belong to the yin group; <b>4, 5 and 6</b> to the yang group. Tone
+          <b>2</b> is traditionally called <span lang="zh-Hant">陰上</span>, yin rising, and tone
+          <b>5</b> <span lang="zh-Hant">陽上</span>, yang rising.
+        </p>
+        <p>
+          Historically, syllables with <b>voiceless</b> initials tended to develop yin tones, and
+          those with <b>voiced</b> initials developed yang tones. Voiced means that the vocal folds
+          vibrate: feel your throat while humming <b>mmm</b>, then compare the voiceless hiss
+          <b>sss</b>. The sounds <b>m</b> and <b>n</b> are voiced. Many older consonant distinctions
+          have disappeared, but the resulting tone differences remain.
+        </p>
+        <p>
+          Voicing is different from aspiration. Cantonese <b>b</b> and <b>p</b> are both voiceless;
+          <b>p</b> has the stronger puff of air.
+        </p>
+        <p class="guide-example-block">
+          Many Mandarin third-tone characters beginning with <b>m</b> or <b>n</b> have Cantonese
+          tone <b>5</b>: <i lang="cmn-Latn">mǎ</i> → ${audio('maa5')} and
+          <i lang="cmn-Latn">nǐ</i> → ${audio('nei5', 'commons-147747458')}. Compare
+          <i lang="cmn-Latn">hǎo</i> → ${audio('hou2')} and <i lang="cmn-Latn">shǒu</i> →
+          ${audio('sau2')}. There are exceptions to this pattern: <span lang="zh-Hant">扭</span> and
+          <span lang="zh-Hant">紐</span> are both <i lang="cmn-Latn">niǔ</i> in Mandarin and
+          <b>nau2</b> in Cantonese. ${audioStatus}
+        </p>
+        <p>
+          If you know a character’s Mandarin reading,
+          <a
+            href="https://michellefullwood.com/languages/cantonese/correspondences/"
+            target="_blank"
+            rel="noopener"
+            >Michelle Fullwood’s Cantonese–Mandarin correspondence tables</a
+          >
+          can help you predict its Cantonese initial, final and tone. The percentages show how often
+          each mapping occurs in the character data, so you can see which guesses are more likely to
+          be correct.
+        </p>
+      </details>
+      <details class="guide-detail">
+        <summary>Why might everyday speech sound different from the dictionary?</summary>
+        <p>
+          <b>Pronunciation variants.</b> Some speakers say <b>lei5</b> where a reference spelling
+          gives <b>nei5</b> (<span lang="zh-Hant">你</span>, you), or <b>o5</b> for
+          <b>ngo5</b> (<span lang="zh-Hant">我</span>, I). These are common differences in how
+          speakers pronounce the sounds. The
+          <a
+            href="https://opencantonese.org/books/cantonese-life-1/unit-0/5-cantonese-pronunciation"
+            target="_blank"
+            rel="noopener"
+            >Open Cantonese pronunciation notes</a
+          >
+          explain why recordings can differ from the spelling used in a course.
+        </p>
+        <p class="guide-example-block">
+          <b>Changed tones.</b> A character can take a different tone in a particular word.
+          ${audio('tau4', 'commons-88201954')} means “head.” In
+          ${audio('fu2 tau2', 'commons-149277076')} (“axe”), the same character
+          <span lang="zh-Hant">頭</span> is pronounced <b>tau2</b>. Compare the second syllable of
+          <b>fu2 tau2</b> with <b>tau4</b>: the tone changes from low falling to high rising.
+          ${audioStatus}
+        </p>
+        <p>
+          The
+          <a href="https://cantowords.com/dictionary/%E9%A0%AD" target="_blank" rel="noopener"
+            >Cantowords entry for 頭</a
+          >
+          lists words that use <b>tau4</b> and words that use the changed tone <b>tau2</b>.
         </p>
       </details>
     </section>
@@ -498,11 +669,6 @@ export function soundPageMarkup(anchors, toneDefinitions, recordings = []) {
     <section class="info-section" aria-labelledby="use-heading">
       <span class="eyebrow">04</span>
       <h2 id="use-heading">Practising with Tone Tower</h2>
-      <p>
-        Once you have studied the sounds, the games provide listening and spelling exercises to
-        accompany the resources above. They assume some familiarity with Cantonese pronunciation and
-        Jyutping.
-      </p>
       <div class="info-grid">
         <div class="info-card">
           <h3>Tone Tower</h3>
