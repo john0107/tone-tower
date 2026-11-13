@@ -12,33 +12,37 @@ import {
 } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { buildCatalog } from '../catalog/catalog.mjs';
+import { buildCatalogs } from '../catalog/catalog.mjs';
 
 // Follow local runtime dependencies instead of uploading the working directory.
-export async function publicationFiles(root, catalog) {
+export async function publicationFiles(root, catalogs, documents = new Map()) {
   const pending = [
     'index.html',
     'LICENSE',
     'THIRD_PARTY_NOTICES.md',
     '.nojekyll',
-    'catalog.json',
+    ...Object.keys(catalogs).map((id) => 'catalogs/' + id + '.json'),
+    ...generatedFiles,
     // Social crawlers read og:image, which is not a local href.
     ...((await readFile(path.join(root, 'index.html'), 'utf8')).includes(
       'assets/brand/share-card.png',
     )
       ? ['assets/brand/share-card.png']
       : []),
-    ...catalog.recordings.map((row) => row.audio),
+    ...Object.values(catalogs).flatMap((catalog) => catalog.recordings.map((row) => row.audio)),
   ];
   const files = new Set();
-  function addReference(from, reference) {
+  function addReference(from, reference, base) {
     if (!reference || /^(?:[a-z][\w+.-]*:|\/\/|#)/i.test(reference)) return;
     if (reference.startsWith('/'))
       throw Error('Publication assets must use relative paths: ' + reference);
     const clean = reference.split(/[?#]/)[0];
-    if (!clean || Object.values(pages).some((page) => page.path && clean === page.path)) return;
+    if (!clean) return;
     const name = path.posix.normalize(
-      path.posix.join(path.posix.dirname(from), clean.endsWith('/') ? clean + 'index.html' : clean),
+      path.posix.join(
+        base ?? path.posix.dirname(from),
+        clean.endsWith('/') ? clean + 'index.html' : clean,
+      ),
     );
     if (name.startsWith('../') || path.posix.isAbsolute(name))
       throw Error('Asset outside publication root: ' + reference);
@@ -49,14 +53,23 @@ export async function publicationFiles(root, catalog) {
     if (files.has(name)) continue;
     files.add(name);
     const absolute = path.join(root, name);
-    const info = await lstat(absolute);
-    if (!info.isFile() || info.isSymbolicLink())
+    const info = documents.has(name) ? null : await lstat(absolute);
+    if (info && (!info.isFile() || info.isSymbolicLink()))
       throw Error('Expected a regular publication file: ' + name);
     if (!/\.(?:html|css|js)$/.test(name)) continue;
-    const source = await readFile(absolute, 'utf8');
-    if (name.endsWith('.html'))
-      for (const match of source.matchAll(/\b(?:src|href)=["']([^"']+)["']/g))
-        addReference(name, match[1]);
+    const source = documents.get(name) ?? (await readFile(absolute, 'utf8'));
+    if (name.endsWith('.html')) {
+      const baseHref = source.match(/<base href=["']([^"']+)["']/)?.[1];
+      const base = baseHref
+        ? path.posix.normalize(path.posix.join(path.posix.dirname(name), baseHref))
+        : undefined;
+      for (const match of source
+        .replace(/<base[^>]*>/g, '')
+        .matchAll(/\b(?:src|href)=["']([^"']+)["']/g))
+        addReference(name, match[1], base);
+      if (source.includes('assets/brand/share-card.png'))
+        pending.push('assets/brand/share-card.png');
+    }
     if (name.endsWith('.js'))
       for (const match of source.matchAll(
         /\b(?:import|export)\s+(?:[^'";]*?\s+from\s*)?['"]([^'"]+)['"]/g,
@@ -73,8 +86,16 @@ export async function publicationFiles(root, catalog) {
 }
 
 export async function publish(root = process.cwd()) {
-  const catalog = await buildCatalog(root);
-  const files = await publicationFiles(root, catalog);
+  const catalogs = await buildCatalogs(root);
+  const template = await readFile(path.join(root, 'src/shell.html'), 'utf8');
+  const documents = new Map(
+    Object.entries(pages).map(([key, metadata]) => [
+      metadata.path + 'index.html',
+      renderPage(template, key, catalogs[metadata.language]),
+    ]),
+  );
+  documents.set('sitemap.xml', sitemap());
+  const files = await publicationFiles(root, catalogs, documents);
   const actualRoot = await realpath(root);
   const destination = path.resolve(actualRoot, 'dist');
   // Only this generated directory may be cleared, never an arbitrary CLI path.
@@ -96,18 +117,12 @@ export async function publish(root = process.cwd()) {
   for (const name of files) {
     const target = path.join(destination, name);
     await mkdir(path.dirname(target), { recursive: true });
-    await copyFile(path.join(root, name), target);
+    if (documents.has(name)) await writeFile(target, documents.get(name));
+    else await copyFile(path.join(root, name), target);
   }
-  const template = await readFile(path.join(root, 'index.html'), 'utf8');
-  for (const [page, metadata] of Object.entries(pages)) {
-    const target = path.join(destination, metadata.path, 'index.html');
-    await mkdir(path.dirname(target), { recursive: true });
-    await writeFile(target, renderPage(template, page, catalog));
-  }
-  await writeFile(path.join(destination, 'sitemap.xml'), sitemap());
-  const allFiles = [...files, ...generatedFiles].sort();
+  const allFiles = files;
   console.log(
-    `Prepared dist/: ${catalog.recordings.length} recordings, ${allFiles.length} files. Upload the contents of dist/.`,
+    `Prepared dist/: ${Object.values(catalogs).reduce((n, catalog) => n + catalog.recordings.length, 0)} recordings, ${allFiles.length} files. Upload the contents of dist/.`,
   );
   return { destination, files: allFiles };
 }

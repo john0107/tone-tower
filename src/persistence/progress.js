@@ -6,7 +6,7 @@ import {
   RAIL_DIFFICULTIES,
 } from '../game/game-core.js';
 
-export const PROGRESS_KEY = 'soundbound-cantonese-v1';
+import { requireProfile, decodeTonePair } from '../languages/profiles.js';
 const PROGRESS_VERSION = 3;
 const record = () => ({ runs: 0, wins: 0, best: 0, fewest: null });
 const count = (value) => (Number.isSafeInteger(value) && value >= 0 ? value : 0);
@@ -36,23 +36,31 @@ function cleanRecord(value) {
   result.fewest = Number.isSafeInteger(value.fewest) && value.fewest >= 0 ? value.fewest : null;
   return result;
 }
-function cleanConfusions(value) {
+function cleanConfusions(value, profile) {
   return value && typeof value === 'object'
     ? Object.fromEntries(
-        Object.entries(value).filter(
-          ([key, n]) => /^[1-6]-[1-6]$/.test(key) && key[0] !== key[2] && count(n) > 0,
-        ),
+        Object.entries(value).filter(([key, n]) => count(n) > 0 && validPair(key, profile)),
       )
     : {};
 }
-export function emptyProgress() {
+function validPair(key, profile) {
+  try {
+    const pair = decodeTonePair(key);
+    return pair.length === 2 && pair[0] !== pair[1] && pair.every((t) => profile.tones.includes(t));
+  } catch {
+    return false;
+  }
+}
+export function emptyProgress(profile) {
+  requireProfile(profile);
   return {
     version: PROGRESS_VERSION,
     settings: {
+      script: profile.defaultScript,
       toneVariant: 'normal',
       tideVariant: 'spelling',
       tideDifficulty: 'normal',
-      practice: { tone: defaultPractice('tone'), tide: defaultPractice('tide') },
+      practice: { tone: defaultPractice('tone', profile), tide: defaultPractice('tide', profile) },
     },
     records: {
       tone: Object.fromEntries(Object.keys(TONE_VARIANTS).map((key) => [key, record()])),
@@ -68,8 +76,10 @@ export function emptyProgress() {
     confusions: {},
   };
 }
-function sanitize(value) {
-  const progress = emptyProgress();
+function sanitize(value, profile) {
+  const progress = emptyProgress(profile);
+  if (profile.scripts.includes(value.settings?.script))
+    progress.settings.script = value.settings.script;
   if (Object.hasOwn(TONE_VARIANTS, value.settings?.toneVariant))
     progress.settings.toneVariant = value.settings.toneVariant;
   if (TIDE_VARIANTS.includes(value.settings?.tideVariant))
@@ -79,7 +89,7 @@ function sanitize(value) {
   for (const challenge of ['tone', 'tide']) {
     const setting = value.settings?.practice?.[challenge];
     if (setting) {
-      const checked = validatePractice({ ...setting, challenge });
+      const checked = validatePractice({ ...setting, challenge }, undefined, profile);
       if (checked.valid) progress.settings.practice[challenge] = checked.config;
     }
     for (const variant of Object.keys(progress.records[challenge])) {
@@ -95,20 +105,22 @@ function sanitize(value) {
   for (const key of ['runs', 'completed', 'cleared'])
     progress.practice[key] = count(value.practice?.[key]);
   progress.missedIds = uniqueIds(value.missedIds);
-  progress.confusions = cleanConfusions(value.confusions);
+  progress.confusions = cleanConfusions(value.confusions, profile);
   return progress;
 }
 
-export function loadProgress(storage) {
+export function loadProgress(profile, storage) {
+  requireProfile(profile);
   const target = storageOrNull(storage),
-    value = read(target, PROGRESS_KEY);
-  return value?.version === PROGRESS_VERSION ? sanitize(value) : emptyProgress();
+    value = read(target, profile.storageKey);
+  return value?.version === PROGRESS_VERSION ? sanitize(value, profile) : emptyProgress(profile);
 }
-export function saveProgress(progress, storage) {
+export function saveProgress(profile, progress, storage) {
+  requireProfile(profile);
   try {
     const target = storageOrNull(storage);
     if (!target) return false;
-    target.setItem(PROGRESS_KEY, JSON.stringify(sanitize(progress)));
+    target.setItem(profile.storageKey, JSON.stringify(sanitize(progress, profile)));
     return true;
   } catch {
     return false;
@@ -141,9 +153,9 @@ export function recordRun(progress, run) {
   }
   return progress;
 }
-export function resetProgress(storage) {
-  const progress = emptyProgress();
-  saveProgress(progress, storage);
+export function resetProgress(profile, storage) {
+  const progress = emptyProgress(profile);
+  saveProgress(profile, progress, storage);
   return progress;
 }
 

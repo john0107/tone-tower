@@ -2,7 +2,7 @@ import { readFile, writeFile, mkdir, rename, unlink } from 'node:fs/promises';
 import path from 'node:path';
 import { setTimeout } from 'node:timers/promises';
 
-async function replaceFile(temporary, file) {
+export async function replaceFile(temporary, file) {
   // Windows readers (including scanners and editors) can briefly prevent a
   // replacement. Keep the old file intact while retrying the atomic rename.
   for (let attempt = 0; ; attempt++) {

@@ -1,50 +1,11 @@
 import { shuffle, buildChoices } from './logic.js';
 import { chooseWordRecording, wordIdentity } from '../content/catalog.js';
 
-const TONES = [1, 2, 3, 4, 5, 6];
+import { requireProfile } from '../languages/profiles.js';
 export const TONE_VARIANTS = Object.freeze({ easy: 5, normal: 4, hard: 3, extreme: 1 });
 export const TIDE_VARIANTS = Object.freeze(['spelling', 'full']);
 export const RAIL_DIFFICULTIES = TONE_VARIANTS;
 export const RAIL_DEADLINES = Object.freeze([15, 13, 11, 9, 7]);
-const descriptions = [
-  'High and level',
-  'Rises high',
-  'Middle and level',
-  'Low and falling',
-  'Rises from low',
-  'Low and level',
-];
-const paths = [
-  'M5 5 L95 5',
-  'M5 27 L95 5',
-  'M5 16 L95 16',
-  'M5 21 L95 30',
-  'M5 30 Q60 30 95 17',
-  'M5 26 L95 26',
-];
-const normalizeAnswer = (value, full = false) =>
-  String(value ?? '')
-    .replace(/[–—]/g, '-')
-    .trim()
-    .toLowerCase()
-    .replace(/\s+/g, '')
-    .replace(full ? /$^/g : /[1-6]/g, '');
-export const cantonese = Object.freeze({
-  id: 'cantonese',
-  label: 'Cantonese',
-  romanization: 'Jyutping',
-  tones: TONES,
-  toneDefinitions: TONES.map((value, i) =>
-    Object.freeze({ value, label: `Tone ${value}`, description: descriptions[i], path: paths[i] }),
-  ),
-  normalizeAnswer,
-  evaluate(value, expected, full = false) {
-    const actual = Array.isArray(value) ? value.join(' ') : String(value ?? '');
-    if (!actual.trim()) return null;
-    return normalizeAnswer(actual, full) === normalizeAnswer(expected.join(' '), full);
-  },
-});
-export const languages = Object.freeze({ cantonese });
 export const challenges = Object.freeze({
   tone: Object.freeze({
     id: 'tone',
@@ -52,10 +13,9 @@ export const challenges = Object.freeze({
     world: 'tone',
     length: 100,
     variants: Object.keys(TONE_VARIANTS),
-    stages: [2, 3, 4, 6, 6].map((choices, i) => ({
+    stages: Array.from({ length: 5 }, (_, i) => ({
       start: i * 20 + 1,
       end: (i + 1) * 20,
-      choices,
     })),
   }),
   tide: Object.freeze({
@@ -73,23 +33,8 @@ export const challenges = Object.freeze({
   }),
 });
 
-// Longest initials first; syllabic m/ng are finals with no initial.
-export function practiceSpelling(jyutping, focus = 'full') {
-  const tone = jyutping.match(/[1-6]$/)?.[0] || '',
-    letters = jyutping.replace(/[1-6]$/, '');
-  const initial = /^(?:m|ng)$/.test(letters)
-    ? ''
-    : letters.match(/^(gw|kw|ng|[bpmfdtnlgkhwzcsj])/)?.[0] || '';
-  return (
-    (focus === 'initials'
-      ? initial || '-'
-      : focus === 'finals'
-        ? letters.slice(initial.length)
-        : letters) + tone
-  );
-}
-
-export function defaultPractice(challenge = 'tone') {
+export function defaultPractice(challenge, profile) {
+  requireProfile(profile);
   return {
     challenge: challenge === 'tide' ? 'tide' : 'tone',
     variant: challenge === 'tide' ? 'spelling' : 'normal',
@@ -98,11 +43,11 @@ export function defaultPractice(challenge = 'tone') {
     format: 'drill',
     length: 20,
     start: 1,
-    content: 'single',
+    content: challenge === 'tide' ? 'single' : profile.practiceToneContent,
     spellingFocus: 'full',
     singleSyllableOnly: false,
     target: challenge === 'tide' ? 'whole' : 'highlighted',
-    tones: [...TONES],
+    tones: [...profile.tones],
     choices: 2,
     lives: 'unlimited',
     timer: 'off',
@@ -111,27 +56,30 @@ export function defaultPractice(challenge = 'tone') {
   };
 }
 
-function normalizeConfig(input = {}) {
+function normalizeConfig(input, profile) {
+  requireProfile(profile);
   const challenge = input.challenge ?? 'tone';
   return {
-    ...defaultPractice(challenge),
+    ...defaultPractice(challenge, profile),
     ...input,
     challenge,
     variant: input.variant ?? (challenge === 'tide' ? 'spelling' : 'normal'),
     practice: input.practice === true,
-    tones: [...(input.tones ?? TONES)],
+    tones: [...(input.tones ?? profile.tones)],
     focusIds: [...(input.focusIds ?? [])],
   };
 }
 
-function compatibleWords(config, words) {
+function compatibleWords(config, words, profile) {
   return words
     .filter((w) => !w.anchor)
     .filter(
       (w) =>
         w.id &&
         w.syllables?.length &&
-        w.syllables.every((s) => typeof s.jyutping === 'string' && TONES.includes(s.tone)),
+        w.syllables.every(
+          (s) => typeof s.transcription === 'string' && profile.tones.includes(s.tone),
+        ),
     )
     .filter(
       (w) =>
@@ -140,23 +88,26 @@ function compatibleWords(config, words) {
     )
     .filter((w) => !config.focusIds.length || config.focusIds.includes(w.id))
     .filter(
-      (w) => config.challenge !== 'tone' || w.syllables.some((s) => config.tones.includes(s.tone)),
+      (w) =>
+        config.challenge !== 'tone' ||
+        w.syllables.some((s) => s.toneEligible !== false && config.tones.includes(s.tone)),
     );
 }
 
-export function validatePractice(input = {}, words) {
+export function validatePractice(input, words, profile) {
+  requireProfile(profile);
   let config;
   const errors = [];
   try {
-    config = normalizeConfig({ ...input, practice: true });
+    config = normalizeConfig({ ...input, practice: true }, profile);
   } catch {
     return {
       valid: false,
       errors: ['Practice settings are invalid.'],
-      config: defaultPractice(input.challenge),
+      config: defaultPractice(input.challenge, profile),
     };
   }
-  if (!['tone', 'tide'].includes(config.challenge)) errors.push('Choose a challenge.');
+  if (!profile.challenges.includes(config.challenge)) errors.push('Choose a challenge.');
   if (
     config.challenge === 'tone'
       ? !Object.hasOwn(TONE_VARIANTS, config.variant)
@@ -172,7 +123,7 @@ export function validatePractice(input = {}, words) {
     errors.push('Start must be between 1 and 100.');
   if (!['mixed', 'single', 'multi'].includes(config.content))
     errors.push('Choose a recording length.');
-  if (!['initials', 'finals', 'full'].includes(config.spellingFocus))
+  if (!profile.spellingFocuses.includes(config.spellingFocus))
     errors.push('Choose initials, finals or full spelling.');
   if (!['stage', 'highlighted', 'whole'].includes(config.target))
     errors.push('Choose a typing target.');
@@ -180,12 +131,12 @@ export function validatePractice(input = {}, words) {
     (input.tones !== undefined && !Array.isArray(input.tones)) ||
     !config.tones.length ||
     new Set(config.tones).size !== config.tones.length ||
-    !config.tones.every((t) => TONES.includes(t))
+    !config.tones.every((t) => profile.tones.includes(t))
   )
     errors.push('Choose different valid tones.');
   if (
     config.challenge === 'tone' &&
-    (![2, 3, 4, 6].includes(config.choices) || config.choices > config.tones.length)
+    (!profile.choiceCounts.includes(config.choices) || config.choices > config.tones.length)
   )
     errors.push('Choose enough tones for the number of doors.');
   if (!['standard', 'unlimited'].includes(config.lives))
@@ -202,7 +153,7 @@ export function validatePractice(input = {}, words) {
   )
     errors.push('Missed recording selection is invalid.');
   if (!errors.length && words) {
-    const pool = compatibleWords(config, words);
+    const pool = compatibleWords(config, words, profile);
     if (!pool.length)
       errors.push(
         'No recordings match these settings. Try another recording length or clear the missed-word filter.',
@@ -210,7 +161,9 @@ export function validatePractice(input = {}, words) {
     if (
       config.challenge === 'tone' &&
       !config.focusIds.length &&
-      config.tones.some((t) => !pool.some((w) => w.syllables.some((s) => s.tone === t)))
+      config.tones.some(
+        (t) => !pool.some((w) => w.syllables.some((s) => s.toneEligible !== false && s.tone === t)),
+      )
     )
       errors.push('The selected recordings do not cover every chosen tone.');
     if (
@@ -235,14 +188,19 @@ export function validatePractice(input = {}, words) {
   return { valid: !errors.length, errors, config };
 }
 
-export function createRun(input = {}, words = [], random = Math.random) {
-  let config = normalizeConfig(input);
+export function createRun(input = {}, words = [], { profile, random = Math.random } = {}) {
+  requireProfile(profile);
+  let config = normalizeConfig(input, profile);
   if (config.practice) {
-    const checked = validatePractice(config, words);
+    const checked = validatePractice(config, words, profile);
     if (!checked.valid) throw Error(checked.errors.join(' '));
     config = checked.config;
   } else {
-    if (!Object.hasOwn(challenges, config.challenge)) throw Error('Choose a challenge.');
+    if (
+      !Object.hasOwn(challenges, config.challenge) ||
+      !profile.challenges.includes(config.challenge)
+    )
+      throw Error('Choose a challenge.');
     if (
       config.challenge === 'tone'
         ? !Object.hasOwn(TONE_VARIANTS, config.variant)
@@ -258,13 +216,13 @@ export function createRun(input = {}, words = [], random = Math.random) {
       length: 100,
       content: 'mixed',
       target: 'stage',
-      tones: [...TONES],
+      tones: [...profile.tones],
       lives: 'standard',
       timer: config.challenge === 'tone' ? 'off' : 'stage',
       focusIds: [],
     };
   }
-  const pool = compatibleWords(config, words);
+  const pool = compatibleWords(config, words, profile);
   if (!pool.length) throw Error('No recordings match this challenge.');
   if (
     config.challenge === 'tide' &&
@@ -285,6 +243,7 @@ export function createRun(input = {}, words = [], random = Math.random) {
         : RAIL_DIFFICULTIES[config.difficulty];
   const run = {
     config,
+    profile,
     world: config.challenge,
     opened: start,
     cleared: 0,
@@ -316,8 +275,8 @@ export function createRun(input = {}, words = [], random = Math.random) {
     expectedParts() {
       return this.targets.map((i) =>
         config.practice && config.challenge === 'tide'
-          ? practiceSpelling(this.word.syllables[i].jyutping, config.spellingFocus)
-          : this.word.syllables[i].jyutping,
+          ? profile.practiceSpelling(this.word.syllables[i].transcription, config.spellingFocus)
+          : this.word.syllables[i].transcription,
       );
     },
     expected() {
@@ -359,15 +318,19 @@ export function createRun(input = {}, words = [], random = Math.random) {
       let selected, targetIndex;
       if (config.challenge === 'tone') {
         const available = config.tones.filter((t) =>
-          fresh.some((w) => w.syllables.some((s) => s.tone === t)),
+          fresh.some((w) => w.syllables.some((s) => s.toneEligible !== false && s.tone === t)),
         );
         if (!toneBag.some((t) => available.includes(t))) toneBag = shuffle(config.tones, random);
         const index = toneBag.findIndex((t) => available.includes(t));
         const tone = toneBag.splice(index, 1)[0];
-        const options = fresh.filter((w) => w.syllables.some((s) => s.tone === tone));
+        const options = fresh.filter((w) =>
+          w.syllables.some((s) => s.toneEligible !== false && s.tone === tone),
+        );
         const unheard = options.filter((w) => !usedWords.has(wordIdentity(w)));
         selected = chooseWordRecording(unheard.length ? unheard : options, random);
-        const indices = selected.syllables.flatMap((s, i) => (s.tone === tone ? [i] : []));
+        const indices = selected.syllables.flatMap((s, i) =>
+          s.toneEligible !== false && s.tone === tone ? [i] : [],
+        );
         targetIndex = indices[Math.floor(random() * indices.length)];
         this.word = {
           ...selected,
@@ -379,9 +342,9 @@ export function createRun(input = {}, words = [], random = Math.random) {
         const count =
           config.practice && config.format === 'drill'
             ? config.choices
-            : Math.min(config.tones.length, [2, 3, 4, 6, 6][this.stage]);
-        const supported = [2, 3, 4, 6].filter((n) => n <= count).at(-1);
-        this.choices = buildChoices(tone, supported, config.tones, random);
+            : Math.min(config.tones.length, profile.stageChoices[this.stage]);
+        const supported = profile.choiceCounts.filter((n) => n <= count).at(-1);
+        this.choices = buildChoices(tone, supported, config.tones, random, profile.tones);
       } else {
         const unheard = fresh.filter((w) => !usedWords.has(wordIdentity(w)));
         selected = chooseWordRecording(unheard.length ? unheard : fresh, random);
@@ -417,15 +380,25 @@ export function createRun(input = {}, words = [], random = Math.random) {
         };
       this.lastAnswer = value;
       if (config.challenge === 'tone') {
-        const tone = Number(value);
+        const tone = profile.tones.find((t) => String(t) === String(value));
         if (!this.choices.includes(tone)) return { kind: 'empty', correct: false, terminal: false };
         if (tone !== this.word.tone) {
-          const key = [tone, this.word.tone].sort((a, b) => a - b).join('-');
+          const pair = [tone, this.word.tone].sort(
+            (a, b) => profile.tones.indexOf(a) - profile.tones.indexOf(b),
+          );
+          const key = pair.every((t) => typeof t === 'number')
+            ? pair.join('-')
+            : JSON.stringify(pair);
           this.confusions[key] = (this.confusions[key] || 0) + 1;
           return this.fail('tone');
         }
       } else {
-        const correct = cantonese.evaluate(value, this.expectedParts(), config.variant === 'full');
+        const correct = profile.evaluate(
+          value,
+          this.expectedParts(),
+          config.variant === 'full',
+          config.practice ? config.spellingFocus : 'full',
+        );
         if (correct === null) return { kind: 'empty', correct: false, terminal: false };
         if (!correct) {
           this.guesses++;

@@ -1,3 +1,4 @@
+import { cantonese, mandarin } from '../../src/languages/profiles.js';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createCountdown, createGameController } from '../../src/game/game-controller.js';
@@ -130,33 +131,33 @@ class App {
 const words = [
   ...Array.from({ length: 6 }, (_, i) => ({
     id: `single-${i}`,
-    character: `字${i}`,
-    jyutping: `si${i + 1}`,
+    text: `字${i}`,
+    transcription: `si${i + 1}`,
     tone: i + 1,
-    syllables: [{ character: `字${i}`, jyutping: `si${i + 1}`, tone: i + 1 }],
+    syllables: [{ text: `字${i}`, transcription: `si${i + 1}`, tone: i + 1 }],
     audio: `${i}.mp3`,
     gloss: 'example',
   })),
   {
     id: 'word-1',
-    character: '你好',
-    jyutping: 'nei5 hou2',
+    text: '你好',
+    transcription: 'nei5 hou2',
     audio: 'word-1.mp3',
     gloss: 'hello',
     syllables: [
-      { character: '你', jyutping: 'nei5', tone: 5 },
-      { character: '好', jyutping: 'hou2', tone: 2 },
+      { text: '你', transcription: 'nei5', tone: 5 },
+      { text: '好', transcription: 'hou2', tone: 2 },
     ],
   },
   {
     id: 'word-2',
-    character: '早晨',
-    jyutping: 'zou2 san4',
+    text: '早晨',
+    transcription: 'zou2 san4',
     audio: 'word-2.mp3',
     gloss: 'morning',
     syllables: [
-      { character: '早', jyutping: 'zou2', tone: 2 },
-      { character: '晨', jyutping: 'san4', tone: 4 },
+      { text: '早', transcription: 'zou2', tone: 2 },
+      { text: '晨', transcription: 'san4', tone: 4 },
     ],
   },
 ];
@@ -164,7 +165,7 @@ const flush = async () => {
   await Promise.resolve();
   await Promise.resolve();
 };
-function harness(extra = {}, recordings = words) {
+function harness(extra = {}, recordings = words, profile = cantonese) {
   const time = fakeTime(),
     document = new Target();
   document.hidden = false;
@@ -190,6 +191,7 @@ function harness(extra = {}, recordings = words) {
   const finished = [],
     homes = [];
   const controller = createGameController({
+    profile,
     app,
     player,
     dialog,
@@ -254,14 +256,14 @@ test('Tide starts after audio, replay never resets time, and timeout costs one l
   assert.match(h.app.innerHTML, /To the gap/);
   assert.doesNotMatch(h.app.innerHTML, /Untimed practice/);
   assert.equal(h.app.querySelector('#countdown').textContent, '15s');
-  const mountedInput = h.app.querySelector('#jyutping-answer');
+  const mountedInput = h.app.querySelector('#transcription-answer');
   h.time.advance(30000);
   assert.equal(h.controller.state.mistakes, 0);
   h.audio();
   await flush();
   assert.equal(h.controller.phase, 'answering');
   assert.equal(h.app.querySelector('#countdown').textContent, '15s');
-  assert.equal(h.app.querySelector('#jyutping-answer'), mountedInput);
+  assert.equal(h.app.querySelector('#transcription-answer'), mountedInput);
   assert.equal(h.app.querySelector('#rail-message').textContent, 'Type the highlighted syllable.');
   assert.equal(h.app.querySelector('.world-scene').dataset.phase, 'answering');
   h.time.advance(5000);
@@ -281,7 +283,7 @@ test('Tide starts after audio, replay never resets time, and timeout costs one l
   await flush();
   assert.equal(h.controller.phase, 'answering');
   assert.equal(h.app.querySelector('#countdown').textContent, '15s');
-  assert.equal(h.app.querySelector('#jyutping-answer').value, '');
+  assert.equal(h.app.querySelector('#transcription-answer').value, '');
   h.controller.dispose();
 });
 
@@ -291,11 +293,11 @@ test('pause, hidden pages and dialogs freeze time and keep typed text', async ()
   h.audio();
   await flush();
   h.time.advance(5000);
-  h.app.querySelector('#jyutping-answer').value = 'my answer';
+  h.app.querySelector('#transcription-answer').value = 'my answer';
   h.controller.pause();
   h.time.advance(30000);
   assert.equal(h.controller.state.mistakes, 0);
-  assert.equal(h.app.querySelector('#jyutping-answer').value, 'my answer');
+  assert.equal(h.app.querySelector('#transcription-answer').value, 'my answer');
   h.controller.resume();
   assert.equal(h.app.querySelector('#countdown').textContent, '10s');
   h.document.hidden = true;
@@ -331,7 +333,7 @@ test('typing permits spaces, auto-checks only correct input and locks a cleared 
   });
   h.audio();
   await flush();
-  let input = h.app.querySelector('#jyutping-answer');
+  let input = h.app.querySelector('#transcription-answer');
   input.value = 'wrong';
   input.fire('input');
   assert.equal(h.controller.state.guesses, 0);
@@ -351,7 +353,7 @@ test('typing permits spaces, auto-checks only correct input and locks a cleared 
   assert.equal(h.controller.state.cleared, 1);
   h.time.advance(1);
   assert.equal(h.controller.phase, 'listening');
-  assert.equal(h.app.querySelector('#jyutping-answer').value, '');
+  assert.equal(h.app.querySelector('#transcription-answer').value, '');
   h.controller.dispose();
 });
 
@@ -382,7 +384,7 @@ test('timeout costs one life, stale audio cannot reactivate a disposed run, and 
   h.controller.start({ challenge: 'tide' });
   h.audio();
   await flush();
-  h.app.querySelector('#jyutping-answer').value = 'partial';
+  h.app.querySelector('#transcription-answer').value = 'partial';
   h.time.advance(15000);
   assert.equal(h.controller.state.lives, 3);
   assert.equal(h.controller.state.lastAnswer, 'partial');
@@ -468,7 +470,7 @@ test('Skyrail landings and progress describe spans', async () => {
   h.controller.start({ challenge: 'tide', practice: true, format: 'rehearsal', start: 20 });
   h.audio();
   await flush();
-  const input = h.app.querySelector('#jyutping-answer');
+  const input = h.app.querySelector('#transcription-answer');
   input.value = h.controller.state.expected();
   input.fire('input');
   assert.equal(h.controller.phase, 'landing');
@@ -533,11 +535,11 @@ test('review keeps one question in the same scene and retains typing controls', 
   });
   const before = structure();
   assert.deepEqual(before, { questions: 1, prompts: 1, forms: 1, frames: 1 });
-  h.app.querySelector('#jyutping-answer').value = 'unfinished';
+  h.app.querySelector('#transcription-answer').value = 'unfinished';
   h.time.advance(15000);
   assert.deepEqual(structure(), before);
-  assert.equal(h.app.querySelector('#jyutping-answer').value, 'unfinished');
-  assert.equal(h.app.querySelector('#jyutping-answer').disabled, true);
+  assert.equal(h.app.querySelector('#transcription-answer').value, 'unfinished');
+  assert.equal(h.app.querySelector('#transcription-answer').disabled, true);
   assert.ok(h.app.querySelector('.scene-status'));
   assert.ok(h.app.querySelector('.game-progress-label'));
   h.controller.dispose();
@@ -548,7 +550,7 @@ test('retry feedback clears on editing and timeout stays full until next prompt'
   h.controller.start({ challenge: 'tide' });
   h.audio();
   await flush();
-  const input = h.app.querySelector('#jyutping-answer');
+  const input = h.app.querySelector('#transcription-answer');
   input.value = 'zzz';
   input.fire('input');
   h.app.querySelector('#typed-form').fire('submit');
@@ -603,7 +605,7 @@ test('Skyrail has no reveal or bottom sound guide, and retry stays available', a
   await flush();
   assert.equal(h.app.querySelector('#reveal-answer'), null);
   assert.equal(h.app.querySelector('#game-learn'), null);
-  const input = h.app.querySelector('#jyutping-answer');
+  const input = h.app.querySelector('#transcription-answer');
   input.value = 'zzz';
   h.app.querySelector('#typed-form').fire('submit');
   assert.equal(input.disabled, false);
@@ -618,7 +620,7 @@ test('R replays from the spelling field without changing input or the remaining 
   h.audio();
   await flush();
   h.time.advance(4000);
-  const input = h.app.querySelector('#jyutping-answer');
+  const input = h.app.querySelector('#transcription-answer');
   input.value = 'fu';
   input.fire('input');
   const attempts = h.controller.state.attempts,
@@ -641,17 +643,17 @@ test('Skyrail gives each crossing 900ms, keeps typing enabled, and leaves checkp
   h.audio();
   await flush();
   const oldId = h.controller.state.word.id,
-    input = h.app.querySelector('#jyutping-answer');
+    input = h.app.querySelector('#transcription-answer');
   input.value = h.controller.state.expected();
   input.fire('input');
   assert.equal(h.controller.phase, 'correct');
-  assert.equal(h.app.querySelector('#jyutping-answer').disabled, false);
+  assert.equal(h.app.querySelector('#transcription-answer').disabled, false);
   h.time.advance(899);
   assert.equal(h.controller.phase, 'correct');
   h.time.advance(1);
   assert.equal(h.controller.phase, 'listening');
   assert.notEqual(h.controller.state.word.id, oldId);
-  assert.equal(h.app.querySelector('#jyutping-answer').value, '');
+  assert.equal(h.app.querySelector('#transcription-answer').value, '');
   h.audio();
   await flush();
   assert.equal(h.controller.phase, 'answering');
@@ -659,7 +661,7 @@ test('Skyrail gives each crossing 900ms, keeps typing enabled, and leaves checkp
   h.controller.start({ challenge: 'tide', practice: true, format: 'rehearsal', start: 20 });
   h.audio();
   await flush();
-  h.app.querySelector('#jyutping-answer').value = h.controller.state.expected();
+  h.app.querySelector('#transcription-answer').value = h.controller.state.expected();
   h.app.querySelector('#typed-form').fire('submit');
   assert.equal(h.controller.phase, 'landing');
   assert.match(h.app.innerHTML, /Station reached/);
@@ -677,7 +679,7 @@ test('audio recovery clears unavailable and retry styling without resetting the 
   h.audio();
   await flush();
   h.time.advance(4000);
-  const input = h.app.querySelector('#jyutping-answer');
+  const input = h.app.querySelector('#transcription-answer');
   input.value = 'zzz';
   input.fire('input');
   h.app.querySelector('#typed-form').fire('submit');
@@ -699,7 +701,7 @@ test('audio recovery clears unavailable and retry styling without resetting the 
   assert.equal(h.app.dataset.outcome, 'answering');
   assert.equal(h.app.querySelector('#replace-recording'), null);
   assert.equal(h.app.querySelector('#countdown').textContent, '11s');
-  assert.equal(h.app.querySelector('#jyutping-answer').value, 'zz');
+  assert.equal(h.app.querySelector('#transcription-answer').value, 'zz');
   assert.equal(h.controller.state.lives, 4);
   h.controller.dispose();
 });
@@ -982,7 +984,7 @@ test('practice uses its own starting scene with fixed progress and a finish acti
           target: { tagName: 'DIV' },
         });
       else {
-        const input = h.app.querySelector('#jyutping-answer');
+        const input = h.app.querySelector('#transcription-answer');
         input.value = h.controller.state.expected();
         input.fire('input');
       }
@@ -1011,7 +1013,7 @@ test('focused Skyrail practice auto-checks only the selected word parts', async 
     });
     h.audio();
     await flush();
-    const input = h.app.querySelector('#jyutping-answer');
+    const input = h.app.querySelector('#transcription-answer');
     input.value = h.controller.state.expected();
     input.fire('input');
     assert.equal(h.controller.state.cleared, 1);
@@ -1033,7 +1035,7 @@ test('a wrong final practice question completes the set and can open results', a
           target: { tagName: 'DIV' },
         });
       else {
-        const input = h.app.querySelector('#jyutping-answer');
+        const input = h.app.querySelector('#transcription-answer');
         input.value = h.controller.state.expected();
         input.fire('input');
       }
@@ -1047,7 +1049,7 @@ test('a wrong final practice question completes the set and can open results', a
         target: { tagName: 'DIV' },
       });
     else {
-      h.app.querySelector('#jyutping-answer').value = 'incorrect';
+      h.app.querySelector('#transcription-answer').value = 'incorrect';
       h.app.querySelector('#typed-form').fire('submit');
     }
     assert.equal(h.controller.state.status, 'complete');
@@ -1060,4 +1062,112 @@ test('a wrong final practice question completes the set and can open results', a
     assert.equal(h.finished.length, 1);
     h.controller.dispose();
   }
+});
+
+const greeting = [
+  {
+    id: 'greeting',
+    text: '你好',
+    transcription: 'ni3 hao3',
+    audio: 'greeting.mp3',
+    syllables: [
+      { text: '你', transcription: 'ni3', dictionaryTone: 3, tone: 2 },
+      { text: '好', transcription: 'hao3', dictionaryTone: 3, tone: 3 },
+    ],
+  },
+];
+test('Mandarin feedback explains heard tones without exposing tone marks before answering', async () => {
+  const h = harness({}, greeting, mandarin);
+  h.controller.start({
+    challenge: 'tone',
+    practice: true,
+    content: 'multi',
+    focusIds: ['greeting'],
+    tones: [2, 4],
+  });
+  h.audio();
+  await flush();
+  assert.doesNotMatch(h.app.innerHTML, /nǐ|hǎo|Dictionary spelling/);
+  assert.equal(h.app.querySelector('.recording-report'), null);
+  h.document.fire('keydown', { key: '2', target: { tagName: 'BODY' } });
+  assert.match(h.app.innerHTML, /Dictionary spelling: nǐ hǎo/);
+  assert.match(h.app.innerHTML, /Heard tones: Tone 2/);
+  assert.ok(h.app.querySelector('.recording-report'));
+  assert.match(h.app.querySelector('.recording-report').attrs.href, /greeting/);
+  h.controller.dispose();
+});
+test('Mandarin composition, word spaces, and r stay in the typing field', async () => {
+  const h = harness({}, greeting, mandarin);
+  h.controller.start({
+    challenge: 'tide',
+    practice: true,
+    variant: 'full',
+    content: 'multi',
+    target: 'whole',
+  });
+  h.audio();
+  await flush();
+  const input = h.app.querySelector('#transcription-answer'),
+    requests = h.requests.length;
+  for (const key of [' ', 'r'])
+    assert.notEqual(h.document.fire('keydown', { key, target: input }).defaultPrevented, true);
+  assert.equal(h.requests.length, requests);
+  input.fire('compositionstart');
+  input.value = 'nǐ hǎo';
+  input.fire('input');
+  assert.equal(h.controller.state.cleared, 0);
+  h.app.querySelector('#typed-form').fire('submit');
+  assert.equal(h.controller.state.cleared, 0);
+  input.fire('compositionend');
+  assert.equal(h.controller.state.cleared, 1);
+  h.controller.dispose();
+});
+test('changing the Mandarin script during a run preserves input, timing, and scoring', async () => {
+  const recordings = [
+    {
+      id: 'mother',
+      forms: { default: '妈妈', simplified: '妈妈', traditional: '媽媽' },
+      text: '妈妈',
+      transcription: 'ma1 ma5',
+      audio: 'mother.mp3',
+      syllables: [
+        {
+          forms: { simplified: '妈', traditional: '媽' },
+          text: '妈',
+          transcription: 'ma1',
+          tone: 1,
+        },
+        {
+          forms: { simplified: '妈', traditional: '媽' },
+          text: '妈',
+          transcription: 'ma5',
+          tone: 5,
+        },
+      ],
+    },
+  ];
+  const h = harness({}, recordings, mandarin);
+  h.controller.start({
+    challenge: 'tide',
+    practice: true,
+    variant: 'full',
+    content: 'multi',
+    target: 'whole',
+    timer: 'custom',
+    seconds: 20,
+  });
+  h.audio();
+  await flush();
+  h.app.querySelector('#transcription-answer').value = 'ma1';
+  h.time.advance(5000);
+  h.controller.setScript('traditional');
+  assert.equal(h.app.querySelector('#transcription-answer').value, 'ma1');
+  h.time.advance(14999);
+  assert.equal(h.controller.phase, 'answering');
+  assert.match(h.app.innerHTML, /媽/);
+  assert.equal(h.controller.state.cleared, 0);
+  assert.equal(h.controller.state.expected(), 'ma1 ma5');
+  h.time.advance(1);
+  assert.equal(h.controller.phase, 'review');
+  h.controller.dispose();
 });

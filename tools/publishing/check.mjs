@@ -1,4 +1,3 @@
-import { generatedFiles } from './pages.mjs';
 import assert from 'node:assert/strict';
 import { readdir, readFile, lstat } from 'node:fs/promises';
 import path from 'node:path';
@@ -18,8 +17,15 @@ async function listFiles(root, prefix = '') {
 }
 
 export async function checkDistribution(root = path.resolve('dist')) {
-  const catalog = JSON.parse(await readFile(path.join(root, 'catalog.json'), 'utf8'));
-  const expected = [...(await publicationFiles(root, catalog)), ...generatedFiles].sort();
+  const catalogs = Object.fromEntries(
+    await Promise.all(
+      ['yue', 'cmn'].map(async (id) => [
+        id,
+        JSON.parse(await readFile(path.join(root, 'catalogs', id + '.json'), 'utf8')),
+      ]),
+    ),
+  );
+  const expected = await publicationFiles(root, catalogs);
   assert.deepEqual(await listFiles(root), expected, 'Built site contains unexpected files.');
   for (const base of ['/', '/release-check/renamed-project/']) {
     const server = await createStaticServer({ root, base });
@@ -56,7 +62,7 @@ export async function checkDistribution(root = path.resolve('dist')) {
     }
   }
   console.log(
-    `Checked ${expected.length} publication files at root and a renamed project path (${catalog.recordings.length} recordings).`,
+    `Checked ${expected.length} publication files at root and a renamed project path (${Object.values(catalogs).reduce((n, catalog) => n + catalog.recordings.length, 0)} recordings).`,
   );
   return expected;
 }

@@ -1,8 +1,8 @@
 # Tone Tower
 
-A browser game for learning and practising Cantonese Jyutping. Tone Tower trains tone recognition; Skyrail trains spelling. Built with vanilla JavaScript and canvas, with no accounts, analytics, or runtime services.
+Browser games for Cantonese Jyutping and Mandarin Pinyin. Each language has its own site and progress. Tone Tower trains tone recognition; Skyrail trains spelling. Built with vanilla JavaScript and canvas, with no accounts, analytics, or runtime services.
 
-[Play Tone Tower](https://john0107.github.io/tone-tower/) · [Report a problem](https://github.com/john0107/tone-tower/issues/new?template=bug-report.yml) · [Suggest an idea](https://github.com/john0107/tone-tower/issues/new?template=idea.yml)
+[Play Tone Tower](https://tone-tower.github.io/tone-tower/) · [Report a problem](https://github.com/tone-tower/tone-tower/issues/new?template=bug-report.yml) · [Suggest an idea](https://github.com/tone-tower/tone-tower/issues/new?template=idea.yml)
 
 Maintained by [john0107](https://github.com/john0107). Feedback and contributions are welcome through GitHub Issues; reports are public.
 
@@ -48,11 +48,18 @@ data/audio/         Imported inventory, stable word IDs, queue, and corrections
 
 The browser imports only `src/`. Pure rules live in `src/game/game-core.js`; `game-controller.js` coordinates input, audio, countdowns, and the game view. Rendering and animation live in `src/world/`. Progress and settings live in `src/persistence/progress.js`. Only the current save format is supported; older formats start fresh.
 
-Versioned recording metadata lives in `data/audio/`: `content.json` is the imported inventory, `words.json` stores stable word identities, and `corrections.json` stores manual corrections. The selected queue and durable rejection reasons are versioned alongside them. API caches, raw discovery results, and CSV exports stay in the ignored `.audio-import-cache/` directory. `catalog.json` and `dist/` are generated and ignored by Git. See [the catalog reference](docs/AUDIO-CATALOG.md) before editing content.
+Versioned recording metadata lives in `data/audio/`: `content.json` is the imported inventory, `words.json` stores stable word identities, and `corrections.json` stores manual corrections. The selected queue and durable rejection reasons are versioned alongside them. API caches, raw discovery results, and CSV exports stay in the ignored `.audio-import-cache/` directory. `catalogs/` and `dist/` are generated and ignored by Git. See [the catalog reference](docs/AUDIO-CATALOG.md) before editing content.
 
 Keep only current source, assets, content and documentation in the repository. Use the operating system's temporary directory for browser profiles, screenshots and one-off scripts, then delete them after review. Remove superseded implementations and assets instead of adding ignore rules or compatibility layers. Deleting tracked files removes them from future commits; it does not shrink existing Git history.
 
 To resume downloads, run `npm run audio:download`. After downloading stops, run `npm run audio:sync` before playing or building. `npm run audio:status` shows progress without starting downloads. See [the download instructions](docs/AUDIO-DOWNLOAD.md).
+
+Download the separate Mandarin archive with `npm run audio:download:mandarin`;
+check it with `npm run audio:status:mandarin`. It resumes safely and preserves
+source credits across speakers. The playable Mandarin beta uses unambiguous dictionary matches and common tone changes; incorrect clips can be corrected or excluded afterward. Existing Cantonese recordings do not need to
+move. See [the Mandarin download instructions](docs/MANDARIN-DOWNLOAD.md).
+
+The root is a language chooser. Open `/cantonese/` or `/mandarin/` for the independent language sites. The Mandarin beta includes Tone Tower, Skyrail, practice, and a Pinyin guide using real downloaded audio. See [language architecture and Mandarin beta](docs/MANDARIN-WEBSITE.md) for the content workflow and future language integration.
 
 ## Checks
 
@@ -88,6 +95,9 @@ See [publishing](docs/PUBLISHING.md) for setup and release checks. Stop audio do
 - [Games, controls, and visual behavior](docs/GAMEPLAY.md)
 - [Audio catalog and manual corrections](docs/AUDIO-CATALOG.md)
 - [Downloading recordings](docs/AUDIO-DOWNLOAD.md)
+- [Language architecture and Mandarin beta](docs/MANDARIN-WEBSITE.md)
+- [Downloading the separate Mandarin archive](docs/MANDARIN-DOWNLOAD.md)
+- [Mandarin sources and multilingual audio design](docs/MULTILINGUAL-AUDIO.md)
 - [Publishing and rollback](docs/PUBLISHING.md)
 - [Recording, dictionary, and typography attribution](THIRD_PARTY_NOTICES.md)
 

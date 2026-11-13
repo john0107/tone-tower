@@ -4,8 +4,8 @@ import { filterCredits, creditsPage } from '../../src/ui/credits.js';
 test('credits keep a bounded page and clamp navigation after filtering', () => {
   const rows = Array.from({ length: 473 }, (_, id) => ({
     id,
-    character: '字',
-    jyutping: 'si' + id,
+    text: '字',
+    transcription: 'si' + id,
     author: id === 45 ? 'A Person' : 'Other',
   }));
   assert.equal(creditsPage(rows).rows.length, 20);

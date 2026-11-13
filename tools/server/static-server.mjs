@@ -42,9 +42,11 @@ export async function createStaticServer({ root, base = '/', sourceRoutes = fals
       if (!pathname.startsWith(base) || pathname.includes('\\')) throw Error('Outside base');
       const relative = pathname.slice(base.length);
       const page = Object.keys(pages).find((key) => pages[key].path === relative);
-      if (sourceRoutes && page && pages[page].path) {
-        const template = await readFile(path.join(directory, 'index.html'), 'utf8');
-        const catalog = JSON.parse(await readFile(path.join(directory, 'catalog.json'), 'utf8'));
+      if (sourceRoutes && page) {
+        const template = await readFile(path.join(directory, 'src/shell.html'), 'utf8');
+        const catalog = JSON.parse(
+          await readFile(path.join(directory, 'catalogs', pages[page].language + '.json'), 'utf8'),
+        );
         const data = Buffer.from(renderPage(template, page, catalog));
         res.writeHead(200, {
           'Content-Type': types['.html'],

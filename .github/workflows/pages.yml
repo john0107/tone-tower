@@ -41,7 +41,7 @@ jobs:
         run: node .github/scripts/run-tests.mjs
       - run: npm run build
       - name: Ensure the build leaves source data unchanged
-        run: git diff --exit-code -- data/audio
+        run: git diff --exit-code -- data/audio data/content
       - run: npm run check:dist
       - name: Upload only the built site
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'

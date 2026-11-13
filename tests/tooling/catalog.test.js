@@ -1,8 +1,11 @@
+import { cantonese } from '../../src/languages/profiles.js';
+import { cantoneseCatalog } from '../../tools/catalog/runtime.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { syncRegistry, assembleCatalog, emptyCorrections } from '../../tools/catalog/catalog.mjs';
-import { catalogRows, chooseWordRecording } from '../../src/content/catalog.js';
+import { catalogRows as runtimeRows, chooseWordRecording } from '../../src/content/catalog.js';
 
+const catalogRows = (source) => runtimeRows(cantoneseCatalog(source), cantonese);
 const clip = (id, character = '你', jyutping = 'nei5', extra = {}) => ({
   id,
   character,
@@ -62,7 +65,7 @@ test('manual corrections survive sync and can correct, reassign, and exclude wit
     ['a', 'b', 'd'],
   );
   assert.equal(rows[0].gloss, 'you, singular');
-  assert.equal(rows[1].jyutping, 'hou2');
+  assert.equal(rows[1].transcription, 'hou2');
   assert.equal(rows[1].source, input[1].source);
   assert.equal(rows[2].wordId, 'word-a');
   assert.deepEqual(rows[2].metadata.tags, ['pronoun']);
@@ -86,7 +89,7 @@ test('a reading correction retains word ID and enforces aligned syllables', () =
   };
   const row = catalogRows(assembleCatalog(input, registry, corrections))[0];
   assert.equal(row.wordId, 'word-a');
-  assert.equal(row.jyutping, 'nei2');
+  assert.equal(row.transcription, 'nei2');
   assert.equal(row.tone, 2);
   corrections.words['word-a'].syllables[0].tone = 5;
   assert.throws(() => assembleCatalog(input, registry, corrections), /Invalid syllables/);
@@ -141,8 +144,8 @@ test('catalog rejects dangling references, duplicate IDs, malformed patches, and
     /Invalid audio path/,
   );
   assert.throws(
-    () => catalogRows({ version: 1, words: [], recordings: [{ id: 'a', wordId: 'missing' }] }),
-    /Missing word/,
+    () => runtimeRows({ version: 1, words: [], recordings: [] }, cantonese),
+    /Unsupported/,
   );
   assert.deepEqual(emptyCorrections(), { version: 1, words: {}, recordings: {} });
 });

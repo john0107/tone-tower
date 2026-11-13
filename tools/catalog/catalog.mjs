@@ -1,3 +1,6 @@
+import { cantoneseCatalog } from './runtime.mjs';
+import { buildMandarinCatalog } from '../content/mandarin.mjs';
+import { mkdir } from 'node:fs/promises';
 import { stat } from 'node:fs/promises';
 import { atomicJSON, atomicText, readJSON } from '../lib/json.mjs';
 import { audioPaths } from '../audio/paths.mjs';
@@ -236,6 +239,15 @@ export async function buildCatalog(root = process.cwd()) {
     throw Error('Word registry is out of date. Stop imports, then run npm run audio:sync.');
   const catalog = assembleCatalog(imported, registry, corrections);
   await validateAudio(root, catalog);
-  await atomicText(path.join(root, 'catalog.json'), JSON.stringify(catalog) + '\n');
-  return catalog;
+  const runtime = cantoneseCatalog(catalog);
+  await mkdir(path.join(root, 'catalogs'), { recursive: true });
+  await atomicText(path.join(root, 'catalogs/yue.json'), JSON.stringify(runtime) + '\n');
+  return runtime;
+}
+
+export async function buildCatalogs(root = process.cwd()) {
+  const yue = await buildCatalog(root);
+  const cmn = await buildMandarinCatalog(root);
+  await atomicText(path.join(root, 'catalogs/cmn.json'), JSON.stringify(cmn) + '\n');
+  return { yue, cmn };
 }

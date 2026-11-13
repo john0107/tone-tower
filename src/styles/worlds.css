@@ -148,6 +148,18 @@
 }
 .prompt-actions {
   margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  max-width: 150px;
+}
+.prompt-actions .recording-report {
+  padding: 6px 2px;
+  font-size: 11px;
+  line-height: 1.3;
+  white-space: normal;
+  text-align: center;
 }
 .prompt-actions .secondary {
   font-size: 12px;
@@ -237,15 +249,15 @@
   box-shadow: inset 0 0 0 2px #a1b98a;
 }
 .world-scene[data-count='4'] .tone-number,
-.world-scene[data-count='6'] .tone-number {
+.world-scene:is([data-count='5'], [data-count='6']) .tone-number {
   font-size: 26px;
 }
 .world-scene[data-count='4'] .tone-name,
-.world-scene[data-count='6'] .tone-name {
+.world-scene:is([data-count='5'], [data-count='6']) .tone-name {
   font-size: 6px;
 }
 .world-scene[data-count='4'] .tone-door,
-.world-scene[data-count='6'] .tone-door {
+.world-scene:is([data-count='5'], [data-count='6']) .tone-door {
   gap: 3px;
 }
 .game-panel {
@@ -481,6 +493,12 @@
     padding: 8px;
     min-height: 38px;
   }
+  .prompt-actions {
+    max-width: 110px;
+  }
+  .prompt-actions .recording-report {
+    font-size: 10px;
+  }
   .prompt-actions kbd {
     font-size: 8px;
     margin-left: 3px;
@@ -500,16 +518,16 @@
     padding: 1px 3px;
   }
   .world-scene[data-count='4'] .tone-number,
-  .world-scene[data-count='6'] .tone-number {
+  .world-scene:is([data-count='5'], [data-count='6']) .tone-number {
     font-size: 18px;
   }
   .world-scene[data-count='4'] .tone-name,
-  .world-scene[data-count='6'] .tone-name {
+  .world-scene:is([data-count='5'], [data-count='6']) .tone-name {
     font-size: 5px;
     min-height: 0;
   }
   .world-scene[data-count='4'] .door-key,
-  .world-scene[data-count='6'] .door-key {
+  .world-scene:is([data-count='5'], [data-count='6']) .door-key {
     font-size: 6px;
     padding: 0 2px;
   }
@@ -1134,7 +1152,7 @@ html {
   box-shadow: inset 0 0 0 3px var(--red);
 }
 .world-scene[data-count='4'] .answer-mark,
-.world-scene[data-count='6'] .answer-mark {
+.world-scene:is([data-count='5'], [data-count='6']) .answer-mark {
   font-size: 18px;
 }
 .tower-interlude {
@@ -1250,7 +1268,7 @@ html {
     font-size: 20px;
   }
   .world-scene[data-count='4'] .answer-mark,
-  .world-scene[data-count='6'] .answer-mark {
+  .world-scene:is([data-count='5'], [data-count='6']) .answer-mark {
     font-size: 13px;
   }
   .tone-door.is-answer .tone-name {
@@ -1890,7 +1908,7 @@ body.keyboard-open #app[data-world='tide'] .scene-frame:has(.rail-interlude) {
   stroke-linecap: round;
 }
 .world-scene[data-count='4'] .practice-tone-contour,
-.world-scene[data-count='6'] .practice-tone-contour {
+.world-scene:is([data-count='5'], [data-count='6']) .practice-tone-contour {
   width: 27px;
   height: 10px;
 }
@@ -1900,7 +1918,7 @@ body.keyboard-open #app[data-world='tide'] .scene-frame:has(.rail-interlude) {
     height: 12px;
   }
   .world-scene[data-count='4'] .practice-tone-contour,
-  .world-scene[data-count='6'] .practice-tone-contour {
+  .world-scene:is([data-count='5'], [data-count='6']) .practice-tone-contour {
     width: 20px;
     height: 8px;
   }

@@ -1,4 +1,3 @@
-import { generatedFiles } from '../../tools/publishing/pages.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { mkdtemp, mkdir, writeFile, readFile, rm, readdir } from 'node:fs/promises';
@@ -40,9 +39,14 @@ test('publication follows runtime dependencies, includes credits, and excludes l
   );
   for (const row of input) await put(row.audio, Buffer.alloc(1200));
   await put(
-    'index.html',
-    '<link rel="stylesheet" href="src/styles/style.css"><a href="./">Home</a><a href="#guide">Guide</a><script type="module" src="src/app.js"></script>',
+    'src/shell.html',
+    '<base href="./" /><link rel="stylesheet" href="src/styles/style.css"><a href="./">Home</a><a href="#guide">Guide</a><script type="module" src="src/app.js"></script>',
   );
+  await put(
+    'index.html',
+    '<link rel="stylesheet" href="src/styles/style.css"><a href="cantonese/">Cantonese</a><a href="mandarin/">Mandarin</a>',
+  );
+  await put('audio/cmn/unreviewed.mp3', Buffer.alloc(1200));
   await put('src/app.js', "import {run} from './game/game.js'; run();");
   await put('src/game/game.js', "export {play as run} from '../audio/audio.js';");
   await put('src/audio/audio.js', 'export function play() {}');
@@ -73,7 +77,7 @@ test('publication follows runtime dependencies, includes credits, and excludes l
     'src/audio/audio.js',
     'assets/fonts/game.ttf',
     'assets/fonts/game-LICENSE.txt',
-    'catalog.json',
+    'catalogs/yue.json',
     '.nojekyll',
     'LICENSE',
     'THIRD_PARTY_NOTICES.md',
@@ -88,15 +92,21 @@ test('publication follows runtime dependencies, includes credits, and excludes l
   ])
     assert.ok(!files.includes(name), name);
   assert.ok(!(await readdir(path.join(root, 'dist'))).includes('stale-file.txt'));
-  const catalog = JSON.parse(await readFile(path.join(root, 'dist/catalog.json'), 'utf8'));
+  const catalog = JSON.parse(await readFile(path.join(root, 'dist/catalogs/yue.json'), 'utf8'));
   assert.equal(catalog.recordings.length, 6);
   assert.equal((await readFile(path.join(root, 'dist/audio/fu1.mp3'))).length, 1200);
-  assert.deepEqual([...(await publicationFiles(root, catalog)), ...generatedFiles].sort(), files);
+  const catalogs = {
+    yue: catalog,
+    cmn: JSON.parse(await readFile(path.join(root, 'dist/catalogs/cmn.json'), 'utf8')),
+  };
+  assert.ok(!files.includes('audio/cmn/unreviewed.mp3'));
+  assert.ok(!files.includes('src/shell.html'));
+  assert.deepEqual(await publicationFiles(path.join(root, 'dist'), catalogs), files);
   assert.deepEqual(await checkDistribution(path.join(root, 'dist')), files);
   await put('dist/private-cache.txt', 'must not be published');
   await assert.rejects(() => checkDistribution(path.join(root, 'dist')), /unexpected files/);
   await put('src/game/game.js', "import '/root-only.js';");
-  await assert.rejects(() => publicationFiles(root, catalog), /relative paths/);
+  await assert.rejects(() => publish(root), /relative paths/);
   await put('src/game/game.js', "import '../missing.js';");
-  await assert.rejects(() => publicationFiles(root, catalog), /ENOENT/);
+  await assert.rejects(() => publish(root), /ENOENT/);
 });

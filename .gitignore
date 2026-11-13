@@ -1,6 +1,7 @@
 /node_modules/
 /.audio-import-cache/
 /dist/
-/catalog.json
 *.json.tmp-*
 /debug.log
+
+/catalogs/

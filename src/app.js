@@ -1,9 +1,11 @@
-import { site, pages, pageFromLocation } from './site.js';
+import { recordingIssueUrl } from './ui/recording-report.js';
+import { languages, requireProfile, decodeTonePair } from './languages/profiles.js';
+import { site, languagePages, pageFromLocation } from './site.js';
 import { practiceSetupMarkup } from './ui/practice-setup.js';
 import { filterCredits, creditsPage } from './ui/credits.js';
-import { catalogRows } from './content/catalog.js';
+import { catalogRows, referenceRows } from './content/catalog.js';
 import { Player } from './audio/audio.js';
-import { cantonese, challenges, defaultPractice, TONE_VARIANTS } from './game/game-core.js';
+import { challenges, defaultPractice, TONE_VARIANTS } from './game/game-core.js';
 import {
   loadProgress,
   saveProgress,
@@ -18,6 +20,8 @@ import { destinations } from './world/pixel-world.js';
 import { soundPageMarkup, aboutPageMarkup, compactGuideMarkup } from './ui/info-pages.js';
 import { bindMapNavigation } from './ui/map-navigation.js';
 
+const profile = requireProfile(languages[document.documentElement.dataset.language]);
+const pages = languagePages(profile);
 const appBase = new URL('../', import.meta.url);
 // Freeze the base before pushState so assets and links stay project-relative.
 document.querySelector('base').href = appBase.href;
@@ -69,19 +73,22 @@ const worldInfo = {
     action: 'Board Skyrail',
     unit: 'spans',
     verb: 'built',
-    eyebrow: 'Jyutping spelling',
-    description: 'Listen, then type the sounds in Jyutping to build the next bridge. ',
-    instruction: 'Listen, then type the Jyutping before the railcar reaches the gap.',
+    eyebrow: profile.romanization + ' spelling',
+    description:
+      'Listen, then type the sounds in ' + profile.romanization + ' to build the next bridge. ',
+    instruction:
+      'Listen, then type the ' + profile.romanization + ' before the railcar reaches the gap.',
     end: 'Next stop: the horizon.',
   },
 };
-let progress = loadProgress(),
+let progress = loadProgress(profile),
+  catalog = null,
   data = [],
   words = [],
   anchors = [],
   controller = null,
   screen = 'home';
-const persist = () => saveProgress(progress);
+const persist = () => saveProgress(profile, progress);
 function best(world) {
   return Math.max(0, ...challengeRecords(progress, world).map((r) => r.best || 0));
 }
@@ -123,7 +130,7 @@ function screenError(message) {
   }
 }
 
-let selectedWorld = 'tone';
+let selectedWorld = profile.challenges[0];
 function home(world, initialPractice = false) {
   let practiceMode = initialPractice;
   const practiceConfigs = Object.fromEntries(
@@ -132,14 +139,14 @@ function home(world, initialPractice = false) {
       return [
         challenge,
         {
-          ...defaultPractice(challenge),
+          ...defaultPractice(challenge, profile),
           ...saved,
           challenge,
           format: 'drill',
           start: 1,
           length: 20,
           spellingFocus: saved.spellingFocus || 'full',
-          content: challenge === 'tide' ? 'mixed' : 'single',
+          content: challenge === 'tide' ? 'mixed' : profile.practiceToneContent,
           target:
             challenge === 'tide'
               ? saved.singleSyllableOnly === true
@@ -159,35 +166,48 @@ function home(world, initialPractice = false) {
   } else world = selectedWorld;
   resetView('home');
   if (initialPractice) setPageLocation('practice', true);
-  progress = loadProgress();
+  progress = loadProgress(profile);
+  const exampleText = profile.example.forms?.[progress.settings.script] ?? profile.example.written;
+  const exampleRecording = data.find(
+    (row) =>
+      row.transcription === profile.example.transcription &&
+      Object.values(row.forms ?? {}).includes(exampleText),
+  );
   app.innerHTML = /* HTML */ `<header class="home-intro">
       <div>
-        <h1 tabindex="-1">Practise Jyutping.</h1>
+        <h1 tabindex="-1">Practise ${profile.romanization}.</h1>
         <p>
-          Jyutping is a romanisation system for Cantonese. It writes pronunciation using Latin
-          letters and tone numbers.
+          ${profile.romanization} writes ${profile.label} pronunciation using Latin letters and
+          ${profile.usesToneMarks ? 'tone marks' : 'tone numbers'}.
         </p>
       </div>
-      <a class="intro-guide" href="guide/" data-page="sounds"
-        ><span>New to Jyutping?</span>A short introduction <span aria-hidden="true">→</span></a
+      <a class="intro-guide" href="${pages.sounds.path}" data-page="sounds"
+        ><span>New to ${profile.romanization}?</span>A short introduction →</a
       >
     </header>
-    <div class="jyutping-intro" aria-label="Jyutping syllable example">
-      <span class="intro-label"
-        >A Jyutping syllable has an initial, a final and a tone number.</span
-      >
+    ${catalog?.availability?.ready === false ? '<aside class="content-preview" role="status"><strong>Mandarin is taking shape.</strong><p>We’re gathering enough recordings to open the games. Explore the Pinyin guide while the collection grows.</p></aside>' : catalog?.availability?.mode === 'beta' ? '<aside class="content-preview beta-notice"><strong>Mandarin beta</strong><p>Found a recording problem? Report it from the answer feedback or Voices &amp; credits.</p></aside>' : ''}
+    <div class="transcription-intro" aria-label="${profile.romanization} syllable example">
+      <span class="intro-label">A syllable combines an initial, a final, and a tone.</span>
       <div class="syllable-parts">
-        <span><b>f</b><small>initial</small></span
-        ><i aria-hidden="true">+</i><span><b>u</b><small>final</small></span
-        ><i aria-hidden="true">+</i><span><b>2</b><small>tone</small></span
-        ><i aria-hidden="true">=</i
-        ><span class="syllable-result"
-          ><b>fu2</b><small><span lang="zh-Hant">虎</span> · tiger</small></span
+        <span><b>${profile.example.initial}</b><small>initial</small></span
+        ><i aria-hidden="true">+</i> <span><b>${profile.example.final}</b><small>final</small></span
+        ><i aria-hidden="true">+</i> <span><b>${profile.example.tone}</b><small>tone</small></span
+        ><i aria-hidden="true">=</i>
+        <span class="syllable-result"
+          ><b>${profile.format(profile.example.transcription)}</b
+          ><small>${exampleText} · ${profile.example.gloss}</small></span
         >
       </div>
-      <button type="button" class="hear-example" data-guide-tone="2" aria-label="Hear fu2">
-        ▶ Hear fu2</button
-      ><span id="guide-status" class="sr-only" role="status"></span>
+      <button
+        type="button"
+        class="hear-example"
+        data-guide-word="${exampleRecording?.id ?? ''}"
+        ${exampleRecording ? '' : 'disabled'}
+        aria-label="Hear example"
+      >
+        ▶ Hear example
+      </button>
+      <span id="guide-status" class="sr-only" role="status"></span>
     </div>
     <section class="mode-picker" aria-labelledby="mode-heading">
       <div class="mode-picker-heading">
@@ -213,7 +233,7 @@ function home(world, initialPractice = false) {
           aria-describedby="rail-mode-description"
         >
           <strong>Skyrail</strong
-          ><span id="rail-mode-description">Type the Jyutping you hear.</span>
+          ><span id="rail-mode-description">Type the ${profile.romanization} you hear.</span>
         </button>
       </div>
     </section>
@@ -252,6 +272,13 @@ function home(world, initialPractice = false) {
         </div>
       </div>
     </section>`;
+  app.querySelectorAll('[data-destination]').forEach((button) => {
+    button.hidden = !profile.challenges.includes(
+      button.dataset.destination === 'rail' ? 'tide' : 'tone',
+    );
+  });
+  if (!profile.challenges.includes(mapDestination === 'rail' ? 'tide' : 'tone'))
+    mapDestination = profile.challenges[0] === 'tide' ? 'rail' : 'tone';
   bindInfoActions(app);
   bindToneAudio(app);
   const canvas = app.querySelector('.map-canvas');
@@ -311,7 +338,9 @@ function home(world, initialPractice = false) {
       '</div>' +
       (rail
         ? '<div class="skyrail-example"><span lang="zh-Hant">你好</span><span> → ' +
-          (variant === 'full' ? 'nei5 hou2' : 'nei hou') +
+          (variant === 'full'
+            ? profile.format(profile.example.parts.join(' '))
+            : profile.example.parts.map((part) => profile.withoutTones(part)).join(' ')) +
           '</span></div>'
         : '');
     variants.querySelectorAll('[data-variant]').forEach(
@@ -351,16 +380,18 @@ function home(world, initialPractice = false) {
       select(value);
     };
     if (practiceMode) {
-      variants.innerHTML = practiceSetupMarkup(config);
+      variants.innerHTML = practiceSetupMarkup(config, profile);
       variants.querySelectorAll('[data-practice-tone]').forEach(
         (button) =>
           (button.onclick = () => {
-            const tone = Number(button.dataset.practiceTone);
+            const tone = profile.tones.find((t) => String(t) === button.dataset.practiceTone);
             config.tones = config.tones.includes(tone)
               ? config.tones.filter((t) => t !== tone)
-              : [...config.tones, tone].sort();
+              : [...config.tones, tone].sort(
+                  (a, b) => profile.tones.indexOf(a) - profile.tones.indexOf(b),
+                );
             if (config.choices > config.tones.length)
-              config.choices = [2, 3, 4, 6].filter((n) => n <= config.tones.length).at(-1);
+              config.choices = profile.choiceCounts.filter((n) => n <= config.tones.length).at(-1);
             progress.settings.practice[challenge] = { ...config };
             persist();
             select(value);
@@ -401,6 +432,7 @@ function home(world, initialPractice = false) {
       : rail
         ? 'Board Skyrail →'
         : 'Enter tower →';
+    enter.disabled = catalog?.availability?.ready === false;
     enter.onclick = () =>
       practiceMode
         ? startPractice(challenge, config.variant, config)
@@ -443,7 +475,7 @@ function prepare(world) {
 
 function startPractice(challenge = 'tone', variant = 'spelling', seed = {}) {
   const config = {
-    ...defaultPractice(challenge),
+    ...defaultPractice(challenge, profile),
     ...seed,
     challenge,
     variant: challenge === 'tone' ? 'normal' : variant,
@@ -451,7 +483,7 @@ function startPractice(challenge = 'tone', variant = 'spelling', seed = {}) {
     format: 'drill',
     length: seed.length ?? 20,
     start: 1,
-    content: seed.content ?? (challenge === 'tide' ? 'mixed' : 'single'),
+    content: seed.content ?? (challenge === 'tide' ? 'mixed' : profile.practiceToneContent),
     target: challenge === 'tide' ? (seed.target ?? 'whole') : 'highlighted',
     choices: seed.choices ?? 2,
     lives: 'unlimited',
@@ -469,6 +501,12 @@ function showWorkshop(seed) {
 }
 
 function begin(config) {
+  if (catalog?.availability?.ready === false) {
+    screenError(
+      'There are not enough recordings for this collection yet. Please explore the guide for now.',
+    );
+    return;
+  }
   resetView('game');
   document.querySelector('#pause-game').hidden = false;
   try {
@@ -509,7 +547,7 @@ function showResults(run) {
         ? /* HTML */ `<div class="last-word feedback-card">
             <span class="eyebrow">One to listen to again</span>
             <div class="result-word">
-              ${syllables.map((s) => /* HTML */ `<span>${escape(s.character)}<small>${escape(s.jyutping)}</small></span>`).join('')}
+              ${syllables.map((s) => /* HTML */ `<span>${escape(s.text)}<small>${escape(profile.format(s.transcription))}</small></span>`).join('')}
             </div>
             <p>${escape(run.word.gloss)}</p>
             ${run.lastAnswer ? /* HTML */ `<p class="small">${run.world === 'tone' ? 'You chose' : 'You typed'}: ${escape(run.lastAnswer)}</p>` : ''}<button
@@ -558,17 +596,15 @@ function showResults(run) {
 }
 function practiceFromRun(run) {
   const config = {
-    ...defaultPractice(run.world),
+    ...defaultPractice(run.world, profile),
     variant: run.config.variant,
     focusIds: [...new Set(run.missedIds || [])],
   };
   // Missed recordings may contain whole words even when practice defaults to single syllables.
   if (config.focusIds.length) config.content = 'mixed';
   if (run.world === 'tone') {
-    const pair = Object.entries(run.confusions || {})
-      .sort((a, b) => b[1] - a[1])[0]?.[0]
-      .split('-')
-      .map(Number);
+    const key = Object.entries(run.confusions || {}).sort((a, b) => b[1] - a[1])[0]?.[0];
+    const pair = key ? decodeTonePair(key) : null;
     if (pair?.length === 2) {
       config.tones = pair;
       config.choices = 2;
@@ -596,7 +632,7 @@ function bindToneAudio(container) {
         const current = ++request;
         const anchor = button.dataset.guideWord
           ? data.find((word) => word.id === button.dataset.guideWord)
-          : anchors.find((word) => word.tone === Number(button.dataset.guideTone));
+          : anchors.find((word) => String(word.tone) === button.dataset.guideTone);
         const status =
           button.closest('.guide-example-block')?.querySelector('[role="status"]') ||
           container.querySelector('#guide-status');
@@ -615,15 +651,15 @@ function bindToneAudio(container) {
           toneStatus.textContent =
             'Choose a tone to listen. Replay and compare as often as you like.';
         button.dataset.playing = 'true';
-        if (status) status.textContent = 'Playing ' + anchor.jyutping + '…';
+        if (status) status.textContent = 'Playing ' + profile.format(anchor.transcription) + '…';
         try {
           await player.play(anchor.audio);
           if (current === request && status?.isConnected)
             status.textContent = button.dataset.guideWord
-              ? anchor.jyutping + ' · ' + anchor.character
-              : anchor.jyutping +
+              ? profile.format(anchor.transcription) + ' · ' + anchor.text
+              : profile.format(anchor.transcription) +
                 ' · ' +
-                cantonese.toneDefinitions.find((t) => t.value === anchor.tone).description;
+                profile.toneDefinitions.find((t) => t.value === anchor.tone).description;
         } catch {
           if (current === request && status?.isConnected)
             status.textContent = 'The recording could not play. Select it to try again.';
@@ -658,6 +694,13 @@ function setPageLocation(page, replace = false) {
   document.querySelector('meta[property="og:url"]').content = canonical.href;
 }
 function bindInfoActions(container) {
+  for (const link of container.querySelectorAll('a[href]')) {
+    const href = link.getAttribute('href');
+    const key = { './': 'home', 'guide/': 'sounds', 'practice/': 'practice', 'about/': 'about' }[
+      href
+    ];
+    if (key) link.setAttribute('href', pages[key].path);
+  }
   container.querySelectorAll('[data-page]').forEach(
     (link) =>
       (link.onclick = (event) => {
@@ -692,13 +735,21 @@ function showInfo(page) {
   resetView(page);
   app.innerHTML =
     page === 'sounds'
-      ? soundPageMarkup(anchors, cantonese.toneDefinitions, data)
-      : aboutPageMarkup({ recordingCount: data.length });
+      ? soundPageMarkup(anchors, profile.toneDefinitions, data, profile)
+      : aboutPageMarkup({
+          recordingCount: data.length,
+          profile,
+          availability: catalog?.availability,
+        });
   bindInfoActions(app);
   if (page === 'sounds') bindToneAudio(app);
 }
 function showAboutInGame() {
-  const markup = aboutPageMarkup({ recordingCount: data.length })
+  const markup = aboutPageMarkup({
+    recordingCount: data.length,
+    profile,
+    availability: catalog?.availability,
+  })
     .replace('<h1 tabindex="-1">', '<h2 id="dialog-title">')
     .replace('</h1>', '</h2>');
   openDialog(markup);
@@ -727,7 +778,7 @@ function navigate(page, { replace = false, focus = true } = {}) {
 }
 function showLearn() {
   controller?.state?.markAssisted?.();
-  openDialog(compactGuideMarkup(anchors, cantonese.toneDefinitions));
+  openDialog(compactGuideMarkup(anchors, profile.toneDefinitions, profile));
   bindToneAudio(dialogBody);
 }
 const safeHref = (value) => {
@@ -747,13 +798,8 @@ function showCredits() {
         <summary>Dictionary, typography & application credits</summary>
         <p>
           Readings and glosses include adaptations from
-          <a href="https://github.com/amadeusine/cc-canto-data" target="_blank" rel="noopener"
-            >CC-Canto</a
-          >, © 2015–2016 Pleco Software Incorporated, under
-          <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a>, and
-          <a href="https://www.mdbg.net/chinese/dictionary?page=cc-cedict">CC-CEDICT</a> under
-          <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>. Individual
-          manifest entries identify dictionary sources.
+          ${profile.dictionarySources.map((source) => '<a href="' + safeHref(source.url) + '" target="_blank" rel="noopener">' + escape(source.name) + '</a>' + (source.attribution ? ' · ' + escape(source.attribution) : '') + ' under <a href="' + safeHref(source.licenseUrl) + '">' + escape(source.license) + '</a>').join('; ')}.
+          Individual entries identify their dictionary sources.
         </p>
         <p>
           DM Sans: <a href="assets/fonts/DMSans-LICENSE.txt">Font licence</a>. Application code:
@@ -765,7 +811,7 @@ function showCredits() {
         >Find a recording<input
           id="credit-search"
           type="search"
-          placeholder="Character, Jyutping, creator…"
+          placeholder="Written form, ${profile.romanization}, creator…"
           autocomplete="off"
       /></label>
       <div id="credit-results"></div>`,
@@ -814,14 +860,23 @@ function showCredits() {
               .map(
                 (w) =>
                   /* HTML */ `<tr>
-                    <td>${escape(w.character)}<small>${escape(w.jyutping)}</small></td>
+                    <td>
+                      ${escape(w.text)}<small>${escape(profile.format(w.transcription))}</small>
+                    </td>
                     <td>${escape(w.author || 'See original')}</td>
                     <td>
                       <a href="${safeHref(w.source)}" target="_blank" rel="noopener">Original ↗</a>
                       ·
                       <a href="${safeHref(w.licenseUrl)}" target="_blank" rel="noopener"
                         >${escape(w.license)}</a
-                      >${w.conversion ? /* HTML */ `<small>${escape(w.conversion)}</small>` : ''}
+                      >${w.conversion ? /* HTML */ `<small>${escape(w.conversion)}</small>` : ''}<small
+                        ><a
+                          href="${escape(recordingIssueUrl(w, profile))}"
+                          target="_blank"
+                          rel="noopener"
+                          >Report this recording ↗</a
+                        ></small
+                      >
                     </td>
                   </tr>`,
               )
@@ -890,7 +945,7 @@ function showProgress() {
       progress.practice.runs +
       ' practice sessions · ' +
       progress.practice.cleared +
-      ' correct practice answers.</p><div class="reset-area"><button id="request-reset" class="text-button" type="button">Reset saved progress…</button><div id="reset-confirmation" hidden><p>This clears records and preferences in this browser.</p><button id="confirm-reset" class="danger-button" type="button">Reset everything</button><button id="cancel-reset" class="text-button" type="button">Keep my records</button></div></div>',
+      ' correct practice answers.</p><div class="reset-area"><button id="request-reset" class="text-button" type="button">Reset saved progress…</button><div id="reset-confirmation" hidden><p>This clears records and preferences for this language in this browser.</p><button id="confirm-reset" class="danger-button" type="button">Reset everything</button><button id="cancel-reset" class="text-button" type="button">Keep my records</button></div></div>',
   );
   dialogBody.querySelector('#request-reset').onclick = () => {
     dialogBody.querySelector('#reset-confirmation').hidden = false;
@@ -901,7 +956,12 @@ function showProgress() {
     dialogBody.querySelector('#request-reset').focus();
   };
   dialogBody.querySelector('#confirm-reset').onclick = () => {
-    progress = resetProgress();
+    progress = resetProgress(profile);
+    if (scriptDisplay) scriptDisplay.value = progress.settings.script;
+    data = catalogRows(catalog, profile, progress.settings.script);
+    words = data.filter((w) => !w.anchor);
+    anchors = referenceRows(catalog, data);
+    controller?.setScript(progress.settings.script);
     dialog.close();
     home();
   };
@@ -921,6 +981,24 @@ document.querySelector('.brand').onclick = (event) => {
   navigate('home');
 };
 document.querySelector('#pause-game').onclick = () => controller?.pause();
+const scriptDisplay = document.querySelector('#script-display');
+if (scriptDisplay) {
+  scriptDisplay.value = progress.settings.script;
+  scriptDisplay.onchange = () => {
+    progress.settings.script = scriptDisplay.value;
+    persist();
+    if (!catalog) return;
+    data = catalogRows(catalog, profile, scriptDisplay.value);
+    words = data.filter((w) => !w.anchor);
+    anchors = referenceRows(catalog, data);
+    controller?.setScript(scriptDisplay.value);
+    if (screen !== 'game')
+      navigate(pageFromLocation(new URL(location.href), appBase, profile), {
+        replace: true,
+        focus: false,
+      });
+  };
+}
 document.querySelector('#credits').onclick = showCredits;
 document.querySelector('#progress').onclick = showProgress;
 document.querySelector('#close-dialog').onclick = () => dialog.close();
@@ -941,17 +1019,21 @@ dialog.addEventListener('click', (event) => {
   }
 });
 window.addEventListener('popstate', () => {
-  if (controller) navigate(pageFromLocation(new URL(location.href), appBase), { replace: true });
+  if (controller)
+    navigate(pageFromLocation(new URL(location.href), appBase, profile), { replace: true });
 });
 
 try {
-  const response = await fetch(new URL('../catalog.json', import.meta.url));
+  const response = await fetch(new URL('../catalogs/' + profile.id + '.json', import.meta.url));
   if (!response.ok) throw Error('The recording library could not load.');
-  data = catalogRows(await response.json());
+  catalog = await response.json();
+  data = catalogRows(catalog, profile, progress.settings.script);
   words = data.filter((w) => !w.anchor);
-  anchors = data.filter((w) => w.anchor);
-  if (anchors.length !== cantonese.tones.length) throw Error('The tone references are incomplete.');
+  anchors = referenceRows(catalog, data);
+  if (catalog.availability?.ready !== false && anchors.length !== profile.tones.length)
+    throw Error('The tone references are incomplete.');
   controller = createGameController({
+    profile,
     app,
     player,
     dialog,
@@ -963,7 +1045,10 @@ try {
     onPractice: (run) => practiceFromRun(run),
     onLearn: showLearn,
   });
-  navigate(pageFromLocation(new URL(location.href), appBase), { replace: true, focus: false });
+  navigate(pageFromLocation(new URL(location.href), appBase, profile), {
+    replace: true,
+    focus: false,
+  });
 } catch (error) {
   app.innerHTML = /* HTML */ `<div class="loading-state">
     <h1>Couldn’t load Tone Tower.</h1>
@@ -977,7 +1062,7 @@ try {
 function updateKeyboardViewport() {
   const viewport = window.visualViewport;
   const input = document.activeElement;
-  const typing = screen === 'game' && input?.id === 'jyutping-answer';
+  const typing = screen === 'game' && input?.id === 'transcription-answer';
   document.body.classList.toggle(
     'keyboard-open',
     Boolean(

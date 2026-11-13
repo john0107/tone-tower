@@ -1,4 +1,3 @@
-export const tones = [1, 2, 3, 4, 5, 6];
 export const shuffle = (a, r = Math.random) => {
   a = [...a];
   for (let i = a.length - 1; i > 0; i--) {
@@ -7,12 +6,12 @@ export const shuffle = (a, r = Math.random) => {
   }
   return a;
 };
-const choiceCounts = [2, 3, 4, 6];
-export function buildChoices(tone, count, pool = tones, random = Math.random) {
+export function buildChoices(tone, count, pool, random = Math.random, allowed = pool) {
   if (
-    !choiceCounts.includes(count) ||
+    !Number.isInteger(count) ||
+    count < 2 ||
     new Set(pool).size !== pool.length ||
-    !pool.every((t) => tones.includes(t)) ||
+    !pool.every((t) => allowed.includes(t)) ||
     !pool.includes(tone) ||
     count > pool.length
   )
@@ -24,5 +23,7 @@ export function buildChoices(tone, count, pool = tones, random = Math.random) {
       random,
     ).slice(0, count - 1),
   ];
-  return count === 2 ? shuffle(choices, random) : choices.sort((a, b) => a - b);
+  return count === 2
+    ? shuffle(choices, random)
+    : choices.sort((a, b) => allowed.indexOf(a) - allowed.indexOf(b));
 }

@@ -13,7 +13,7 @@ export function convertToMP3(bytes) {
   return mp3;
 }
 
-export async function validateMP3(file) {
+export async function validateMP3(file, { minDuration = 0.1, maxDuration = 10 } = {}) {
   const { stdout } = await run(
     'ffprobe',
     [
@@ -28,7 +28,8 @@ export async function validateMP3(file) {
     { encoding: 'utf8', timeout: 30000, windowsHide: true },
   );
   const duration = Number(stdout);
-  if (!(duration > 0.1 && duration < 10)) throw Error('Unexpected duration: ' + file);
+  if (!(duration > minDuration && duration < maxDuration))
+    throw Error('Unexpected duration: ' + file);
   await run('ffmpeg', ['-v', 'error', '-i', file, '-f', 'null', '-'], {
     timeout: 30000,
     windowsHide: true,

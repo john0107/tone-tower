@@ -13,7 +13,7 @@ body:
         - Tone Tower
         - Skyrail
         - Practice Workshop
-        - Jyutping guide
+        - Pronunciation guide
         - Recording or answer
         - Something else
     validations:
@@ -22,7 +22,7 @@ body:
     id: problem
     attributes:
       label: What happened?
-      description: What did you expect instead? For audio or answer problems, include the Chinese characters and Jyutping.
+      description: What did you expect instead? For audio or answer problems, include the language, written form, transcription, and recording ID if available.
     validations:
       required: true
   - type: textarea

@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "id": "cmn",
+  "language": "cmn",
+  "name": "Mandarin Chinese",
+  "sources": [
+    {
+      "id": "commons",
+      "adapter": "lingualibre-commons",
+      "categories": ["Category:Lingua Libre pronunciation-cmn"]
+    }
+  ],
+  "selection": {
+    "maxWrittenCharacters": 4,
+    "minDurationSeconds": 0.1,
+    "maxDurationSeconds": 10,
+    "maxOriginalBytes": 20971520,
+    "licenses": ["CC0-1.0", "CC-BY-4.0", "CC-BY-SA-4.0"]
+  }
+}

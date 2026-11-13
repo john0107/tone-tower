@@ -1,2 +1,5 @@
 # Versioned audio metadata is formatted by the content tools
 /data/audio/
+
+# Speech binaries and temporary conversion files may be changing during downloads
+/audio/

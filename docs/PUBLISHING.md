@@ -61,7 +61,7 @@ npm run preview -- --base /tone-tower/ --port 4174
 Review and commit registry changes with their matching inventory and MP3s.
 The preview serves only `dist/` at http://127.0.0.1:4174/tone-tower/.
 `npm start` serves the source for development. Do not publish the source root:
-`catalog.json` is generated and absent after a fresh clone.
+`catalogs/` is generated and absent after a fresh clone.
 
 CI runs tests, builds without updating versioned metadata, checks that source data stays unchanged,
 then checks every built file under both `/` and a different nested repository
@@ -80,7 +80,7 @@ a short check on the live URL. Target current desktop Chrome/Edge and Firefox,
 Android Chrome and iPhone Safari. Desktop device emulation helps check layout,
 but actual phones are needed to confirm mobile audio and keyboard behaviour.
 
-- Home, `guide/`, `about/` and `practice/` load directly; back/forward and Home work.
+- The root language chooser and each language’s home, `guide/`, `about/`, and `practice/` load directly; back/forward and Home stay within that language.
 - Both adventures and practice start; recordings play after a user gesture,
   replay works, and unavailable audio offers recovery without awarding progress.
 - Tone Tower accepts keyboard and touch answers. Skyrail remains usable with
@@ -123,7 +123,7 @@ References: [Pages setup](https://docs.github.com/en/pages/getting-started-with-
 
 ## Public identity, sharing and feedback
 
-The build emits real directory pages for `guide/`, `about/` and `practice/`, each with
+The build emits real directory pages under `/cantonese/` and `/mandarin/`, each with
 its own title, description, canonical URL and Open Graph / social card metadata.
 GitHub Pages can serve these directly; no rewrite or 404 redirect is needed.
 The guide and About content are included in the initial HTML for crawlers.
@@ -131,8 +131,7 @@ The home address stays free of `#home`; URL fragments are only for in-page ancho
 A sitemap is published at `sitemap.xml`. Do not add a project-level robots.txt:
 robots.txt is only recognised at the origin root, which this repository does not own.
 
-Public identity and page descriptions live in `src/site.js`. The default metadata in
-`index.html` supports source previews too. The branded artwork lives in
+Public identity and page descriptions live in `src/site.js`. The root chooser is `index.html`; the generated language pages use `src/shell.html`. The branded artwork lives in
 `assets/brand/`; the 1200 × 630 PNG is the social preview, and the SVG is its editable
 source. The sprout favicon is supplied as SVG and ICO, plus an Apple touch icon.
 Social services may cache old previews after deployment.
@@ -145,3 +144,5 @@ existing public GitHub handle. A dedicated support address can be added later.
 
 After deployment, share the home and guide URLs in a messaging app and check the
 preview image and text. Also check favicon, touch icon, footer links and issue forms.
+
+Mandarin beta readiness depends on playable coverage; manual listening approval is optional. See [Mandarin website and curation](MANDARIN-WEBSITE.md). The beta uses dictionary matches and common tone-change estimates, with separate corrections for reported problems. Builds never modify `data/content/` or the downloader archive. No old root-level route aliases or redirects are generated.

@@ -17,6 +17,16 @@ remain under their indicated licence.
 - CC BY 4.0: https://creativecommons.org/licenses/by/4.0/
 - CC0: https://creativecommons.org/publicdomain/zero/1.0/
 
+### Mandarin collection archive
+
+The Mandarin collection comes from Wikimedia Commons. Selected dictionary-matched clips are used in the playable beta.
+Its per-recording credits, source URLs, selected licences, original licence
+evidence, source versions, file hashes and conversion notes live in
+data/audio/collections/cmn/recordings.json. Downloaded MP3s live in audio/cmn/.
+Accepted licences are CC0 1.0, CC BY 4.0 and CC BY-SA 4.0, as identified for each
+recording. Share-alike audio derivatives retain their indicated licence. The
+publication build includes only the clips referenced in its playable catalog; the application's MIT licence does not replace audio licences.
+
 ## Dictionary readings and meanings
 
 Readings and English glosses include adaptations from:

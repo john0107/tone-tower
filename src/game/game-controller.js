@@ -1,4 +1,6 @@
-import { createRun, cantonese, challenges } from './game-core.js';
+import { recordingIssueUrl } from '../ui/recording-report.js';
+import { requireProfile } from '../languages/profiles.js';
+import { createRun, challenges } from './game-core.js';
 import { worldScene, districts, doorSlots } from '../world/worlds.js';
 import { animateWorld } from '../world/world-runtime.js';
 import { RAIL_CARS } from '../world/skyrail-world.js';
@@ -84,6 +86,7 @@ export function createCountdown({
 }
 
 export function createGameController({
+  profile,
   app,
   player,
   dialog,
@@ -96,6 +99,7 @@ export function createGameController({
   onLearn = () => {},
   environment = {},
 }) {
+  requireProfile(profile);
   const doc = environment.document ?? globalThis.document;
   const later = environment.setTimeout ?? globalThis.setTimeout;
   const cancel = environment.clearTimeout ?? globalThis.clearTimeout;
@@ -188,7 +192,7 @@ export function createGameController({
     if (paused && pauseReason === 'dialog') resume();
   }
   function captureInput() {
-    const input = q('#jyutping-answer');
+    const input = q('#transcription-answer');
     if (input) inputValue = input.value;
   }
   function position() {
@@ -294,11 +298,15 @@ export function createGameController({
         ${run.word.syllables
           .map((s, i) => {
             const target = run.targets.includes(i),
-              spelling = reveal ? s.jyutping : !isTide() ? s.jyutping.replace(/[1-6]$/, '') : '';
+              spelling = reveal
+                ? profile.format(s.transcription)
+                : !isTide()
+                  ? profile.withoutTones(s.transcription)
+                  : '';
             return /* HTML */ `<span class="prompt-syllable ${target ? 'is-target' : ''}"
               >${target && run.targets.length === 1 ? '<span class="target-label">Listen here</span>' : ''}<span
                 class="prompt-character"
-                >${escape(s.character)}</span
+                >${escape(s.text)}</span
               ><span class="prompt-romanization"
                 >${spelling ? escape(spelling) : '&nbsp;'}</span
               ></span
@@ -306,6 +314,7 @@ export function createGameController({
           })
           .join('')}
       </div>
+      ${reveal && run.word.syllables.some((s) => s.dictionaryTone !== undefined && s.dictionaryTone !== s.tone) ? '<p class="tone-explanation">Heard tones: ' + escape(run.word.syllables.map((s) => profile.toneDefinitions.find((d) => d.value === s.tone)?.label).join(' · ')) + '. Dictionary spelling: ' + escape(profile.format(run.word.transcription || run.word.syllables.map((s) => s.transcription).join(' '))) + '. Tone Tower follows this recording; Skyrail uses dictionary spelling.</p>' : ''}
       <p class="prompt-gloss">${escape(run.word.gloss)}</p>
     </div>`;
   }
@@ -324,9 +333,9 @@ export function createGameController({
             ${phase === 'review' && t === run.word.tone ? '<span class="answer-mark" aria-hidden="true">✓</span>' : ''}<span
               class="tone-number"
               >${t}</span
-            >${run.config.practice ? '<svg class="practice-tone-contour" viewBox="0 0 100 36" aria-hidden="true"><path d="' + cantonese.toneDefinitions[t - 1].path + '"/></svg>' : ''}<span
+            >${run.config.practice ? '<svg class="practice-tone-contour" viewBox="0 0 100 36" aria-hidden="true"><path d="' + profile.toneDefinitions.find((def) => def.value === t).path + '"/></svg>' : ''}<span
               class="tone-name"
-              >${phase === 'review' && t === run.lastAnswer ? '✕ Your choice' : phase === 'review' && t === run.word.tone ? 'CORRECT' : 'TONE'}</span
+              >${phase === 'review' && t === run.lastAnswer ? '✕ Your choice' : phase === 'review' && t === run.word.tone ? 'CORRECT' : escape(profile.toneDefinitions.find((def) => def.value === t).label)}</span
             ><kbd class="door-key"
               >${run.choices.length === 2 ? (run.choices.indexOf(t) === 0 ? '←' : '→') : run.choices.length === 3 ? ['←', '↑ ↓', '→'][run.choices.indexOf(t)] : run.choices.length === 4 ? ['↑', '←', '→', '↓'][run.choices.indexOf(t)] : t}</kbd
             >
@@ -340,16 +349,16 @@ export function createGameController({
       focus = run.config.practice ? run.config.spellingFocus : 'full';
     const target =
       run.targets.length === 1
-        ? `the highlighted syllable, ${escape(run.word.syllables[run.targets[0]].character)}`
+        ? `the highlighted syllable, ${escape(run.word.syllables[run.targets[0]].text)}`
         : 'the whole word';
     return /* HTML */ `<form id="typed-form" class="form-controls">
-      <label for="jyutping-answer"
-        >${focus === 'initials' ? 'Initials' : focus === 'finals' ? 'Finals' : 'Jyutping'} for
-        ${target}</label
+      <label for="transcription-answer"
+        >${focus === 'initials' ? 'Initials' : focus === 'finals' ? 'Finals' : profile.romanization}
+        for ${target}</label
       >
       <div class="answer-input-row">
         <input
-          id="jyutping-answer"
+          id="transcription-answer"
           name="answer"
           type="text"
           value="${escape(inputValue)}"
@@ -364,10 +373,10 @@ export function createGameController({
           ${run.config.practice ? 'Check spelling' : 'Build span'} <span aria-hidden="true">→</span>
         </button>
       </div>
+      ${profile.usesToneMarks ? '<div class="pinyin-tools" role="group" aria-label="Pinyin typing helpers"><button type="button" data-insert="ü">ü</button>' + [1, 2, 3, 4, 5].map((t) => '<button type="button" data-insert="' + t + '">' + (t === 5 ? '5 · neutral' : t) + '</button>').join('') + '</div>' : ''}
       <p id="typed-help" class="small">
-        ${full ? 'Add the tone number after each ' + (focus === 'initials' ? 'initial' : focus === 'finals' ? 'final' : 'syllable') + '.' : 'Tone numbers are optional.'}
-        ${focus === 'initials' ? 'Use - for a syllable with no initial. ' : ''}Space replays the
-        recording.
+        ${full ? (profile.allowWordSpaces ? 'Use tone marks or add a tone number after each ' : 'Add the tone number after each ') + (focus === 'initials' ? 'initial' : focus === 'finals' ? 'final' : 'syllable') + '.' : 'Tone numbers are optional.'}
+        ${focus === 'initials' ? 'Use - for a syllable with no initial. ' : ''}${profile.allowWordSpaces ? 'Spaces separate syllables. Use Replay to listen again.' : 'Space replays the recording.'}
       </p>
       <p id="input-status" class="game-message" role="status">
         ${escape(message || (phase === 'review' ? 'Compare the answer above. Continue when ready.' : phase === 'landing' ? 'Checkpoint reached. Continue when ready.' : phase === 'correct' ? '✓ Accepted.' : run.config.practice ? 'Correct answers continue automatically. Take your time.' : 'Correct answers build automatically. Retries cost no lives.'))}
@@ -476,7 +485,7 @@ export function createGameController({
       '</p>' +
       (!won
         ? '<p class="ending-word">' +
-          escape(run.word.syllables.map((s) => s.character + ' ' + s.jyutping).join(' · ')) +
+          escape(run.word.syllables.map((s) => s.text + ' ' + s.transcription).join(' · ')) +
           ' <button class="text-button" id="ending-replay" type="button">▶ Listen again <kbd>Space</kbd></button></p>'
         : '') +
       '<div class="results-actions"><button class="primary" id="retry-run" type="button" ' +
@@ -517,8 +526,8 @@ export function createGameController({
       const available =
           run.config.practice && run.config.format === 'drill'
             ? run.config.choices
-            : Math.min(run.config.tones.length, challenges.tone.stages[run.stage].choices),
-        nextChoices = [2, 3, 4, 6].filter((n) => n <= available).at(-1);
+            : Math.min(run.config.tones.length, profile.stageChoices[run.stage]),
+        nextChoices = profile.choiceCounts.filter((n) => n <= available).at(-1);
       return (
         '<section class="tower-interlude" aria-label="Rest landing"><div class="landing-copy"><span class="eyebrow">LANDING ' +
         run.opened +
@@ -762,6 +771,7 @@ export function createGameController({
           <button class="secondary" id="replay-word" type="button">
             ▶ Replay <kbd>Space</kbd>
           </button>
+          ${['review', 'correct', 'landing'].includes(phase) ? '<a class="recording-report text-button" href="' + escape(recordingIssueUrl(run.word, profile)) + '" target="_blank" rel="noopener">Report recording ↗</a>' : ''}
         </div>
         ${towerEnding()}
       </div>
@@ -780,7 +790,7 @@ export function createGameController({
         </p>
         <div id="audio-error" class="error" role="alert"></div>
         <p class="small keyboard">
-          ${isTide() ? (run.config.practice ? 'Enter checks spelling · Space / R replays' : 'Enter builds · Space / R replays') : (run.choices.length <= 4 ? 'Arrow keys choose · ' : '') + '1–6 choose a tone · Space / R replays'}
+          ${isTide() ? (run.config.practice ? 'Enter checks spelling · Space / R replays' : 'Enter builds · Space / R replays') : (run.choices.length <= 4 ? 'Arrow keys choose · ' : '') + profile.tones.join(' / ') + ' choose a tone · Space / R replays'}
           · Esc pauses${['review', 'landing'].includes(phase) ? ' · Enter continues' : ''}
         </p>
       </div>
@@ -794,8 +804,8 @@ export function createGameController({
       for (const selector of ['.game-hud', '.scene-question', '.game-panel'])
         q(selector).replaceWith(next.querySelector(selector));
       if (isTide()) {
-        const input = q('#jyutping-answer'),
-          fresh = next.querySelector('#jyutping-answer');
+        const input = q('#transcription-answer'),
+          fresh = next.querySelector('#transcription-answer');
         input.value = inputValue;
         input.disabled = fresh.disabled;
         input.removeAttribute('aria-invalid');
@@ -843,8 +853,8 @@ export function createGameController({
       else if (['review', 'landing'].includes(phase))
         q('#continue-game')?.focus({ preventScroll: true });
       else if (isTide()) {
-        q('#jyutping-answer')?.focus({ preventScroll: true });
-        q('#jyutping-answer')?.setSelectionRange(inputValue.length, inputValue.length);
+        q('#transcription-answer')?.focus({ preventScroll: true });
+        q('#transcription-answer')?.setSelectionRange(inputValue.length, inputValue.length);
       }
     }
   }
@@ -853,10 +863,29 @@ export function createGameController({
       element.inert = paused;
     });
     qa('[data-tone]').forEach((button) =>
-      button.addEventListener('click', () => choose(Number(button.dataset.tone))),
+      button.addEventListener('click', () =>
+        choose(profile.tones.find((t) => String(t) === button.dataset.tone)),
+      ),
     );
+    qa('[data-insert]').forEach((button) => {
+      button.addEventListener('pointerdown', (event) => event.preventDefault());
+      button.addEventListener('click', () => {
+        const input = q('#transcription-answer');
+        if (!input || input.disabled || input.composing) return;
+        const start = input.selectionStart ?? input.value.length,
+          end = input.selectionEnd ?? start;
+        input.value = input.value.slice(0, start) + button.dataset.insert + input.value.slice(end);
+        input.focus();
+        input.setSelectionRange(
+          start + button.dataset.insert.length,
+          start + button.dataset.insert.length,
+        );
+        captureInput();
+        submit(true);
+      });
+    });
     const form = q('#typed-form'),
-      input = q('#jyutping-answer');
+      input = q('#transcription-answer');
     if (form && !boundTyping.has(form)) {
       form.addEventListener('submit', (event) => {
         event.preventDefault();
@@ -873,8 +902,16 @@ export function createGameController({
         q('#input-status').textContent = run.config.practice
           ? 'Correct answers continue automatically. Take your time.'
           : 'Correct answers build automatically. Retries cost no lives.';
-        q('#jyutping-answer')?.removeAttribute('aria-invalid');
+        q('#transcription-answer')?.removeAttribute('aria-invalid');
         if (!audioFailed) setRailNotice(instruction());
+        if (!input.composing) submit(true);
+      });
+      input.addEventListener('compositionstart', () => {
+        input.composing = true;
+      });
+      input.addEventListener('compositionend', () => {
+        input.composing = false;
+        captureInput();
         submit(true);
       });
       boundTyping.add(input);
@@ -1052,14 +1089,22 @@ export function createGameController({
     settle(result);
   }
   function submit(quiet = false) {
-    if (!isTide() || !answering()) return;
+    if (!isTide() || !answering() || q('#transcription-answer')?.composing) return;
     captureInput();
     if (clock.total && clock.remaining <= 0) {
       fail('timeout');
       return;
     }
     const expected = run.expectedParts();
-    if (quiet && cantonese.evaluate(inputValue, expected, run.config.variant === 'full') !== true)
+    if (
+      quiet &&
+      profile.evaluate(
+        inputValue,
+        expected,
+        run.config.variant === 'full',
+        run.config.practice ? run.config.spellingFocus : 'full',
+      ) !== true
+    )
       return;
     const result = run.answer(inputValue);
     if (result?.kind === 'empty') {
@@ -1078,12 +1123,12 @@ export function createGameController({
         ? 'Not quite — try again.'
         : 'Not quite—try again. No life lost.';
       setRailNotice(message, 'retry');
-      q('#jyutping-answer')?.setAttribute('aria-invalid', 'true');
+      q('#transcription-answer')?.setAttribute('aria-invalid', 'true');
       const status = q('#input-status');
       if (status) status.textContent = message;
       app.dataset.outcome = 'retry';
       q('.game-layout').dataset.outcome = 'retry';
-      q('#jyutping-answer')?.focus({ preventScroll: true });
+      q('#transcription-answer')?.focus({ preventScroll: true });
       return;
     }
     settle(result);
@@ -1210,7 +1255,7 @@ export function createGameController({
     pauseReason = '';
     render({ focus: false });
     if (restoreFocus) q('#' + restoreFocus)?.focus();
-    else if (isTide()) q('#jyutping-answer')?.focus();
+    else if (isTide()) q('#transcription-answer')?.focus();
     if (['listening', 'answering'].includes(phase)) {
       if (entryVisual) playOpening();
       else if (!audioReady) playPrompt();
@@ -1248,8 +1293,10 @@ export function createGameController({
       !event.ctrlKey &&
       !event.metaKey &&
       !event.altKey &&
-      (event.key.toLowerCase() === 'r' || event.key === ' ')
+      (event.key === ' ' ||
+        (event.key.toLowerCase() === 'r' && !(typing && profile.allowWordSpaces)))
     ) {
+      if (typing && profile.allowWordSpaces && event.key === ' ') return;
       event.preventDefault();
       replay();
       return;
@@ -1266,9 +1313,9 @@ export function createGameController({
       return;
     }
     if (!isTide() && answering()) {
-      if (/^[1-6]$/.test(event.key)) {
+      if (profile.tones.some((t) => String(t) === event.key)) {
         event.preventDefault();
-        choose(Number(event.key));
+        choose(profile.tones.find((t) => String(t) === event.key));
       } else {
         const index = arrowChoiceIndex(run.choices.length, event.key);
         if (index !== null) {
@@ -1288,7 +1335,7 @@ export function createGameController({
   return {
     start(config) {
       dispose();
-      run = createRun(config, words);
+      run = createRun(config, words, { profile });
       entryVisual = run.config.challenge === 'tone' && !run.config.practice;
       active = true;
       attach();
@@ -1298,6 +1345,19 @@ export function createGameController({
     pause,
     resume,
     dispose,
+    setScript(script) {
+      const update = (word) => {
+        word.text = word.forms?.[script] ?? word.forms?.default ?? word.text;
+        for (const syllable of word.syllables)
+          syllable.text = syllable.forms?.[script] ?? syllable.forms?.default ?? syllable.text;
+      };
+      words.forEach(update);
+      if (run) update(run.word);
+      if (active) {
+        captureInput();
+        render({ focus: false });
+      }
+    },
     get active() {
       return active;
     },
@@ -1316,6 +1376,7 @@ export function arrowChoiceIndex(count, key) {
     2: { ArrowLeft: 0, ArrowRight: 1 },
     3: { ArrowLeft: 0, ArrowUp: 1, ArrowDown: 1, ArrowRight: 2 },
     4: { ArrowUp: 0, ArrowLeft: 1, ArrowRight: 2, ArrowDown: 3 },
+    5: { ArrowUp: 0, ArrowLeft: 1, ArrowRight: 2, ArrowDown: 4 },
   };
   return layouts[count]?.[key] ?? null;
 }

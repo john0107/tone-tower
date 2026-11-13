@@ -2,7 +2,7 @@ export function filterCredits(rows, query = '') {
   const needle = query.trim().toLocaleLowerCase();
   return needle
     ? rows.filter((row) =>
-        [row.character, row.jyutping, row.gloss, row.author, row.license].some((value) =>
+        [row.text, row.transcription, row.gloss, row.author, row.license].some((value) =>
           String(value ?? '')
             .toLocaleLowerCase()
             .includes(needle),

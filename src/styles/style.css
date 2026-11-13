@@ -1122,7 +1122,7 @@ input[type='number'] {
 .home-intro {
   margin-bottom: 18px;
 }
-.jyutping-intro {
+.transcription-intro {
   display: flex;
   align-items: center;
   gap: 24px;
@@ -1166,7 +1166,7 @@ input[type='number'] {
 .syllable-parts .syllable-result b {
   color: var(--teal);
 }
-.jyutping-intro > p {
+.transcription-intro > p {
   font-size: 12px;
   color: #b5beb5;
   line-height: 1.7;
@@ -1286,13 +1286,13 @@ input[type='number'] {
   font-size: 9px;
 }
 @media (max-width: 1000px) {
-  .jyutping-intro {
+  .transcription-intro {
     gap: 18px;
   }
   .syllable-parts {
     gap: 11px;
   }
-  .jyutping-intro > p {
+  .transcription-intro > p {
     font-size: 11px;
     max-width: 260px;
   }
@@ -1307,13 +1307,13 @@ input[type='number'] {
   }
 }
 @media (max-width: 850px) {
-  .jyutping-intro {
+  .transcription-intro {
     flex-wrap: wrap;
   }
   .intro-label {
     max-width: none;
   }
-  .jyutping-intro > p {
+  .transcription-intro > p {
     max-width: none;
     width: 100%;
     margin: 0;
@@ -1345,7 +1345,7 @@ input[type='number'] {
   .home-intro h1 {
     font-size: 29px;
   }
-  .jyutping-intro {
+  .transcription-intro {
     padding: 15px 16px;
     gap: 12px 20px;
   }
@@ -1361,7 +1361,7 @@ input[type='number'] {
   .syllable-parts b {
     font-size: 26px;
   }
-  .jyutping-intro > p {
+  .transcription-intro > p {
     font-size: 12px;
   }
   .mode-picker {
@@ -1667,7 +1667,7 @@ input[type='number'] {
   }
 }
 @media (max-width: 700px) {
-  .jyutping-intro .hear-example {
+  .transcription-intro .hear-example {
     align-self: flex-start;
   }
   .home-world .tower-place,
@@ -2107,24 +2107,24 @@ input[type='number'] {
   }
 }
 
-.jyutping-intro .intro-label {
+.transcription-intro .intro-label {
   max-width: 260px;
   font-size: 12px;
   line-height: 1.6;
   flex: 1;
 }
-.jyutping-intro .syllable-parts {
+.transcription-intro .syllable-parts {
   flex: 1;
   justify-content: center;
 }
-.jyutping-intro .hear-example {
+.transcription-intro .hear-example {
   margin-left: auto;
 }
 @media (max-width: 700px) {
-  .jyutping-intro .intro-label {
+  .transcription-intro .intro-label {
     max-width: none;
   }
-  .jyutping-intro .hear-example {
+  .transcription-intro .hear-example {
     margin-left: 0;
   }
 }
@@ -2181,12 +2181,12 @@ input[type='number'] {
   }
 }
 @media (max-width: 700px) {
-  .jyutping-intro {
+  .transcription-intro {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
     gap: 14px;
   }
-  .jyutping-intro .syllable-parts {
+  .transcription-intro .syllable-parts {
     width: 100%;
     min-width: 0;
     gap: clamp(5px, 2vw, 13px);
@@ -2195,7 +2195,7 @@ input[type='number'] {
   .syllable-parts > span {
     min-width: 0;
   }
-  .jyutping-intro .hear-example {
+  .transcription-intro .hear-example {
     min-height: 44px;
   }
   .mode-picker-heading p {
@@ -2224,4 +2224,127 @@ input[type='number'] {
   .practice-setup {
     grid-template-columns: minmax(0, 1fr);
   }
+}
+/* Language sites share scenery while keeping an identifiable accent. */
+.language-welcome {
+  max-width: 960px;
+  margin: 5vh auto;
+  padding: 2rem 1rem;
+}
+.language-welcome h1 {
+  max-width: 720px;
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  line-height: 1.08;
+}
+.language-cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.4rem;
+  margin: 2.5rem 0;
+}
+.language-card {
+  display: block;
+  padding: 2rem;
+  color: inherit;
+  text-decoration: none;
+  border: 2px solid #8eb39e;
+  border-radius: 20px;
+  background: #223c3e;
+  box-shadow: 0 10px 0 #10272a;
+}
+.language-card:hover {
+  transform: translateY(-3px);
+}
+.language-card--mandarin {
+  border-color: #be8270;
+  background: #3d3031;
+  box-shadow: 0 10px 0 #28212a;
+}
+.language-script {
+  font-size: 2.8rem;
+}
+.language-card h2 {
+  margin: 0.5rem 0;
+}
+.language-card > span:last-child {
+  font-weight: 700;
+}
+.brand-language {
+  display: block;
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.script-setting {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  font-size: 0.8rem;
+}
+.script-setting select {
+  max-width: 185px;
+  font: inherit;
+  padding: 0.4rem;
+  border-radius: 6px;
+}
+html[data-language='cmn'] .primary {
+  background: #9d513e;
+  color: #fff8ec;
+}
+html[data-language='cmn'] .site-header {
+  border-bottom-color: #c29c7d;
+}
+html[data-language='cmn'] .home-intro h1 {
+  color: #e6aa87;
+}
+.content-preview {
+  margin: 1rem 0;
+  padding: 1rem 1.3rem;
+  border: 1px solid #c29c7d;
+  border-radius: 12px;
+  background: #342e2f;
+}
+.content-preview p {
+  margin: 0.35rem 0 0;
+}
+.tone-explanation {
+  max-width: 660px;
+  margin: 0.5rem auto;
+  font-size: 0.8rem;
+}
+.pinyin-tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  margin-top: 0.35rem;
+}
+.pinyin-tools button {
+  padding: 0.25rem 0.6rem;
+  min-width: 36px;
+  min-height: 36px;
+  font-size: 0.85rem;
+}
+@media (max-width: 600px) {
+  .language-welcome {
+    margin: 1rem auto;
+  }
+  .language-cards {
+    grid-template-columns: 1fr;
+  }
+  .language-card {
+    padding: 1.4rem;
+  }
+  .brand-language {
+    font-size: 0.6rem;
+  }
+  .site-header .language-link {
+    font-size: 0.75rem;
+  }
+  .script-setting {
+    flex-wrap: wrap;
+  }
+}
+
+.guide-tone:disabled {
+  opacity: 1;
 }

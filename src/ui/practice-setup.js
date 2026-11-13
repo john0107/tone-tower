@@ -1,6 +1,7 @@
-import { cantonese } from '../game/game-core.js';
+import { requireProfile } from '../languages/profiles.js';
 
-export function practiceSetupMarkup(config) {
+export function practiceSetupMarkup(config, profile) {
+  requireProfile(profile);
   const options = (entries, value) =>
     entries
       .map(
@@ -12,25 +13,17 @@ export function practiceSetupMarkup(config) {
       .join('');
   const tone = config.challenge === 'tone',
     includeTones = config.variant === 'full';
-  const exampleParts =
-    config.spellingFocus === 'initials'
-      ? includeTones
-        ? ['n5', 'h2']
-        : ['n', 'h']
-      : config.spellingFocus === 'finals'
-        ? includeTones
-          ? ['ei5', 'ou2']
-          : ['ei', 'ou']
-        : includeTones
-          ? ['nei5', 'hou2']
-          : ['nei', 'hou'];
+  const exampleParts = profile.example.parts.map((part) => {
+    const value = profile.practiceSpelling(part, config.spellingFocus);
+    return includeTones ? value : value.replace(/[0-9]/g, '');
+  });
   return /* HTML */ `<div class="practice-setup">
     ${
       tone
         ? /* HTML */ `<fieldset class="practice-tones">
               <legend>Tones to practise</legend>
               <div class="practice-tone-options">
-                ${[1, 2, 3, 4, 5, 6]
+                ${profile.tones
                   .map(
                     (t) =>
                       /* HTML */ `<button
@@ -42,7 +35,9 @@ export function practiceSetupMarkup(config) {
                       >
                         <span>${t}</span
                         ><svg viewBox="0 0 100 36" aria-hidden="true">
-                          <path d="${cantonese.toneDefinitions[t - 1].path}" />
+                          <path
+                            d="${profile.toneDefinitions.find((def) => def.value === t).path}"
+                          />
                         </svg>
                       </button>`,
                   )
@@ -53,7 +48,7 @@ export function practiceSetupMarkup(config) {
             <label
               >Answer choices<select data-practice-setting="choices">
                 ${options(
-                  [2, 3, 4, 6]
+                  profile.choiceCounts
                     .filter((n) => n <= config.tones.length)
                     .map((n) => [n, n + ' tones per question']),
                   config.choices,
@@ -64,9 +59,14 @@ export function practiceSetupMarkup(config) {
               >What to practise<select data-practice-setting="spellingFocus">
                 ${options(
                   [
-                    ['initials', 'Initials only'],
-                    ['finals', 'Finals only'],
-                    ['full', 'Full spelling'],
+                    ...profile.spellingFocuses.map((focus) => [
+                      focus,
+                      focus === 'full'
+                        ? 'Full spelling'
+                        : focus === 'initials'
+                          ? 'Initials only'
+                          : 'Finals only',
+                    ]),
                   ],
                   config.spellingFocus,
                 )}
@@ -79,7 +79,7 @@ export function practiceSetupMarkup(config) {
                   data-practice-setting="variant"
                   ${config.variant === 'full' ? 'checked' : ''}
                 />
-                Include tone numbers</label
+                Include tones</label
               ><label class="practice-tone-toggle"
                 ><input
                   type="checkbox"
@@ -90,7 +90,7 @@ export function practiceSetupMarkup(config) {
               >
             </div>
             <p class="practice-example">
-              <span lang="zh-Hant">${config.target === 'whole' ? '你好' : '<b>你</b>好'}</span> →
+              <span lang="zh-Hant">${profile.example.text}</span> →
               ${config.target === 'whole' ? exampleParts.join(' ') : exampleParts[0]}
             </p>`
     }<label class="practice-session-length"

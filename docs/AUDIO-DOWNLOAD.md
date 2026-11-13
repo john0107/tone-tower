@@ -1,5 +1,9 @@
 # Downloading and resuming audio
 
+This page covers the current Cantonese catalog. For the separate Mandarin archive,
+see [downloading Mandarin recordings](MANDARIN-DOWNLOAD.md). Cantonese recordings
+do not need to move before downloading Mandarin.
+
 From the project folder, use Node.js 22 or later with FFmpeg and FFprobe on PATH:
 
 ```sh

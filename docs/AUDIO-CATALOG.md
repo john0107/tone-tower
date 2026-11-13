@@ -1,7 +1,7 @@
 # Audio catalog and internal curation
 
-The app remains a static website. Existing recordings are available by default;
-there is no player-facing review or reporting workflow.
+The app remains a static website. This document describes the Cantonese source inventory; see [Mandarin curation and the shared catalog](MANDARIN-WEBSITE.md) for the language sites and common browser format. Existing recordings are available by default;
+players can report recording problems through prefilled GitHub issue links; source corrections remain internal.
 
 ## Files and ownership
 
@@ -12,8 +12,8 @@ there is no player-facing review or reporting workflow.
   existing words or changing their IDs.
 - `data/audio/corrections.json`: our manual corrections. The downloader never writes it.
   Commit it. Every correction requires a reason.
-- `catalog.json`: generated, compact browser catalog with separate word and
-  recording collections. Do not edit it; it is ignored by Git.
+- `catalogs/yue.json` and `catalogs/cmn.json`: generated common browser catalogs with
+  separate entries, pronunciations, recordings, and tone references. Do not edit it; it is ignored by Git.
 - `dist/`: generated website ready to publish. Do not edit it; rebuilding replaces it.
 
 Run `npm run audio:sync` after downloads to update the word registry. Run `npm run catalog` after synchronization or manual corrections to refresh the local catalog.
@@ -158,7 +158,7 @@ Stop downloads/imports before preparing a release, run `npm run audio:sync`, and
 commit any registry changes with their matching inventory and MP3s. Builds reject
 an unsynchronized registry; CI also checks that building leaves source data unchanged.
 See `PUBLISHING.md` for setup. Serving the unbuilt source root will not
-work after a fresh clone because `catalog.json` is generated. Hosting setup is a
+work after a fresh clone because `catalogs/` is generated. Hosting setup is a
 separate step; the build command does not upload or deploy anything.
 
 For local verification, `npm run test:all` checks catalog corrections, selection,

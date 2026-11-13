@@ -1,21 +1,17 @@
+import { practiceSpelling } from '../../src/languages/jyutping.js';
+import { cantonese } from '../../src/languages/profiles.js';
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {
-  createRun,
-  defaultPractice,
-  validatePractice,
-  cantonese,
-  practiceSpelling,
-} from '../../src/game/game-core.js';
+import { createRun, defaultPractice, validatePractice } from '../../src/game/game-core.js';
 
 const words = Array.from({ length: 240 }, (_, i) => {
   const tone = (i % 6) + 1;
-  const syllables = [{ character: '字', jyutping: `zi${tone}`, tone }];
+  const syllables = [{ text: '字', transcription: `zi${tone}`, tone }];
   if (i >= 90)
-    syllables.push({ character: '音', jyutping: `jam${(tone % 6) + 1}`, tone: (tone % 6) + 1 });
+    syllables.push({ text: '音', transcription: `jam${(tone % 6) + 1}`, tone: (tone % 6) + 1 });
   return {
     id: String(i),
-    character: syllables.map((s) => s.character).join(''),
+    text: syllables.map((s) => s.text).join(''),
     gloss: 'sound',
     audio: `${i}.mp3`,
     syllables,
@@ -25,7 +21,10 @@ const random = () => 0.3;
 const clear = (run) => run.answer(run.world === 'tone' ? run.word.tone : run.expected());
 
 test('official tone climb retains stage, recovery, win, and difficulty rules', () => {
-  const run = createRun({ challenge: 'tone', variant: 'normal' }, words, random);
+  const run = createRun({ challenge: 'tone', variant: 'normal' }, words, {
+    profile: cantonese,
+    random: random,
+  });
   assert.equal(run.lives, 4);
   assert.equal(run.timeLimit(), 0);
   for (let i = 0; i < 100; i++) {
@@ -52,14 +51,20 @@ test('official tone climb retains stage, recovery, win, and difficulty rules', (
   assert.equal(run.mistakes, 3);
   assert.equal(run.attempts, 103);
   assert.equal(run.next(), false);
-  const extreme = createRun({ challenge: 'tone', variant: 'extreme' }, words, random);
+  const extreme = createRun({ challenge: 'tone', variant: 'extreme' }, words, {
+    profile: cantonese,
+    random: random,
+  });
   extreme.answer(extreme.choices.find((t) => t !== extreme.word.tone));
   assert.equal(extreme.status, 'lost');
 });
 
 test('Skyrail stages shorten the deadline; full typing requires tone digits', () => {
   for (const variant of ['spelling', 'full']) {
-    const run = createRun({ challenge: 'tide', variant }, words, random);
+    const run = createRun({ challenge: 'tide', variant }, words, {
+      profile: cantonese,
+      random: random,
+    });
     const ids = new Set();
     for (let i = 0; i < 100; i++) {
       assert.equal(run.timeLimit(), [15, 13, 11, 9, 7][Math.floor(i / 20)] * 1000);
@@ -79,7 +84,7 @@ test('Skyrail stages shorten the deadline; full typing requires tone digits', ()
 });
 
 test('wrong typing is free; timeout and reveal cost one life without progress', () => {
-  const run = createRun({ challenge: 'tide' }, words, random);
+  const run = createRun({ challenge: 'tide' }, words, { profile: cantonese, random: random });
   assert.equal(run.answer(' ').kind, 'empty');
   assert.equal(run.guesses, 0);
   for (let i = 0; i < 8; i++) assert.equal(run.answer('wrong').terminal, false);
@@ -111,7 +116,7 @@ test('wrong typing is free; timeout and reveal cost one life without progress', 
 test('practice supports partial rehearsal, custom time, finite and endless drills', () => {
   const run = createRun(
     {
-      ...defaultPractice('tide'),
+      ...defaultPractice('tide', cantonese),
       format: 'rehearsal',
       start: 97,
       target: 'stage',
@@ -121,7 +126,7 @@ test('practice supports partial rehearsal, custom time, finite and endless drill
       lives: 'standard',
     },
     words,
-    random,
+    { profile: cantonese, random: random },
   );
   assert.equal(run.opened, 96);
   assert.equal(run.goal, 4);
@@ -133,9 +138,9 @@ test('practice supports partial rehearsal, custom time, finite and endless drill
   }
   assert.equal(run.status, 'complete');
   const drill = createRun(
-    { ...defaultPractice('tide'), length: 10, content: 'single' },
+    { ...defaultPractice('tide', cantonese), length: 10, content: 'single' },
     words,
-    random,
+    { profile: cantonese, random: random },
   );
   assert.equal(drill.lives, null);
   assert.equal(drill.timeLimit(), 0);
@@ -148,9 +153,9 @@ test('practice supports partial rehearsal, custom time, finite and endless drill
   assert.equal(drill.status, 'complete');
   assert.equal(drill.attempts, 10);
   const endless = createRun(
-    { ...defaultPractice('tide'), length: 'endless', focusIds: ['0', '1'] },
+    { ...defaultPractice('tide', cantonese), length: 'endless', focusIds: ['0', '1'] },
     words,
-    random,
+    { profile: cantonese, random: random },
   );
   for (let i = 0; i < 120; i++) {
     assert.ok(['0', '1'].includes(endless.word.id));
@@ -164,9 +169,14 @@ test('practice supports partial rehearsal, custom time, finite and endless drill
 
 test('replacement is unscored and recordings cycle only after eligible pool exhaustion', () => {
   const run = createRun(
-    { ...defaultPractice('tide'), length: 'endless', content: 'single', focusIds: ['0', '1', '2'] },
+    {
+      ...defaultPractice('tide', cantonese),
+      length: 'endless',
+      content: 'single',
+      focusIds: ['0', '1', '2'],
+    },
     words,
-    random,
+    { profile: cantonese, random: random },
   );
   const first = run.word.id;
   run.replace();
@@ -181,7 +191,10 @@ test('replacement is unscored and recordings cycle only after eligible pool exha
 });
 
 test('official runs stop at exhausted recordings rather than reusing them', () => {
-  const run = createRun({ challenge: 'tone' }, words.slice(0, 6), random);
+  const run = createRun({ challenge: 'tone' }, words.slice(0, 6), {
+    profile: cantonese,
+    random: random,
+  });
   for (let i = 0; i < 6; i++) {
     clear(run);
     if (i < 5) run.next();
@@ -197,33 +210,38 @@ test('word selection rotates vocabulary before alternate speakers while preservi
       id: 'a1',
       wordId: 'a',
       audio: 'a1.mp3',
-      syllables: [{ character: '你', jyutping: 'nei5', tone: 5 }],
+      syllables: [{ text: '你', transcription: 'nei5', tone: 5 }],
     },
     {
       id: 'a2',
       wordId: 'a',
       audio: 'a2.mp3',
-      syllables: [{ character: '你', jyutping: 'nei5', tone: 5 }],
+      syllables: [{ text: '你', transcription: 'nei5', tone: 5 }],
     },
     {
       id: 'a3',
       wordId: 'a',
       audio: 'a3.mp3',
-      syllables: [{ character: '你', jyutping: 'nei5', tone: 5 }],
+      syllables: [{ text: '你', transcription: 'nei5', tone: 5 }],
     },
     {
       id: 'b1',
       wordId: 'b',
       audio: 'b1.mp3',
-      syllables: [{ character: '我', jyutping: 'ngo5', tone: 5 }],
+      syllables: [{ text: '我', transcription: 'ngo5', tone: 5 }],
     },
   ];
   for (const challenge of ['tone', 'tide']) {
-    const config = { ...defaultPractice(challenge), length: 'endless', tones: [5], choices: 2 };
+    const config = {
+      ...defaultPractice(challenge, cantonese),
+      length: 'endless',
+      tones: [5],
+      choices: 2,
+    };
     if (challenge === 'tone') config.tones = [2, 5];
     // A focused recording selection allows a distractor tone with no recording.
     config.focusIds = recordings.map((row) => row.id);
-    const run = createRun(config, recordings, () => 0);
+    const run = createRun(config, recordings, { profile: cantonese, random: () => 0 });
     const first = run.word;
     run.replace();
     assert.notEqual(run.word.wordId, first.wordId);
@@ -239,36 +257,58 @@ test('word selection rotates vocabulary before alternate speakers while preservi
 
 test('practice validation rejects impossible content and inconsistent options', () => {
   assert.equal(
-    validatePractice({ ...defaultPractice(), tones: [1, 2], choices: 6 }, words).valid,
+    validatePractice(
+      { ...defaultPractice('tone', cantonese), tones: [1, 2], choices: 6 },
+      words,
+      cantonese,
+    ).valid,
     false,
   );
   assert.equal(
-    validatePractice({ ...defaultPractice('tide'), timer: 'custom', seconds: 0 }, words).valid,
+    validatePractice(
+      { ...defaultPractice('tide', cantonese), timer: 'custom', seconds: 0 },
+      words,
+      cantonese,
+    ).valid,
     false,
   );
   assert.equal(
-    validatePractice({ ...defaultPractice('tide'), focusIds: ['missing'] }, words).valid,
+    validatePractice(
+      { ...defaultPractice('tide', cantonese), focusIds: ['missing'] },
+      words,
+      cantonese,
+    ).valid,
     false,
   );
-  assert.equal(validatePractice({ ...defaultPractice(), tones: [1, 1] }, words).valid, false);
-  assert.equal(validatePractice({ ...defaultPractice('tide'), start: 101 }, words).valid, false);
-  assert.equal(validatePractice(defaultPractice('tide'), words).valid, true);
+  assert.equal(
+    validatePractice({ ...defaultPractice('tone', cantonese), tones: [1, 1] }, words, cantonese)
+      .valid,
+    false,
+  );
+  assert.equal(
+    validatePractice({ ...defaultPractice('tide', cantonese), start: 101 }, words, cantonese).valid,
+    false,
+  );
+  assert.equal(validatePractice(defaultPractice('tide', cantonese), words, cantonese).valid, true);
   assert.throws(
-    () => createRun({ ...defaultPractice('tide'), focusIds: ['missing'] }, words),
+    () =>
+      createRun({ ...defaultPractice('tide', cantonese), focusIds: ['missing'] }, words, {
+        profile: cantonese,
+      }),
     /No recordings/,
   );
 });
 
 test('missed-word practice can use an unheard comparison tone as a distractor', () => {
   const config = {
-    ...defaultPractice('tone'),
+    ...defaultPractice('tone', cantonese),
     tones: [3, 6],
     choices: 2,
     length: 10,
     focusIds: ['2'],
   };
-  assert.equal(validatePractice(config, words).valid, true);
-  const run = createRun(config, words, random);
+  assert.equal(validatePractice(config, words, cantonese).valid, true);
+  const run = createRun(config, words, { profile: cantonese, random: random });
   for (let i = 0; i < 10; i++) {
     assert.equal(run.word.id, '2');
     assert.deepEqual([...run.choices].sort(), [3, 6]);
@@ -289,7 +329,10 @@ test('language adapter accepts spaces and case while keeping exact full-tone spe
 test('Skyrail difficulty uses the same lives as Tower, independently of spelling variant', () => {
   for (const [difficulty, lives] of Object.entries({ easy: 5, normal: 4, hard: 3, extreme: 1 }))
     for (const variant of ['spelling', 'full']) {
-      const run = createRun({ challenge: 'tide', difficulty, variant }, words, random);
+      const run = createRun({ challenge: 'tide', difficulty, variant }, words, {
+        profile: cantonese,
+        random: random,
+      });
       assert.equal(run.lives, lives);
       assert.equal(run.maxLives, lives);
       assert.equal(run.timeLimit(), 15000);
@@ -298,22 +341,26 @@ test('Skyrail difficulty uses the same lives as Tower, independently of spelling
       assert.equal(run.status, lives === 1 ? 'lost' : 'playing');
     }
   const practice = createRun(
-    { ...defaultPractice('tide'), lives: 'standard', difficulty: 'hard' },
+    { ...defaultPractice('tide', cantonese), lives: 'standard', difficulty: 'hard' },
     words,
-    random,
+    { profile: cantonese, random: random },
   );
   assert.equal(practice.lives, 3);
   assert.equal(
-    validatePractice({ ...defaultPractice('tide'), difficulty: 'impossible' }, words).valid,
+    validatePractice(
+      { ...defaultPractice('tide', cantonese), difficulty: 'impossible' },
+      words,
+      cantonese,
+    ).valid,
     false,
   );
 });
 
 test('beginner practice defaults to 20 answers and keeps the same level without checkpoints', () => {
   for (const challenge of ['tone', 'tide']) {
-    const config = defaultPractice(challenge);
+    const config = defaultPractice(challenge, cantonese);
     assert.equal(config.length, 20);
-    const run = createRun(config, words, random);
+    const run = createRun(config, words, { profile: cantonese, random: random });
     for (let i = 0; i < 20; i++) {
       assert.equal(run.stage, 0);
       assert.equal(run.timeLimit(), 0);
@@ -327,7 +374,10 @@ test('beginner practice defaults to 20 answers and keeps the same level without 
     assert.equal(run.cleared, 20);
     assert.equal(run.status, 'complete');
   }
-  const long = createRun({ ...defaultPractice('tide'), length: 50 }, words, random);
+  const long = createRun({ ...defaultPractice('tide', cantonese), length: 50 }, words, {
+    profile: cantonese,
+    random: random,
+  });
   for (let i = 0; i < 50; i++) {
     assert.equal(long.stage, 0);
     assert.equal(long.word.syllables.length, 1);
@@ -344,8 +394,8 @@ test('whole-word practice evaluates initials, finals and full spelling with opti
       audio: 'greeting.mp3',
       gloss: 'hello',
       syllables: [
-        { character: '你', jyutping: 'nei5', tone: 5 },
-        { character: '好', jyutping: 'hou2', tone: 2 },
+        { text: '你', transcription: 'nei5', tone: 5 },
+        { text: '好', transcription: 'hou2', tone: 2 },
       ],
     },
   ];
@@ -356,9 +406,15 @@ test('whole-word practice evaluates initials, finals and full spelling with opti
   ])
     for (const variant of ['spelling', 'full']) {
       const run = createRun(
-        { ...defaultPractice('tide'), content: 'multi', target: 'whole', spellingFocus, variant },
+        {
+          ...defaultPractice('tide', cantonese),
+          content: 'multi',
+          target: 'whole',
+          spellingFocus,
+          variant,
+        },
         recordings,
-        random,
+        { profile: cantonese, random: random },
       );
       assert.equal(run.targets.length, 2);
       assert.equal(run.expected(), withTones);
@@ -375,7 +431,11 @@ test('whole-word practice evaluates initials, finals and full spelling with opti
   assert.equal(practiceSpelling('m4', 'initials'), '-4');
   assert.equal(practiceSpelling('ng5', 'finals'), 'ng5');
   assert.equal(
-    validatePractice({ ...defaultPractice('tide'), spellingFocus: 'unknown' }, words).valid,
+    validatePractice(
+      { ...defaultPractice('tide', cantonese), spellingFocus: 'unknown' },
+      words,
+      cantonese,
+    ).valid,
     false,
   );
 });
@@ -383,14 +443,14 @@ test('whole-word practice evaluates initials, finals and full spelling with opti
 test('Skyrail word-target checkbox can limit focused spelling to one syllable', () => {
   const run = createRun(
     {
-      ...defaultPractice('tide'),
+      ...defaultPractice('tide', cantonese),
       content: 'multi',
       target: 'highlighted',
       spellingFocus: 'initials',
       variant: 'full',
     },
     words,
-    random,
+    { profile: cantonese, random: random },
   );
   assert.equal(run.targets.length, 1);
   assert.equal(run.expectedParts().length, 1);
@@ -400,7 +460,10 @@ test('Skyrail word-target checkbox can limit focused spelling to one syllable', 
 test('practice counts twenty questions including incorrect submissions and unlimited has no cap', () => {
   for (const challenge of ['tone', 'tide'])
     for (const length of [20, 'endless']) {
-      const run = createRun({ ...defaultPractice(challenge), length }, words, random);
+      const run = createRun({ ...defaultPractice(challenge, cantonese), length }, words, {
+        profile: cantonese,
+        random: random,
+      });
       const total = length === 'endless' ? 60 : 20;
       for (let i = 0; i < total; i++) {
         const result =

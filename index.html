@@ -7,25 +7,25 @@
     <meta name="theme-color" content="#19293d" />
     <meta
       name="description"
-      content="Train your ear for Cantonese. Climb Tone Tower, type your way along Skyrail, and practise Jyutping with human speech recordings. Free to play, no account needed."
+      content="Pronunciation games for Cantonese and Mandarin. Choose your language and train your ear with human speech recordings."
     />
-    <title>Tone Tower · Cantonese Jyutping games</title>
-    <link rel="canonical" href="https://john0107.github.io/tone-tower/" />
+    <title>Tone Tower · Choose a language</title>
+    <link rel="canonical" href="https://tone-tower.github.io/tone-tower/" />
     <link rel="icon" href="favicon.ico" sizes="32x32" />
     <link rel="icon" href="assets/brand/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png" sizes="180x180" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Tone Tower" />
     <meta property="og:locale" content="en_GB" />
-    <meta property="og:title" content="Tone Tower · Cantonese Jyutping games" />
+    <meta property="og:title" content="Tone Tower · Choose a language" />
     <meta
       property="og:description"
-      content="Train your ear for Cantonese. Climb Tone Tower, type your way along Skyrail, and practise Jyutping with human speech recordings. Free to play, no account needed."
+      content="Pronunciation games for Cantonese and Mandarin. Choose your language and train your ear with human speech recordings."
     />
-    <meta property="og:url" content="https://john0107.github.io/tone-tower/" />
+    <meta property="og:url" content="https://tone-tower.github.io/tone-tower/" />
     <meta
       property="og:image"
-      content="https://john0107.github.io/tone-tower/assets/brand/share-card.png"
+      content="https://tone-tower.github.io/tone-tower/assets/brand/share-card.png"
     />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -34,14 +34,14 @@
       content="Tone Tower. Train your ear for Cantonese. A little sprout, a tower and a railway above the clouds."
     />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Tone Tower · Cantonese Jyutping games" />
+    <meta name="twitter:title" content="Tone Tower · Choose a language" />
     <meta
       name="twitter:description"
-      content="Train your ear for Cantonese. Climb Tone Tower, type your way along Skyrail, and practise Jyutping with human speech recordings. Free to play, no account needed."
+      content="Pronunciation games for Cantonese and Mandarin. Choose your language and train your ear with human speech recordings."
     />
     <meta
       name="twitter:image"
-      content="https://john0107.github.io/tone-tower/assets/brand/share-card.png"
+      content="https://tone-tower.github.io/tone-tower/assets/brand/share-card.png"
     />
     <meta
       name="twitter:image:alt"
@@ -50,68 +50,33 @@
     <link rel="stylesheet" href="src/styles/style.css" />
     <link rel="stylesheet" href="src/styles/worlds.css" />
   </head>
-  <body class="page-world">
-    <a class="skip-link" href="#app">Skip to the adventure</a>
-    <header class="site-top site-header">
-      <a class="brand" href="./" aria-label="Tone Tower home"
-        ><svg viewBox="0 0 20 23" aria-hidden="true">
-          <path d="M9 7V3H5V0h5v3h5V0h4v4h-6v4" fill="#80b79a" />
-          <path d="M4 8h12v3h3v9h-3v3H4v-3H1v-9h3Z" fill="#edbd76" />
-          <path d="M5 13h2v3H5m8-3h2v3h-2m-5 5h4v1H8" fill="#19293d" /></svg
-        ><span>TONE TOWER</span></a
-      >
-      <nav aria-label="Main navigation">
-        <a id="home" class="nav-link" href="./" data-nav-page="home" aria-current="page"
-          >World map</a
-        ><a id="learn" class="nav-link" href="guide/" data-nav-page="sounds">Jyutping guide</a
-        ><a id="about" class="nav-link" href="about/" data-nav-page="about">About</a
-        ><button
-          id="pause-game"
-          class="icon-button"
-          type="button"
-          aria-label="Pause adventure"
-          hidden
-        >
-          Ⅱ
-        </button>
-      </nav>
-    </header>
+  <body class="page-world language-chooser">
+    <a class="skip-link" href="#app">Skip to languages</a>
+    <header class="site-top site-header"><a class="brand" href="./">TONE TOWER</a></header>
     <main id="app" tabindex="-1">
-      <div class="loading-state">
-        <span class="loading-sprout" aria-hidden="true">✦</span>
-        <h1>Train your ear for Cantonese.</h1>
-        <p>Play Tone Tower and Skyrail to practise Cantonese tones and Jyutping spelling.</p>
-        <p>Loading your adventure…</p>
-        <noscript><p>Enable JavaScript to play and listen to recordings.</p></noscript>
-      </div>
+      <section class="language-welcome">
+        <span class="eyebrow">A little listening. A new adventure.</span>
+        <h1>Which language will you explore?</h1>
+        <p class="lead">Train your ear, climb the tower, and build your way across the clouds.</p>
+        <div class="language-cards">
+          <a class="language-card" href="cantonese/"
+            ><span class="language-script" lang="yue-Hant">粵語</span>
+            <h2>Cantonese</h2>
+            <p>Six tones. Jyutping spelling.</p>
+            <span>Explore Cantonese →</span></a
+          ><a class="language-card language-card--mandarin" href="mandarin/"
+            ><span class="language-script" lang="cmn-Hans">普通话</span>
+            <h2>Mandarin</h2>
+            <p>Pinyin, tones, and sounds in context.</p>
+            <span>Explore Mandarin →</span></a
+          >
+        </div>
+        <p class="small">One language at a time. Your progress stays separate.</p>
+      </section>
     </main>
     <footer class="site-footer">
-      <div>
-        <button id="progress" class="text-button" type="button">Records</button
-        ><button id="credits" class="text-button" type="button">Voices & credits</button>
-      </div>
-      <div class="project-links" aria-label="Project links">
-        <a class="text-button" href="about/" data-nav-page="about">About &amp; feedback</a>
-        <a
-          class="text-button"
-          href="https://github.com/john0107/tone-tower"
-          target="_blank"
-          rel="noopener"
-          >GitHub ↗</a
-        >
-      </div>
+      <a href="https://github.com/tone-tower/tone-tower">Source &amp; feedback ↗</a
+      ><span>Free to play · No account needed</span>
     </footer>
-    <dialog id="dialog" aria-labelledby="dialog-title">
-      <button
-        id="close-dialog"
-        class="dialog-close icon-button"
-        type="button"
-        aria-label="Close dialog"
-      >
-        ×
-      </button>
-      <div id="dialog-body"></div>
-    </dialog>
-    <script type="module" src="src/app.js"></script>
   </body>
 </html>

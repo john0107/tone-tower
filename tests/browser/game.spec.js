@@ -1,3 +1,4 @@
+import { cantoneseCatalog } from '../../tools/catalog/runtime.mjs';
 import { test, expect } from '@playwright/test';
 
 // Keep smoke tests independent of downloads and speakers. Real recording playback
@@ -38,7 +39,9 @@ test.beforeEach(async ({ page }) => {
   errors.set(page, pageErrors);
   page.on('pageerror', (error) => pageErrors.push(error.message));
   await page.clock.install();
-  await page.route('**/catalog.json', (route) => route.fulfill({ json: catalog }));
+  await page.route('**/catalogs/yue.json', (route) =>
+    route.fulfill({ json: cantoneseCatalog(catalog) }),
+  );
   await page.addInitScript(() => {
     window.__audioPlays = [];
     window.Audio = class {
@@ -56,7 +59,7 @@ test.beforeEach(async ({ page }) => {
       }
     };
   });
-  await page.goto('/');
+  await page.goto('/cantonese/');
   await expect(page.locator('.mode-cards')).toBeVisible();
   await page.clock.pauseAt(new Date(Date.now() + 1000));
 });
@@ -172,16 +175,16 @@ test('phone keyboard keeps the rail journey visible above the typing field', asy
 
 test('missed-sound practice retains multi-syllable recordings from the tower', async ({ page }) => {
   // Force every missed recording to be a word, so the default single-syllable filter cannot hide it.
-  await page.route('**/catalog.json', (route) =>
+  await page.route('**/catalogs/yue.json', (route) =>
     route.fulfill({
-      json: {
+      json: cantoneseCatalog({
         ...catalog,
         words: singles.map((word) => ({
           ...word,
           syllables: [...word.syllables, ...word.syllables],
         })),
         recordings: catalog.recordings.filter((recording) => recording.wordId !== 'morning'),
-      },
+      }),
     }),
   );
   await page.reload();

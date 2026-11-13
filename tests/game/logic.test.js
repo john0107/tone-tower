@@ -27,8 +27,7 @@ test('invalid door configurations fail before selecting questions', () => {
     [1, 6, [1, 2]],
     [1, 2, [1, 1]],
     [7, 2, [1, 2]],
-    [1, 5, [1, 2, 3, 4, 5, 6]],
-    [1, 2, [1, 7]],
+    [1, 0, [1, 2]],
   ]) {
     assert.throws(() => buildChoices(tone, count, pool), /Choose enough different tones/);
   }

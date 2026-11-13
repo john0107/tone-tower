@@ -19,6 +19,8 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "audio:download": "node tools/audio/download.mjs",
+    "audio:download:mandarin": "node tools/audio/collection-cli.mjs download --collection cmn",
+    "audio:status:mandarin": "node tools/audio/collection-cli.mjs status --collection cmn",
     "audio:discover": "node tools/audio/discover.mjs",
     "audio:select": "node tools/audio/select.mjs",
     "audio:import": "node tools/audio/import-curated.mjs",
@@ -27,7 +29,12 @@
     "audio:metadata": "node tools/catalog/metadata.mjs",
     "audio:status": "node tools/audio/status.mjs",
     "audio:export": "node tools/audio/import-curated.mjs --export-only",
-    "test:browser": "playwright test"
+    "test:browser": "playwright test",
+    "mandarin:dictionary": "node tools/content/mandarin-cli.mjs dictionary",
+    "mandarin:review": "node tools/content/mandarin-cli.mjs review",
+    "mandarin:import-review": "node tools/content/mandarin-cli.mjs import-review",
+    "mandarin:status": "node tools/content/mandarin-cli.mjs status",
+    "mandarin:correct": "node tools/content/mandarin-cli.mjs correct"
   },
   "devDependencies": {
     "@playwright/test": "^1.65.0",

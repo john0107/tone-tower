@@ -1,39 +1,68 @@
-// Public project identity. Update siteUrl when the production address changes.
+import { languages } from './languages/profiles.js';
 export const site = {
-  siteUrl: 'https://john0107.github.io/tone-tower/',
-  repository: 'https://github.com/john0107/tone-tower',
+  siteUrl: 'https://tone-tower.github.io/tone-tower/',
+  repository: 'https://github.com/tone-tower/tone-tower',
   maintainer: 'john0107',
   maintainerUrl: 'https://github.com/john0107',
 };
-export const pages = {
-  home: {
-    path: '',
-    title: 'Tone Tower · Cantonese Jyutping games',
-    description:
-      'Train your ear for Cantonese. Climb Tone Tower, type your way along Skyrail, and practise Jyutping with human speech recordings. Free to play, no account needed.',
-  },
-  sounds: {
-    path: 'guide/',
-    title: 'Jyutping guide · Tone Tower',
-    description:
-      'Get to know Cantonese initials, finals and six tones, with playable examples and pronunciation resources. Then practise in Tone Tower and Skyrail.',
-  },
-  about: {
-    path: 'about/',
-    title: 'About · Tone Tower',
-    description:
-      'Meet Tone Tower, an open-source Cantonese Jyutping game maintained by john0107. Find the source code, recording credits, and a place to share feedback.',
-  },
-  practice: {
-    path: 'practice/',
-    title: 'Practice Workshop · Tone Tower',
-    description:
-      'Practise Cantonese tones and Jyutping spelling at your own pace. Choose focused listening exercises without a timer or lives.',
-  },
-};
-export function pageFromLocation(url, base) {
+export function languagePages(profile) {
+  const root = profile.slug + '/';
+  return {
+    home: {
+      path: root,
+      title: 'Tone Tower · ' + profile.label + ' ' + profile.romanization + ' games',
+      description:
+        'Train your ear for ' +
+        profile.label +
+        '. Play Tone Tower, Skyrail, and focused ' +
+        profile.romanization +
+        ' practice with human recordings.',
+    },
+    sounds: {
+      path: root + 'guide/',
+      title: profile.romanization + ' guide · ' + profile.label + ' Tone Tower',
+      description:
+        'Learn ' +
+        profile.label +
+        ' sounds, tones, and ' +
+        profile.romanization +
+        ' spelling with playable pronunciation examples.',
+    },
+    practice: {
+      path: root + 'practice/',
+      title: 'Practice Workshop · ' + profile.label + ' Tone Tower',
+      description:
+        'Practise ' +
+        profile.label +
+        ' tones and ' +
+        profile.romanization +
+        ' spelling at your own pace, without a timer or lives.',
+    },
+    about: {
+      path: root + 'about/',
+      title: 'About · ' + profile.label + ' Tone Tower',
+      description:
+        'About the open-source ' +
+        profile.label +
+        ' pronunciation games. Find recording credits, source code, and feedback links.',
+    },
+  };
+}
+export const pages = Object.fromEntries(
+  Object.values(languages).flatMap((profile) =>
+    Object.entries(languagePages(profile)).map(([page, metadata]) => [
+      profile.id + ':' + page,
+      { ...metadata, page, language: profile.id },
+    ]),
+  ),
+);
+export function pageFromLocation(url, base, profile) {
   const relative = url.pathname.startsWith(base.pathname)
     ? url.pathname.slice(base.pathname.length).replace(/index\.html$/, '')
     : '';
-  return Object.keys(pages).find((key) => pages[key].path === relative) || 'home';
+  return (
+    Object.keys(languagePages(profile)).find(
+      (key) => languagePages(profile)[key].path === relative,
+    ) ?? 'home'
+  );
 }
